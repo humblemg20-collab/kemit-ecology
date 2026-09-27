@@ -1,282 +1,68 @@
-
-<div class="page">
-
-  <section class="product-detail">
-
-    <div class="container product-detail-grid">
-
-      <div class="product-image-box">
-        <img src="" alt="" data-product-image>
+<section class="app-page" data-page="produit">
+  <section class="product-detail-hero">
+    <div class="shell product-detail-grid">
+      <div class="product-detail-media">
+        <img src="" data-product-image alt="">
       </div>
+      <div class="product-detail-copy">
+        <button class="back-link" type="button" data-route="boutique">← Boutique</button>
+        <p class="eyebrow" data-product-category></p>
+        <h1 data-product-name></h1>
+        <p class="product-lead" data-product-description></p>
 
-
-      <div class="product-info">
-
-        <p class="eyebrow" data-product-category>
-          Produit KEMIT ECOLOGY
-        </p>
-
-        <h1 data-product-name>
-          Produit KEMIT ECOLOGY
-        </h1>
-
-        <p class="product-summary" data-product-description></p>
-
-
-        <div class="offers" data-product-offers></div>
-
-
-        <div class="product-facts-grid">
-
-          <div class="product-fact">
-            <span>Disponibilité</span>
-            <p data-product-stock></p>
-          </div>
-
-          <div class="product-fact">
-            <span>Livraison</span>
-            <p data-product-delivery></p>
-          </div>
-
-          <div class="product-fact">
-            <span>Usage</span>
-            <p data-product-usage></p>
-          </div>
-
-          <div class="product-fact">
-            <span>Composition</span>
-            <p data-product-composition></p>
-          </div>
-
+        <div class="format-panel">
+          <p class="mini-label">Format & prix</p>
+          <div class="format-options" data-product-formats></div>
         </div>
 
-
-        <button
-          class="button button-primary js-order"
-          type="button"
-          data-product-order
-          style="margin-top:24px"
-        >
-          Commander ce produit
-        </button>
-
-
-        <button
-          class="button button-secondary"
-          type="button"
-          data-route="boutique"
-          style="margin-top:12px"
-        >
-          Retour à la boutique
-        </button>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-
-  <section
-    class="section"
-    data-product-scene
-    hidden
-  >
-    <div class="container authentic-band">
-
-      <div class="media">
-        <img
-          src=""
-          data-product-scene-image
-          alt=""
-          loading="lazy"
-        >
-      </div>
-
-      <div class="copy">
-
-        <p class="eyebrow">
-          Usage réel
-        </p>
-
-        <h2 data-product-scene-title>
-          Le produit en situation
-        </h2>
-
-        <p data-product-scene-text></p>
-
-        <span class="real-media-note">
-          Photo réelle KEMIT ECOLOGY
-        </span>
-
-      </div>
-
-    </div>
-  </section>
-
-
-  <section class="section section-soft">
-    <div class="container">
-
-      <div class="section-head">
-        <div>
-          <p class="eyebrow">Comprendre le produit</p>
-          <h2 class="section-title">Avant de commander, l'essentiel doit être clair.</h2>
+        <div class="order-inline">
+          <label>Quantité
+            <input type="number" min="1" value="1" data-order-qty>
+          </label>
+          <label>Destination
+            <input type="text" placeholder="Ville / pays" data-order-destination>
+          </label>
         </div>
 
-        <p class="section-intro">
-          Public concerné, précautions, conservation et logique de commande
-          sont réunis ici pour limiter les ambiguïtés.
-        </p>
+        <button class="btn btn-primary btn-full" type="button" data-whatsapp-order>Commander sur WhatsApp</button>
+        <p class="order-note">Le stock, le total et la livraison sont confirmés directement par KEMIT ECOLOGY.</p>
       </div>
-
-      <div class="product-deep-grid">
-
-        <article class="product-deep-card">
-          <span>Pour qui ?</span>
-          <h3>Utilisateurs</h3>
-          <p data-product-audience></p>
-        </article>
-
-        <article class="product-deep-card">
-          <span>Attention</span>
-          <h3>Précautions</h3>
-          <p data-product-precautions></p>
-        </article>
-
-        <article class="product-deep-card">
-          <span>Stockage</span>
-          <h3>Conservation</h3>
-          <p data-product-conservation></p>
-        </article>
-
-      </div>
-
     </div>
   </section>
 
+  <section class="section section-light">
+    <div class="shell product-info-grid">
+      <article><span>Usage</span><p data-product-usage></p></article>
+      <article><span>Composition</span><p data-product-composition></p></article>
+      <article><span>Public</span><p data-product-audience></p></article>
+      <article><span>Disponibilité</span><p data-product-stock></p></article>
+      <article><span>Conservation</span><p data-product-conservation></p></article>
+      <article><span>Précautions</span><p data-product-precautions></p></article>
+    </div>
+  </section>
 
-  <section class="section dark-feature">
-    <div class="container editorial-split">
-
+  <section class="section" data-product-scene hidden>
+    <div class="shell split-editorial">
+      <figure class="scene-media"><img src="" data-product-scene-image alt="" loading="lazy"></figure>
       <div class="editorial-copy">
-        <p class="eyebrow" style="color:#9fc1b4">Préparer la commande</p>
-        <h2 style="color:#fff">Une demande précise accélère la confirmation.</h2>
-
-        <p style="color:#bfd1ca">
-          Indiquez le format, la quantité et la destination.
-          KEMIT ECOLOGY confirme ensuite le stock, le total,
-          les conditions de paiement et la livraison.
-        </p>
-
-        <ul class="check-list">
-          <li data-product-ordering></li>
-          <li data-product-professional></li>
-          <li>La transaction finale n'est pas réalisée automatiquement sur cette page.</li>
-        </ul>
-
-        <button class="button button-light js-order" type="button" data-product-order>
-          Préparer ma demande
-        </button>
+        <p class="eyebrow">Produit réel</p>
+        <h2 data-product-scene-title></h2>
+        <p data-product-scene-text></p>
       </div>
-
-      <div class="metrics-strip" style="grid-template-columns:1fr">
-
-        <div class="metric">
-          <strong>1</strong>
-          <span>Choisir le format.</span>
-        </div>
-
-        <div class="metric">
-          <strong>2</strong>
-          <span>Indiquer la quantité.</span>
-        </div>
-
-        <div class="metric">
-          <strong>3</strong>
-          <span>Préciser la destination.</span>
-        </div>
-
-        <div class="metric">
-          <strong>4</strong>
-          <span>Recevoir la confirmation KEMIT ECOLOGY.</span>
-        </div>
-
-      </div>
-
     </div>
   </section>
 
+  <section class="section dark-band">
+    <div class="shell dark-grid">
+      <div><p class="eyebrow light">Commande professionnelle</p><h2>Besoin de volume, distribution ou approvisionnement régulier ?</h2></div>
+      <div><p data-product-professional></p><a class="btn btn-light" href="#contact" data-route="contact">Demander une confirmation</a></div>
+    </div>
+  </section>
 
   <section class="section">
-    <div class="container">
-
-      <div class="section-head">
-        <div>
-          <p class="eyebrow">Continuer la découverte</p>
-          <h2 class="section-title">D'autres produits KEMIT ECOLOGY.</h2>
-        </div>
-
-        <p class="section-intro">
-          Comparez d'autres références avant de finaliser votre demande.
-        </p>
-      </div>
-
-      <div class="related-products-grid" data-related-products></div>
-
+    <div class="shell">
+      <div class="section-heading"><div><p class="eyebrow">À découvrir aussi</p><h2>Autres références KEMIT ECOLOGY</h2></div></div>
+      <div class="product-grid related-grid" data-related-products></div>
     </div>
   </section>
-
-
-  <section class="section section-cream">
-    <div class="container faq-grid">
-
-      <div>
-        <p class="eyebrow">Avant de confirmer</p>
-        <h2 class="section-title">Trois questions utiles.</h2>
-      </div>
-
-      <div class="faq-list">
-
-        <details open>
-          <summary>Le prix affiché comprend-il la livraison ?</summary>
-          <p>Non. Les éventuels frais de livraison sont confirmés selon la destination et la quantité.</p>
-        </details>
-
-        <details>
-          <summary>Le stock est-il garanti en temps réel ?</summary>
-          <p>Non. La disponibilité doit être confirmée par KEMIT ECOLOGY avant transaction.</p>
-        </details>
-
-        <details>
-          <summary>Puis-je demander un volume professionnel ?</summary>
-          <p>Oui. Indiquez le volume recherché et la destination afin que l'équipe puisse discuter des conditions applicables.</p>
-        </details>
-
-      </div>
-
-    </div>
-  </section>
-
-
-  <section class="page-cta">
-    <div class="container">
-
-      <div class="page-cta-box">
-
-        <div>
-          <h2>Vous avez choisi votre produit ?</h2>
-          <p>Envoyez le format, la quantité et votre destination à KEMIT ECOLOGY.</p>
-        </div>
-
-        <button class="button button-light js-order" type="button" data-product-order>
-          Commander sur WhatsApp
-        </button>
-
-      </div>
-
-    </div>
-  </section>
-
-</div>
+</section>

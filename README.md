@@ -1,98 +1,65 @@
-# KEMIT ECOLOGY — Apps Script SPA v5
+# KEMIT ECOLOGY — Apps Script SPA v5.5 REAL PHOTO LIBRARY
 
-Architecture calquée sur le principe Humble Labs.
+## Objectif
+Cette version remplace les répétitions visuelles par une vraie médiathèque KEMIT ECOLOGY issue du lot de 51 photos fourni.
 
-## Coquille unique
-- App.html
+## Photos du lot intégrées
+- Photo 33 → hero Accueil / équipe de production
+- Photo 8 → atelier
+- Photo 16 → production manuelle
+- Photo 40 → formation
+- Photo 36 → accompagnement terrain
+- Photo 50 → équipe / Histoire
+- Photo 6 → séchage / Savoir-faire
+- Photo 18 → biomasse
+- Photo 31 → équipe en production
+- Photo 29 → logistique / Livraison
+- Photo 1 → Biochar (produit)
+- Photo 32 → stock Biochar (fiche produit)
 
-## Backend
-- Code.js
+Les petites photos du lot sont rééchantillonnées proprement et affichées dans des cadres contrôlés plutôt qu'étirées sur toute la largeur.
 
-## Composants globaux
-- Header.html
-- Footer.html
-- Logo.html
-- Media.html
-- Styles.html
-- Script.html
+## Architecture
+- `Code.js`
+- `App.html`
+- `Header.html`
+- `Footer.html`
+- `Logo.html`
+- `Media.html`
+- `Styles.html`
+- `Script.html`
+- `PageHome.html`
+- `PageBoutique.html`
+- `PageProduit.html`
+- `PageSavoirFaire.html`
+- `PageHistoire.html`
+- `PageLivraison.html`
+- `PageFAQ.html`
+- `PageContact.html`
+- `appsscript.json`
+- `.clasp.json`
 
-## Pages SPA — fragments uniquement
-- PageHome.html
-- PageBoutique.html
-- PageProduit.html
-- PageSavoirFaire.html
-- PageHistoire.html
-- PageLivraison.html
-- PageFAQ.html
-- PageContact.html
-
-Les fichiers Page*.html NE SONT PAS des documents HTML autonomes.
-Ils sont inclus dans App.html et affichés/masqués par Script.html.
-
-## Navigation
-La navigation fonctionne côté client :
-
-#home
-#boutique
-#produit/biochar
-#savoir-faire
-#histoire
-#livraison
-#faq
-#contact
-
-Les routes ?page=... restent supportées pour ouvrir directement une page initiale :
-/exec?page=boutique
-/exec?page=produit&id=biochar
+## Routes SPA
+- `#home`
+- `#boutique`
+- `#produit/biochar`
+- `#savoir-faire`
+- `#histoire`
+- `#livraison`
+- `#faq`
+- `#contact`
 
 ## Déploiement
-1. Extraire le ZIP.
-2. Ouvrir PowerShell dans le dossier.
-3. `clasp push`
-4. Apps Script → Deploy → Manage deployments → Edit
-5. New version → Deploy
-6. Recharger l’URL `/exec` avec Ctrl+F5.
+Dans le dossier extrait :
 
-## Important
-Le design de la homepage validée est conservé.
-Les images sont centralisées dans Media.html pour éviter leur duplication dans chaque page.
-Les produits sont centralisés dans Script.html en attendant le branchement Google Sheets.
+```powershell
+clasp push
+```
 
+Puis dans Apps Script :
+Deploy → Manage deployments → Edit → New version → Deploy.
 
-## v5.1 META FIX
+Ne pas utiliser `clasp create` : le projet est déjà lié au Script ID KEMIT ECOLOGY.
 
-Correction du crash Apps Script :
-`HtmlOutput.addMetaTag("description", ...)` n'est pas autorisé.
-
-La meta description est maintenant rendue directement dans `App.html`.
-`addMetaTag("viewport", ...)` est conservé.
-
-
-## v5.2 — CONTENT DEPTH
-
-La homepage validée n'a pas été modifiée.
-
-Pages enrichies :
-- Boutique : usages, professionnels, parcours commande, stock/distribution.
-- Produit : utilisateurs, précautions, conservation, commande, produits associés, FAQ.
-- Savoir-faire : matière, galerie, chaîne de valorisation, trois pôles, publics concernés.
-- Histoire : raison d'être, atelier, repères, galerie, vision.
-- Livraison : zones, informations logistiques, confirmation avant paiement, gros volumes, FAQ.
-- FAQ : 15 questions regroupées par thème.
-- Contact : orientation par besoin, coordonnées, informations à fournir, accès au site.
-
-Aucune nouvelle architecture n'a été introduite : App.html, Header.html, Footer.html,
-Styles.html et Script.html restent communs à toute la SPA.
-
-
-## v5.3 — REAL MEDIA
-
-Photos réelles intégrées :
-- événement professionnel → Histoire ;
-- résidus de canne → Savoir-faire + Histoire ;
-- charbon en foyer → Boutique + fiche Charbon écologique ;
-- remise de prix / reconnaissance → Histoire ;
-- briquettes en séchage → Savoir-faire + Histoire.
-
-La homepage validée reste strictement inchangée.
-Les nouvelles images sont centralisées dans Media.html.
+## Note produit
+Les descriptions sensibles, notamment celles du charbon actif naturel, restent volontairement prudentes. Le site ne transforme pas des indications d'étiquette non vérifiées en conseils médicaux.

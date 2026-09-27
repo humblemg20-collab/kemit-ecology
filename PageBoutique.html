@@ -1,326 +1,59 @@
-
-<div class="page">
-
+<section class="app-page" data-page="boutique">
   <section class="page-hero">
-    <div class="container page-hero-grid">
-
+    <div class="shell page-hero-grid">
       <div>
-        <p class="eyebrow">Boutique KEMIT ECOLOGY</p>
-        <h1>Choisissez selon votre besoin.</h1>
-        <p class="lead">
-          Énergie, agriculture, cosmétique ou applications techniques :
-          découvrez les produits, les formats et les prix communiqués
-          par KEMIT ECOLOGY.
-        </p>
+        <p class="eyebrow">Boutique</p>
+        <h1>Choisir selon l’usage.</h1>
+        <p>Produits KEMIT ECOLOGY pour la cuisson, l’agriculture, les usages techniques et les soins cosmétiques.</p>
       </div>
-
-      <div class="page-hero-media">
-        <img
-          src=""
-          data-media="storage"
-          alt="Stock de produits KEMIT ECOLOGY"
-          loading="lazy"
-        >
+      <div class="page-hero-media product-montage">
+        <img src="" data-media="product-montage" alt="Sélection de produits KEMIT ECOLOGY" loading="lazy">
       </div>
-
     </div>
   </section>
 
-
-  <section class="section section-soft">
-    <div class="container">
-
-      <div class="section-head">
-        <div>
-          <p class="eyebrow">Commencer par l'usage</p>
-          <h2 class="section-title">Quel problème cherchez-vous à résoudre ?</h2>
-        </div>
-
-        <p class="section-intro">
-          Le catalogue devient plus simple lorsqu'on part du besoin
-          avant de choisir une référence ou un format.
-        </p>
-      </div>
-
+  <section class="section section-light">
+    <div class="shell">
       <div class="use-grid">
-
-        <article class="use-card">
-          <span class="use-icon">01</span>
-          <h3>Cuisson & braise</h3>
-          <p>Solutions de biomasse pour la cuisson, les braises et certains usages énergétiques.</p>
-        </article>
-
-        <article class="use-card">
-          <span class="use-icon">02</span>
-          <h3>Sols & agriculture</h3>
-          <p>Biochar destiné à l'amélioration et à l'accompagnement des sols et des cultures.</p>
-        </article>
-
-        <article class="use-card">
-          <span class="use-icon">03</span>
-          <h3>Soin cosmétique</h3>
-          <p>Produits au charbon actif destinés à l'hygiène et au soin cosmétique.</p>
-        </article>
-
-        <article class="use-card">
-          <span class="use-icon">04</span>
-          <h3>Filtration & technique</h3>
-          <p>Charbon actif pour différentes applications techniques et de filtration.</p>
-        </article>
-
+        <button class="use-card" data-filter="Cuisson & énergie"><span>01</span><strong>Cuisson & énergie</strong><small>Charbon écologique</small></button>
+        <button class="use-card" data-filter="Agriculture"><span>02</span><strong>Agriculture</strong><small>Biochar</small></button>
+        <button class="use-card" data-filter="Industrie & traitement"><span>03</span><strong>Industrie</strong><small>Charbon actif</small></button>
+        <button class="use-card" data-filter="Cosmétique"><span>04</span><strong>Cosmétique</strong><small>Savon & masque</small></button>
       </div>
-
     </div>
   </section>
 
-
-
   <section class="section">
-    <div class="container authentic-band">
-
-      <div class="media">
-        <img
-          src=""
-          data-media="real-charcoal-stove"
-          alt="Charbon écologique en combustion dans un foyer"
-          loading="lazy"
-        >
-      </div>
-
-      <div class="copy">
-        <p class="eyebrow">Voir le produit en situation</p>
-
-        <h2>
-          Le charbon écologique,
-          du conditionnement à l'usage.
-        </h2>
-
-        <p>
-          Les formats et les prix sont importants,
-          mais l'usage réel permet aussi de mieux comprendre
-          la forme du produit et le contexte dans lequel
-          il est destiné à être utilisé.
-        </p>
-
-        <span class="real-media-note">
-          Photo réelle — charbon KIKIMOUH
-        </span>
-
-        <div style="margin-top:24px">
-          <button
-            class="button button-primary"
-            type="button"
-            data-product-id="charbon-ecologique"
-          >
-            Voir le charbon écologique
-          </button>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-
-  <section class="section">
-    <div class="container">
-
-      <div class="section-head">
-
+    <div class="shell">
+      <div class="catalog-toolbar">
         <div>
           <p class="eyebrow">Catalogue</p>
-          <h2 class="section-title">Les références KEMIT ECOLOGY.</h2>
+          <h2>Les produits disponibles</h2>
         </div>
-
-        <p class="section-intro">
-          La disponibilité et les frais de livraison sont confirmés
-          directement par l'équipe avant toute transaction.
-        </p>
-
+        <button class="filter-reset" type="button" data-filter-reset>Tous les produits</button>
       </div>
-
-
-      <div class="shop-tools" data-shop-filters>
-
-        <button class="filter-btn active" type="button" data-filter="all">
-          Tous
-        </button>
-
-        <button class="filter-btn" type="button" data-filter="Cuisson & énergie">
-          Énergie
-        </button>
-
-        <button class="filter-btn" type="button" data-filter="Agriculture">
-          Agriculture
-        </button>
-
-        <button class="filter-btn" type="button" data-filter="Cosmétique">
-          Cosmétique
-        </button>
-
-        <button class="filter-btn" type="button" data-filter="Industrie & traitement">
-          Industrie
-        </button>
-
-      </div>
-
-
-      <div class="product-grid" data-product-grid="boutique"></div>
-
+      <div class="product-grid" data-product-grid></div>
     </div>
   </section>
 
-
-  <section class="section dark-feature">
-
-    <div class="container">
-
-      <div class="section-head">
-
-        <div>
-          <p class="eyebrow" style="color:#9fc1b4">Professionnels & volumes</p>
-          <h2 class="section-title">Vous achetez pour une activité, un réseau ou un projet ?</h2>
-        </div>
-
-        <p class="section-intro">
-          Les volumes importants ne doivent pas passer par un parcours générique :
-          KEMIT ECOLOGY confirme les capacités, formats et conditions directement.
-        </p>
-
-      </div>
-
-      <div class="pro-grid">
-
-        <article class="pro-card">
-          <span>01</span>
-          <h3>Distribution</h3>
-          <p>Présentez le produit, la zone commerciale et le volume envisagé pour discuter des conditions applicables.</p>
-        </article>
-
-        <article class="pro-card">
-          <span>02</span>
-          <h3>Agriculture</h3>
-          <p>Pour les besoins agricoles en volume, indiquez le nombre de sacs, la culture et la localisation du projet.</p>
-        </article>
-
-        <article class="pro-card">
-          <span>03</span>
-          <h3>Industrie</h3>
-          <p>Pour le charbon actif industriel, précisez l'application, le volume recherché et la destination.</p>
-        </article>
-
-      </div>
-
+  <section class="section dark-band">
+    <div class="shell dark-grid">
+      <div><p class="eyebrow light">Professionnels & volumes</p><h2>Une demande importante mérite un traitement spécifique.</h2></div>
+      <div><p>Indiquez le produit, le format, la quantité et la destination. KEMIT confirme ensuite disponibilité, logistique et conditions commerciales.</p><a class="btn btn-light" href="#contact" data-route="contact">Parler à KEMIT</a></div>
     </div>
   </section>
-
 
   <section class="section section-cream">
-
-    <div class="container">
-
-      <div class="section-head">
-
-        <div>
-          <p class="eyebrow">Commander sans friction</p>
-          <h2 class="section-title">Du choix du produit à la confirmation.</h2>
-        </div>
-
-        <p class="section-intro">
-          Le site prépare la demande ; KEMIT ECOLOGY garde la validation humaine
-          sur le stock, le total, le paiement et la livraison.
-        </p>
-
+    <div class="shell">
+      <div class="section-heading">
+        <div><p class="eyebrow">Commander</p><h2>Un parcours simple en quatre étapes.</h2></div>
       </div>
-
-      <div class="order-journey">
-
-        <article class="order-stage">
-          <span>1</span>
-          <h3>Choisir</h3>
-          <p>Sélectionnez le produit et consultez les formats disponibles.</p>
-        </article>
-
-        <article class="order-stage">
-          <span>2</span>
-          <h3>Préciser</h3>
-          <p>Indiquez format, quantité, pays et ville de destination.</p>
-        </article>
-
-        <article class="order-stage">
-          <span>3</span>
-          <h3>Transmettre</h3>
-          <p>Envoyez votre demande à KEMIT ECOLOGY via WhatsApp.</p>
-        </article>
-
-        <article class="order-stage">
-          <span>4</span>
-          <h3>Confirmer</h3>
-          <p>L'équipe confirme disponibilité, total et conditions finales.</p>
-        </article>
-
+      <div class="steps-grid">
+        <article><span>1</span><h3>Choisir</h3><p>Produit, format et quantité.</p></article>
+        <article><span>2</span><h3>Localiser</h3><p>Ville, pays ou destination.</p></article>
+        <article><span>3</span><h3>Envoyer</h3><p>Message WhatsApp prérempli.</p></article>
+        <article><span>4</span><h3>Confirmer</h3><p>Stock, total, paiement et livraison.</p></article>
       </div>
-
     </div>
   </section>
-
-
-  <section class="section">
-
-    <div class="container editorial-split">
-
-      <div class="editorial-media">
-        <img
-          src=""
-          data-media="storage"
-          alt="Stock de produits KEMIT ECOLOGY"
-          loading="lazy"
-        >
-      </div>
-
-      <div class="editorial-copy">
-        <p class="eyebrow">Stock & distribution</p>
-        <h2>Un produit disponible doit aussi pouvoir arriver au bon endroit.</h2>
-        <p>
-          Les zones annoncées varient selon la référence. Le volume,
-          le conditionnement et la destination déterminent ensuite
-          l'organisation concrète de la livraison.
-        </p>
-
-        <ul class="check-list">
-          <li>Le stock est confirmé avant toute transaction.</li>
-          <li>Les frais de livraison sont séparés du prix produit lorsqu'ils s'appliquent.</li>
-          <li>Les demandes en gros sont traitées directement avec l'équipe.</li>
-        </ul>
-
-        <button class="button button-primary" type="button" data-route="livraison">
-          Comprendre la livraison
-        </button>
-      </div>
-
-    </div>
-  </section>
-
-
-  <section class="page-cta">
-    <div class="container">
-
-      <div class="page-cta-box">
-
-        <div>
-          <h2>Besoin d'un volume spécifique ?</h2>
-          <p>
-            Indiquez le produit, le format, la quantité et la destination.
-            KEMIT ECOLOGY vous répond directement.
-          </p>
-        </div>
-
-        <button class="button button-light js-order" type="button">
-          Demander un devis
-        </button>
-
-      </div>
-
-    </div>
-  </section>
-
-</div>
+</section>

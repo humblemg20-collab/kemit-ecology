@@ -1,104 +1,33 @@
-<button
-  class="wa-float js-order"
-  type="button"
-  aria-label="Commander sur WhatsApp"
->
-  <span class="wa-dot">WA</span>
-  Commander sur WhatsApp
-</button>
-
-
 <footer class="site-footer">
-
-  <div class="container">
-
-    <div class="footer-grid">
-
-      <div class="footer-brand">
-
-        <a
-          class="footer-logo"
-          href="#home"
-          data-route="home"
-          aria-label="KEMIT ECOLOGY — Accueil"
-        >
-          <?!= include('Logo') ?>
-        </a>
-
-        <p>
-          Nous produisons l'énergie de demain aujourd'hui.
-          Valorisation de biomasses, production, formation
-          et accompagnement technique.
-        </p>
-
-      </div>
-
-
-      <div class="footer-col">
-
-        <h4>Navigation</h4>
-
-        <a href="#boutique" data-route="boutique">
-          Boutique
-        </a>
-
-        <a href="#savoir-faire" data-route="savoir-faire">
-          Notre savoir-faire
-        </a>
-
-        <a href="#histoire" data-route="histoire">
-          Notre histoire
-        </a>
-
-        <a href="#livraison" data-route="livraison">
-          Livraison
-        </a>
-
-        <a href="#faq" data-route="faq">
-          FAQ
-        </a>
-
-      </div>
-
-
-      <div class="footer-col">
-
-        <h4>Coordonnées</h4>
-
-        <p>
-          Douala Dibamba,<br>
-          3 km derrière Usine Broli
-        </p>
-
-        <p>
-          +237 678 420 995
-        </p>
-
-        <p>
-          +1 646 234 4921
-        </p>
-
-        <a href="mailto:<?= contactEmail ?>">
-          <?= contactEmail ?>
-        </a>
-
-      </div>
-
+  <div class="shell footer-grid">
+    <div>
+      <?!= include("Logo"); ?>
+      <p class="footer-manifesto">NOUS PRODUISONS L’ENERGIE DE DEMAIN AUJOURD’HUI</p>
     </div>
 
-
-    <div class="footer-bottom">
-
-      <span>
-        © <?= currentYear ?> KEMIT ECOLOGY.
-      </span>
-
-      <span>
-        Nous produisons l'énergie de demain aujourd'hui.
-      </span>
-
+    <div>
+      <p class="footer-title">Navigation</p>
+      <a href="#boutique" data-route="boutique">Boutique</a>
+      <a href="#savoir-faire" data-route="savoir-faire">Savoir-faire</a>
+      <a href="#histoire" data-route="histoire">Notre histoire</a>
     </div>
 
+    <div>
+      <p class="footer-title">Contact</p>
+      <p>Douala Dibamba, 3 km derrière Usine Broli</p>
+      <p>+237 678 420 995</p>
+      <p>kemit.ecology@yahoo.com</p>
+    </div>
+
+    <div>
+      <p class="footer-title">Horaires</p>
+      <p>Lun–Ven · 08h–17h</p>
+      <p>Samedi & jours fériés · 08h–14h</p>
+    </div>
   </div>
 
+  <div class="shell footer-bottom">
+    <span>© <span data-year></span> KEMIT ECOLOGY</span>
+    <span>Biomasse · Produits · Formation · Accompagnement</span>
+  </div>
 </footer>

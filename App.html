@@ -1,129 +1,30 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-
-  <base target="_self">
-
-  <meta
-    name="description"
-    content="<?= initialDescription ?>"
-  >
-
-  <?!= include('Styles') ?>
-
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="description" content="<?= initialDescription ?>">
+  <meta name="theme-color" content="#0d3b2e">
+  <title>KEMIT ECOLOGY</title>
+  <?!= include("Styles"); ?>
 </head>
 
-<body>
+<body data-initial-route="<?= initialRoute ?>">
+  <?!= include("Header"); ?>
 
-  <?!= include('Header') ?>
+  <main id="app">
+    <?!= include("PageHome"); ?>
+    <?!= include("PageBoutique"); ?>
+    <?!= include("PageProduit"); ?>
+    <?!= include("PageSavoirFaire"); ?>
+    <?!= include("PageHistoire"); ?>
+    <?!= include("PageLivraison"); ?>
+    <?!= include("PageFAQ"); ?>
+    <?!= include("PageContact"); ?>
+  </main>
 
-
-  <div id="kemitSpaApp">
-
-    <section
-      class="spa-page"
-      data-page="home"
-    >
-      <?!= include('PageHome') ?>
-    </section>
-
-
-    <section
-      class="spa-page"
-      data-page="boutique"
-      hidden
-    >
-      <?!= include('PageBoutique') ?>
-    </section>
-
-
-    <section
-      class="spa-page"
-      data-page="produit"
-      hidden
-    >
-      <?!= include('PageProduit') ?>
-    </section>
-
-
-    <section
-      class="spa-page"
-      data-page="savoir-faire"
-      hidden
-    >
-      <?!= include('PageSavoirFaire') ?>
-    </section>
-
-
-    <section
-      class="spa-page"
-      data-page="histoire"
-      hidden
-    >
-      <?!= include('PageHistoire') ?>
-    </section>
-
-
-    <section
-      class="spa-page"
-      data-page="livraison"
-      hidden
-    >
-      <?!= include('PageLivraison') ?>
-    </section>
-
-
-    <section
-      class="spa-page"
-      data-page="faq"
-      hidden
-    >
-      <?!= include('PageFAQ') ?>
-    </section>
-
-
-    <section
-      class="spa-page"
-      data-page="contact"
-      hidden
-    >
-      <?!= include('PageContact') ?>
-    </section>
-
-  </div>
-
-
-  <?!= include('Footer', {
-    contactEmail: contactEmail,
-    whatsappPrimary: whatsappPrimary,
-    whatsappInternational: whatsappInternational,
-    currentYear: currentYear
-  }) ?>
-
-
-  <script>
-    window.KEMIT_INITIAL_PAGE =
-      <?= JSON.stringify(initialPage) ?>;
-
-    window.KEMIT_INITIAL_PRODUCT_ID =
-      <?= JSON.stringify(initialProductId) ?>;
-
-    window.KEMIT_WHATSAPP_PRIMARY =
-      <?= JSON.stringify(whatsappPrimary) ?>;
-
-    window.KEMIT_WHATSAPP_INTERNATIONAL =
-      <?= JSON.stringify(whatsappInternational) ?>;
-
-    window.KEMIT_CONTACT_EMAIL =
-      <?= JSON.stringify(contactEmail) ?>;
-  </script>
-
-
-  <?!= include('Media') ?>
-
-  <?!= include('Script') ?>
-
+  <?!= include("Footer"); ?>
+  <?!= include("Media"); ?>
+  <?!= include("Script"); ?>
 </body>
-
 </html>
