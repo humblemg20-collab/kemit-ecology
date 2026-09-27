@@ -1,0 +1,96 @@
+<header
+  class="site-header"
+  id="siteHeader"
+>
+
+  <div class="header-inner container">
+
+    <a
+      class="brand"
+      href="#home"
+      data-route="home"
+      aria-label="KEMIT ECOLOGY — Accueil"
+    >
+      <?!= include('Logo') ?>
+
+      <span class="brand-tagline">
+        Nous produisons l'énergie de demain aujourd'hui
+      </span>
+    </a>
+
+
+    <button
+      class="nav-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="primaryNav"
+      aria-label="Ouvrir le menu"
+      data-nav-toggle
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+
+    <nav
+      class="primary-nav"
+      id="primaryNav"
+      data-nav
+      aria-label="Navigation principale"
+    >
+
+      <a
+        href="#boutique"
+        data-route="boutique"
+      >
+        Boutique
+      </a>
+
+      <a
+        href="#savoir-faire"
+        data-route="savoir-faire"
+      >
+        Notre savoir-faire
+      </a>
+
+      <a
+        href="#histoire"
+        data-route="histoire"
+      >
+        Notre histoire
+      </a>
+
+      <a
+        href="#livraison"
+        data-route="livraison"
+      >
+        Livraison
+      </a>
+
+      <a
+        href="#faq"
+        data-route="faq"
+      >
+        FAQ
+      </a>
+
+      <a
+        href="#contact"
+        data-route="contact"
+      >
+        Contact
+      </a>
+
+      <button
+        class="button button-primary nav-cta js-order"
+        type="button"
+      >
+        Commander
+      </button>
+
+    </nav>
+
+  </div>
+
+</header>
