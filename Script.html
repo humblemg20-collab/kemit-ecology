@@ -340,7 +340,7 @@ window.KEMIT_PRODUCTS = [{"id": "charbon-ecologique", "name": "KIKIMOUH Charbon 
 
     document.querySelector("[data-nav]")?.classList.remove("is-open");
     window.scrollTo({top:0, behavior:"smooth"});
-    refreshMotion();
+    refreshMotion(true);
   }
 
   function productPrice(product) {
@@ -435,7 +435,7 @@ window.KEMIT_PRODUCTS = [{"id": "charbon-ecologique", "name": "KIKIMOUH Charbon 
     pages().forEach(el => el.classList.toggle("is-active", el.dataset.page === "produit"));
     if (updateHash) history.pushState(null, "", "#produit/" + product.id);
     window.scrollTo({top:0, behavior:"smooth"});
-    refreshMotion();
+    refreshMotion(true);
   }
 
   function setText(selector, value) {
