@@ -454,4 +454,218 @@ body{background:radial-gradient(circle at 12% 4%,rgba(15,159,103,.055),transpare
 @media(max-width:980px){.hero::after,.page-hero::after{opacity:.12}}
 @media(max-width:650px){.eyebrow,.mini-label{padding:7px 9px}.hero::before,.page-hero::before{width:340px;height:340px}.hero-photo .photo-mat,.page-feature .photo-mat{animation:none!important}}
 
+
+
+/* KEMIT MOTION V3 — living ecology, transformation and full-site continuity */
+.app-page{
+  --motion-accent-rgb:15,159,103;
+  --motion-page-progress:0;
+}
+.app-page[data-page="boutique"],
+.app-page[data-page="produit"]{--motion-accent-rgb:221,107,63}
+.app-page[data-page="savoir-faire"]{--motion-accent-rgb:83,185,109}
+.app-page[data-page="histoire"]{--motion-accent-rgb:241,184,75}
+.app-page[data-page="livraison"]{--motion-accent-rgb:86,199,171}
+.app-page[data-page="faq"]{--motion-accent-rgb:184,216,63}
+.app-page[data-page="contact"]{--motion-accent-rgb:15,159,103}
+
+.has-kemit-ambient{position:relative;isolation:isolate}
+.kemit-ambient{
+  position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none;
+}
+.kemit-ambient-orb{
+  position:absolute;border-radius:50%;filter:blur(95px);opacity:.10;
+  background:rgba(var(--motion-accent-rgb),.75);
+  will-change:transform;
+}
+.kemit-ambient .orb-a{width:420px;height:420px;left:-190px;top:8%}
+.kemit-ambient .orb-b{
+  width:520px;height:520px;right:-240px;top:46%;
+  background:rgba(241,184,75,.48);opacity:.09;
+}
+.kemit-ambient-grain{
+  position:absolute;inset:0;opacity:.08;
+  background-image:radial-gradient(rgba(var(--motion-accent-rgb),.26) .75px,transparent .75px);
+  background-size:24px 24px;
+  mask-image:linear-gradient(to bottom,transparent,black 15%,black 82%,transparent);
+}
+
+.kemit-scroll-progress{
+  position:fixed;z-index:9999;left:0;right:0;top:0;height:3px;
+  transform:scaleX(0);transform-origin:left center;pointer-events:none;
+  background:linear-gradient(90deg,var(--emerald),var(--lime),var(--sun),var(--clay));
+  box-shadow:0 0 18px rgba(15,159,103,.22);
+  will-change:transform;
+}
+
+.motion-section{--motion-section-progress:0}
+.motion-flow-grid{position:relative}
+.motion-flow-grid::after{
+  content:"";position:absolute;left:0;right:0;top:0;height:2px;pointer-events:none;
+  background:linear-gradient(90deg,
+    rgba(var(--motion-accent-rgb),.15),
+    rgba(var(--motion-accent-rgb),.95),
+    rgba(241,184,75,.85));
+  transform:scaleX(var(--motion-section-progress,.08));
+  transform-origin:left center;
+  transition:transform .12s linear;
+  box-shadow:0 0 18px rgba(var(--motion-accent-rgb),.16);
+}
+
+.motion-orbit{overflow:hidden}
+.motion-orbit::after{
+  content:"";position:absolute;z-index:0;width:260px;height:260px;right:-85px;bottom:-95px;
+  border:1px solid rgba(255,255,255,.18);border-radius:50%;pointer-events:none;
+  box-shadow:
+    0 0 0 34px rgba(255,255,255,.035),
+    0 0 0 68px rgba(184,216,63,.035);
+}
+.motion-orbit>*{position:relative;z-index:1}
+
+.motion-scroll-media{
+  --motion-drift-y:0px;--motion-drift-r:0deg;--motion-image-scale:1.018;
+  transform:translate3d(0,var(--motion-drift-y),0) rotate(var(--motion-drift-r)) scale(var(--motion-image-scale))!important;
+  transition:transform .18s linear!important;
+  will-change:transform;
+}
+.activity-card:hover img,
+.product-card:hover .product-card-media img,
+.small-photo-feature:hover img{--motion-image-scale:1.045}
+
+.motion-tilt{
+  --tilt-x:0deg;--tilt-y:0deg;--tilt-lift:0px;--pointer-x:50%;--pointer-y:50%;
+  transform:perspective(1150px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translate3d(0,var(--tilt-lift),0);
+  transform-style:preserve-3d;
+  transition:transform .18s ease-out,box-shadow .25s ease;
+}
+.motion-tilt:hover{--tilt-lift:-3px}
+.motion-tilt::selection{background:rgba(var(--motion-accent-rgb),.25)}
+
+.activity-card::before,
+.product-card::before,
+.steps-grid article::before,
+.story-grid article::before,
+.zones-grid article::before,
+.contact-card::before,
+.product-info-grid article::before{
+  background-size:220% 100%;
+}
+
+.btn-primary,.header-cta{
+  background-size:180% 180%;
+  background-position:0% 50%;
+}
+.btn-primary::after,.header-cta::after{transition:transform .25s ease}
+
+@media (prefers-reduced-motion:no-preference){
+  .motion-ready .app-page.is-active{
+    animation:kemitRouteEnter .62s cubic-bezier(.16,.78,.24,1) both;
+  }
+
+  .motion-ready .reveal-item{
+    opacity:0;
+    filter:blur(5px);
+    transform:translate3d(0,30px,0) scale(.992);
+    transition:
+      opacity .82s cubic-bezier(.16,.78,.24,1) var(--reveal-delay,0ms),
+      transform .82s cubic-bezier(.16,.78,.24,1) var(--reveal-delay,0ms),
+      filter .72s ease var(--reveal-delay,0ms);
+  }
+  .motion-ready .reveal-item.reveal-left{transform:translate3d(-38px,8px,0) scale(.994)}
+  .motion-ready .reveal-item.reveal-right{transform:translate3d(38px,8px,0) scale(.994)}
+  .motion-ready .reveal-item.reveal-up{transform:translate3d(0,38px,0) scale(.992)}
+  .motion-ready .reveal-item.reveal-pop{transform:translate3d(0,18px,0) scale(.955)}
+  .motion-ready .reveal-item.reveal-soft-left{transform:translate3d(-18px,22px,0) scale(.988)}
+  .motion-ready .reveal-item.is-visible{
+    opacity:1;filter:blur(0);
+    transform:translate3d(0,0,0) scale(1);
+  }
+
+  .kemit-ambient .orb-a{animation:kemitOrganicDriftA 14s ease-in-out infinite alternate}
+  .kemit-ambient .orb-b{animation:kemitOrganicDriftB 18s ease-in-out infinite alternate}
+  .kemit-ambient-grain{animation:kemitGrainDrift 24s linear infinite}
+
+  .motion-orbit::after{animation:kemitOrbit 18s linear infinite}
+  .graphic-panel strong{animation:kemitPanelBreathe 7s ease-in-out infinite}
+
+  .activity-card::before,
+  .product-card::before,
+  .steps-grid article::before,
+  .story-grid article::before,
+  .zones-grid article::before,
+  .contact-card::before,
+  .product-info-grid article::before{
+    animation:kemitAccentTravel 7s ease-in-out infinite alternate;
+  }
+
+  .btn-primary,.header-cta{animation:kemitGradientShift 8s ease-in-out infinite alternate}
+  .section-cream,.section-light{background-size:125% 125%;animation:kemitSurfaceDrift 16s ease-in-out infinite alternate}
+
+  .steps-grid article:nth-child(odd),
+  .three-values>*:nth-child(odd){animation:kemitMicroLift 8s ease-in-out infinite}
+  .steps-grid article:nth-child(even),
+  .three-values>*:nth-child(even){animation:kemitMicroLift 9s ease-in-out infinite reverse}
+
+  .eyebrow::before,.mini-label::before{animation:kemitSignalPulse 2.6s ease-in-out infinite}
+
+  @keyframes kemitRouteEnter{
+    from{opacity:.28;transform:translate3d(0,13px,0)}
+    to{opacity:1;transform:translate3d(0,0,0)}
+  }
+  @keyframes kemitOrganicDriftA{
+    0%{transform:translate3d(-25px,-12px,0) scale(.9)}
+    45%{transform:translate3d(28px,26px,0) scale(1.06)}
+    100%{transform:translate3d(65px,-8px,0) scale(.98)}
+  }
+  @keyframes kemitOrganicDriftB{
+    0%{transform:translate3d(26px,0,0) scale(.94)}
+    50%{transform:translate3d(-38px,42px,0) scale(1.08)}
+    100%{transform:translate3d(-8px,-24px,0) scale(1)}
+  }
+  @keyframes kemitGrainDrift{
+    from{transform:translate3d(0,0,0)}
+    to{transform:translate3d(24px,24px,0)}
+  }
+  @keyframes kemitOrbit{to{transform:rotate(360deg)}}
+  @keyframes kemitPanelBreathe{
+    0%,100%{transform:translate3d(0,0,0)}
+    50%{transform:translate3d(0,-4px,0)}
+  }
+  @keyframes kemitAccentTravel{
+    0%{background-position:0% 50%;opacity:.72}
+    100%{background-position:100% 50%;opacity:1}
+  }
+  @keyframes kemitGradientShift{
+    0%{background-position:0% 50%}
+    100%{background-position:100% 50%}
+  }
+  @keyframes kemitSurfaceDrift{
+    0%{background-position:0% 20%}
+    100%{background-position:100% 80%}
+  }
+  @keyframes kemitMicroLift{
+    0%,100%{translate:0 0}
+    50%{translate:0 -3px}
+  }
+  @keyframes kemitSignalPulse{
+    0%,100%{transform:scale(1);box-shadow:0 0 0 5px rgba(184,216,63,.10)}
+    50%{transform:scale(1.22);box-shadow:0 0 0 10px rgba(184,216,63,0)}
+  }
+}
+
+@media(max-width:650px){
+  .kemit-scroll-progress{height:2px}
+  .kemit-ambient .orb-a{width:280px;height:280px}
+  .kemit-ambient .orb-b{width:340px;height:340px}
+  .motion-tilt{transform:none!important}
+  .motion-scroll-media{--motion-image-scale:1.01}
+  .motion-ready .reveal-item{filter:none}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .kemit-ambient,.kemit-scroll-progress{display:none!important}
+  .motion-scroll-media,.motion-tilt{transform:none!important}
+  .motion-flow-grid::after{transform:scaleX(1)!important}
+}
+
 </style>
