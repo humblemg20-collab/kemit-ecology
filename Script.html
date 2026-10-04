@@ -14,9 +14,11 @@ window.KEMIT_PRODUCTS = [{"id": "charbon-ecologique", "name": "KIKIMOUH Charbon 
   function hydrateImages(root) {
     (root || document).querySelectorAll("[data-media]").forEach(img => {
       const key = img.dataset.media;
-      if (window.KEMIT_MEDIA && window.KEMIT_MEDIA[key]) {
-        img.src = window.KEMIT_MEDIA[key];
-      }
+      const source = window.KEMIT_MEDIA && window.KEMIT_MEDIA[key];
+      if (source) img.src = source;
+
+      const mediaCard = img.closest("[data-media-card]");
+      if (mediaCard) mediaCard.classList.toggle("has-media", !!source);
     });
   }
 
@@ -111,7 +113,8 @@ window.KEMIT_PRODUCTS = [{"id": "charbon-ecologique", "name": "KIKIMOUH Charbon 
       ".address-grid",
       ".product-info-grid",
       ".format-options",
-      ".faq-group"
+      ".faq-group",
+      ".home-media-wall"
     ];
 
     scope.querySelectorAll(staggerGroups.join(",")).forEach(group => {
@@ -256,6 +259,16 @@ window.KEMIT_PRODUCTS = [{"id": "charbon-ecologique", "name": "KIKIMOUH Charbon 
         const drift = Math.max(-amplitude, Math.min(amplitude, distance * -amplitude));
         media.style.setProperty("--motion-drift-y", drift.toFixed(2) + "px");
         media.style.setProperty("--motion-drift-r", ((index % 2 ? -1 : 1) * distance * .28).toFixed(2) + "deg");
+      });
+
+      activePage.querySelectorAll(".media-wall-card").forEach((card,index) => {
+        const rect = card.getBoundingClientRect();
+        const center = rect.top + rect.height / 2;
+        const distance = (center - vh / 2) / vh;
+        const amplitude = window.innerWidth < 650 ? 6 : 20;
+        const direction = index % 2 ? -1 : 1;
+        const drift = Math.max(-amplitude,Math.min(amplitude,distance * amplitude * direction));
+        card.style.setProperty("--media-drift-y",drift.toFixed(2) + "px");
       });
     }
   }
