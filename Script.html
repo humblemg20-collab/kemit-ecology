@@ -46,7 +46,15 @@ window.KEMIT_PRODUCTS = [{"id": "charbon-ecologique", "name": "KIKIMOUH Charbon 
       ".home-story > *",
       ".dark-grid > *",
       ".product-detail-grid > *",
-      ".product-info-grid > *"
+      ".product-info-grid > *",
+      ".section > .shell > *",
+      ".address-grid > *",
+      ".catalog-toolbar > *",
+      ".format-panel",
+      ".order-inline > *",
+      ".product-detail-copy > *",
+      ".faq-group > h2",
+      ".faq-group details"
     ];
 
     scope.querySelectorAll(generalSelectors.join(",")).forEach((el, index) => {
@@ -74,7 +82,11 @@ window.KEMIT_PRODUCTS = [{"id": "charbon-ecologique", "name": "KIKIMOUH Charbon 
       ".story-grid",
       ".zones-grid",
       ".three-values",
-      ".contact-grid"
+      ".contact-grid",
+      ".address-grid",
+      ".product-info-grid",
+      ".format-options",
+      ".faq-group"
     ];
 
     scope.querySelectorAll(staggerGroups.join(",")).forEach(group => {
@@ -92,10 +104,65 @@ window.KEMIT_PRODUCTS = [{"id": "charbon-ecologique", "name": "KIKIMOUH Charbon 
     scope.querySelectorAll(".reveal-item:not(.is-visible)").forEach(el => motionObserver.observe(el));
   }
 
+
+  // KEMIT MOTION V2 — full-site sequencing and tilt
+  let tiltInitialized = false;
+
+  function enhanceMotionClasses(root) {
+    const scope = root || document;
+    scope.querySelectorAll(".app-page.is-active .section, .app-page.is-active .page-hero, .app-page.is-active .product-detail-hero").forEach(section => {
+      const items = Array.from(section.querySelectorAll(".reveal-item"));
+      items.forEach((el,index) => {
+        if (!el.classList.contains("reveal-left") && !el.classList.contains("reveal-right")) {
+          if (index % 4 === 1) el.classList.add("reveal-up");
+          if (index % 4 === 2) el.classList.add("reveal-pop");
+        }
+        if (!el.style.getPropertyValue("--reveal-delay")) {
+          el.style.setProperty("--reveal-delay", Math.min(index * 55,275) + "ms");
+        }
+      });
+    });
+  }
+
+  function registerTiltTargets(root) {
+    const scope = root || document;
+    scope.querySelectorAll(".hero-photo .photo-mat, .page-feature .photo-mat, .page-hero-media, .product-detail-media, .graphic-panel")
+      .forEach(el => el.classList.add("motion-tilt"));
+  }
+
+  function initTiltMotion() {
+    if (tiltInitialized) return;
+    tiltInitialized = true;
+    const finePointer = window.matchMedia && window.matchMedia("(pointer:fine)").matches;
+    const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!finePointer || reduced) return;
+
+    document.addEventListener("pointermove", event => {
+      const target = event.target.closest(".motion-tilt");
+      if (!target) return;
+      const rect = target.getBoundingClientRect();
+      const px = Math.max(0,Math.min(1,(event.clientX-rect.left)/rect.width));
+      const py = Math.max(0,Math.min(1,(event.clientY-rect.top)/rect.height));
+      target.style.setProperty("--tilt-y",((px-.5)*4).toFixed(2)+"deg");
+      target.style.setProperty("--tilt-x",((.5-py)*3).toFixed(2)+"deg");
+    },{passive:true});
+
+    document.addEventListener("pointerout", event => {
+      const target = event.target.closest(".motion-tilt");
+      if (!target || (event.relatedTarget && target.contains(event.relatedTarget))) return;
+      target.style.setProperty("--tilt-x","0deg");
+      target.style.setProperty("--tilt-y","0deg");
+    });
+  }
+
   function refreshMotion() {
     window.requestAnimationFrame(() => {
       const activePage = document.querySelector(".app-page.is-active");
-      if (activePage) registerMotion(activePage);
+      if (activePage) {
+        registerMotion(activePage);
+        enhanceMotionClasses(activePage);
+        registerTiltTargets(activePage);
+      }
     });
   }
 
@@ -128,6 +195,7 @@ window.KEMIT_PRODUCTS = [{"id": "charbon-ecologique", "name": "KIKIMOUH Charbon 
     syncHeader();
     window.addEventListener("scroll", syncHeader, {passive:true});
 
+    initTiltMotion();
     refreshMotion();
   }
 
