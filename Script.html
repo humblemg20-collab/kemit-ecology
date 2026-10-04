@@ -233,6 +233,8 @@ window.KEMIT_PRODUCTS = [{"id": "charbon-ecologique", "name": "KIKIMOUH Charbon 
     const maxScroll = Math.max(1, doc.scrollHeight - window.innerHeight);
     const pageProgress = Math.max(0, Math.min(1, window.scrollY / maxScroll));
     activePage.style.setProperty("--motion-page-progress", pageProgress.toFixed(4));
+    activePage.style.setProperty("--motion-grid-y", Math.min(window.scrollY * .065, 84).toFixed(1) + "px");
+    document.documentElement.style.setProperty("--page-progress", (pageProgress * 100).toFixed(2) + "%");
 
     const progressBar = document.querySelector(".kemit-scroll-progress");
     if (progressBar) progressBar.style.transform = "scaleX(" + pageProgress.toFixed(4) + ")";
