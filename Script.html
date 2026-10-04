@@ -20,6 +20,117 @@ window.KEMIT_PRODUCTS = [{"id": "charbon-ecologique", "name": "KIKIMOUH Charbon 
     });
   }
 
+
+  // KEMIT MOTION V1 — HumbleClient-inspired
+  let motionObserver = null;
+  let motionInitialized = false;
+
+  function registerMotion(root) {
+    const scope = root || document;
+    const generalSelectors = [
+      ".hero-copy > .eyebrow",
+      ".hero-copy > h1",
+      ".hero-copy > .hero-lead",
+      ".hero-actions",
+      ".hero-meta",
+      ".hero-photo",
+      ".page-hero-grid > *",
+      ".faq-hero > *",
+      ".contact-hero > *",
+      ".section-heading > *",
+      ".small-photo-feature",
+      ".editorial-copy",
+      ".faq-group",
+      ".contact-card",
+      ".graphic-panel",
+      ".home-story > *",
+      ".dark-grid > *",
+      ".product-detail-grid > *",
+      ".product-info-grid > *"
+    ];
+
+    scope.querySelectorAll(generalSelectors.join(",")).forEach((el, index) => {
+      el.classList.add("reveal-item");
+      if (!el.style.getPropertyValue("--reveal-delay")) {
+        el.style.setProperty("--reveal-delay", Math.min((index % 5) * 55, 220) + "ms");
+      }
+    });
+
+    scope.querySelectorAll(".split-editorial").forEach(section => {
+      const children = Array.from(section.children);
+      if (children[0]) children[0].classList.add("reveal-item", "reveal-left");
+      if (children[1]) {
+        children[1].classList.add("reveal-item", "reveal-right");
+        children[1].style.setProperty("--reveal-delay", "80ms");
+      }
+    });
+
+    const staggerGroups = [
+      ".activity-grid",
+      ".product-grid",
+      ".use-grid",
+      ".steps-grid",
+      ".process-strip",
+      ".story-grid",
+      ".zones-grid",
+      ".three-values",
+      ".contact-grid"
+    ];
+
+    scope.querySelectorAll(staggerGroups.join(",")).forEach(group => {
+      Array.from(group.children).forEach((child, index) => {
+        child.classList.add("reveal-item");
+        child.style.setProperty("--reveal-delay", Math.min(index * 75, 300) + "ms");
+      });
+    });
+
+    if (!motionObserver) {
+      scope.querySelectorAll(".reveal-item").forEach(el => el.classList.add("is-visible"));
+      return;
+    }
+
+    scope.querySelectorAll(".reveal-item:not(.is-visible)").forEach(el => motionObserver.observe(el));
+  }
+
+  function refreshMotion() {
+    window.requestAnimationFrame(() => {
+      const activePage = document.querySelector(".app-page.is-active");
+      if (activePage) registerMotion(activePage);
+    });
+  }
+
+  function initMotion() {
+    if (motionInitialized) return;
+    motionInitialized = true;
+
+    const reduceMotion = window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (!reduceMotion && "IntersectionObserver" in window) {
+      motionObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-visible");
+          motionObserver.unobserve(entry.target);
+        });
+      }, {
+        threshold:0.12,
+        rootMargin:"0px 0px -7% 0px"
+      });
+    }
+
+    document.body.classList.add("motion-ready");
+
+    const header = document.querySelector(".site-header");
+    const syncHeader = () => {
+      if (header) header.classList.toggle("is-scrolled", window.scrollY > 18);
+    };
+    syncHeader();
+    window.addEventListener("scroll", syncHeader, {passive:true});
+
+    refreshMotion();
+  }
+
   function routeFromHash() {
     const raw = location.hash.replace(/^#/, "").trim();
     return raw || document.body.dataset.initialRoute || "home";
@@ -55,6 +166,7 @@ window.KEMIT_PRODUCTS = [{"id": "charbon-ecologique", "name": "KIKIMOUH Charbon 
 
     document.querySelector("[data-nav]")?.classList.remove("is-open");
     window.scrollTo({top:0, behavior:"smooth"});
+    refreshMotion();
   }
 
   function productPrice(product) {
@@ -87,6 +199,7 @@ window.KEMIT_PRODUCTS = [{"id": "charbon-ecologique", "name": "KIKIMOUH Charbon 
       ? window.KEMIT_PRODUCTS
       : window.KEMIT_PRODUCTS.filter(p => p.category === activeFilter);
     grid.innerHTML = items.map(productCard).join("");
+    registerMotion(grid);
   }
 
   function renderRelated(product) {
@@ -94,6 +207,7 @@ window.KEMIT_PRODUCTS = [{"id": "charbon-ecologique", "name": "KIKIMOUH Charbon 
     if (!grid) return;
     const others = window.KEMIT_PRODUCTS.filter(p => p.id !== product.id).slice(0,3);
     grid.innerHTML = others.map(productCard).join("");
+    registerMotion(grid);
   }
 
   function openProduct(id, updateHash=true) {
@@ -147,6 +261,7 @@ window.KEMIT_PRODUCTS = [{"id": "charbon-ecologique", "name": "KIKIMOUH Charbon 
     pages().forEach(el => el.classList.toggle("is-active", el.dataset.page === "produit"));
     if (updateHash) history.pushState(null, "", "#produit/" + product.id);
     window.scrollTo({top:0, behavior:"smooth"});
+    refreshMotion();
   }
 
   function setText(selector, value) {
@@ -241,6 +356,7 @@ Merci de me confirmer la disponibilité, le total, le paiement et la livraison.`
   document.addEventListener("DOMContentLoaded", () => {
     hydrateImages();
     renderCatalog();
+    initMotion();
 
     document.querySelectorAll("[data-year]").forEach(el => el.textContent = new Date().getFullYear());
 

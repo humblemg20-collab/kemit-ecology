@@ -250,4 +250,117 @@ h3{font:500 27px/1.05 Georgia,serif;letter-spacing:-.025em}
   .footer-bottom{display:block}
   .footer-bottom span{display:block;margin-top:6px}
 }
+
+/* KEMIT MOTION V1 — HumbleClient-inspired */
+.site-header{
+  transition:
+    background-color .22s ease,
+    box-shadow .22s ease,
+    border-color .22s ease;
+}
+.header-inner{transition:height .22s ease}
+.site-header.is-scrolled{
+  background:rgba(251,250,246,.97);
+  border-bottom-color:rgba(13,59,46,.13);
+  box-shadow:0 12px 35px rgba(10,39,30,.08);
+}
+.site-header.is-scrolled .header-inner{height:70px}
+
+.main-nav a,
+.text-link,
+.card-link{
+  transition:color .2s ease,opacity .2s ease,transform .2s ease;
+}
+.text-link,.card-link{display:inline-flex;align-items:center}
+.text-link:hover,.card-link:hover{transform:translateX(3px)}
+
+.btn,.header-cta{
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease,
+    background-color .2s ease,
+    border-color .2s ease,
+    color .2s ease;
+}
+.btn:hover,.header-cta:hover{transform:translateY(-2px)}
+.btn:active,.header-cta:active{transform:translateY(0)}
+
+.activity-card,
+.product-card,
+.use-card,
+.contact-card,
+.faq-group,
+.small-photo-feature,
+.graphic-panel{
+  transition:
+    transform .28s cubic-bezier(.2,.75,.25,1),
+    box-shadow .28s ease,
+    border-color .28s ease;
+}
+.activity-card:hover,
+.product-card:hover,
+.use-card:hover,
+.contact-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 24px 55px rgba(10,39,30,.12);
+}
+.activity-card img,
+.product-card-media img,
+.small-photo-feature img,
+.page-hero-media img,
+.product-detail-media img,
+.scene-media img{
+  transition:transform .65s cubic-bezier(.2,.75,.25,1);
+  transform-origin:center;
+}
+.activity-card:hover img,
+.product-card:hover .product-card-media img,
+.small-photo-feature:hover img{
+  transform:scale(1.035);
+}
+
+@media (prefers-reduced-motion:no-preference){
+  .motion-ready .reveal-item{
+    opacity:0;
+    transform:translate3d(0,24px,0);
+    transition:
+      opacity .7s cubic-bezier(.2,.75,.25,1) var(--reveal-delay,0ms),
+      transform .7s cubic-bezier(.2,.75,.25,1) var(--reveal-delay,0ms);
+    will-change:opacity,transform;
+  }
+  .motion-ready .reveal-item.reveal-left{transform:translate3d(-28px,0,0)}
+  .motion-ready .reveal-item.reveal-right{transform:translate3d(28px,0,0)}
+  .motion-ready .reveal-item.reveal-scale{transform:scale(.975)}
+  .motion-ready .reveal-item.is-visible{
+    opacity:1;
+    transform:translate3d(0,0,0) scale(1);
+    will-change:auto;
+  }
+  .motion-ready .app-page.is-active{
+    animation:kemitPageIn .32s ease both;
+  }
+  @keyframes kemitPageIn{
+    from{opacity:.35}
+    to{opacity:1}
+  }
+}
+
+@media(max-width:650px){
+  .site-header.is-scrolled .header-inner{height:64px}
+  .activity-card:hover,
+  .product-card:hover,
+  .use-card:hover,
+  .contact-card:hover{transform:none}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+    scroll-behavior:auto!important;
+  }
+}
+
 </style>
