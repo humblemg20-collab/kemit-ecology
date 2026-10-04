@@ -308,6 +308,7 @@ window.KEMIT_PRODUCTS = [{"id": "charbon-ecologique", "name": "KIKIMOUH Charbon 
     window.addEventListener("resize", requestScrollMotion, {passive:true});
 
     initTiltMotion();
+    initHumblePatternBackground();
     refreshMotion(true);
   }
 
@@ -321,6 +322,29 @@ window.KEMIT_PRODUCTS = [{"id": "charbon-ecologique", "name": "KIKIMOUH Charbon 
       });
       page.style.setProperty("--motion-page-progress","0");
     });
+  }
+
+  // HUMBLECLIENT PATTERN PORT — global background response
+  function initHumblePatternBackground() {
+    if (prefersReducedMotion()) return;
+    const root = document.documentElement;
+    let raf = 0;
+    let x = 0;
+    let y = 0;
+
+    const sync = () => {
+      raf = 0;
+      root.style.setProperty("--hc-bg-x", x.toFixed(1) + "px");
+      root.style.setProperty("--hc-bg-y", y.toFixed(1) + "px");
+    };
+
+    document.addEventListener("pointermove", event => {
+      const nx = (event.clientX / Math.max(1,window.innerWidth)) - .5;
+      const ny = (event.clientY / Math.max(1,window.innerHeight)) - .5;
+      x = nx * 24;
+      y = ny * 18;
+      if (!raf) raf = window.requestAnimationFrame(sync);
+    }, {passive:true});
   }
 
   function routeFromHash() {

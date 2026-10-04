@@ -934,4 +934,372 @@ body{background:radial-gradient(circle at 12% 4%,rgba(15,159,103,.055),transpare
   .motion-flow-grid>*::after{animation:none!important}
 }
 
+
+/* HUMBLECLIENT PATTERN PORT — adapted for KEMIT ECOLOGY */
+
+/* 1) Fixed atmospheric background: direct structural adaptation of HumbleClient site-bg/grid/glow */
+.kemit-site-bg{
+  position:fixed;
+  inset:0;
+  z-index:-20;
+  overflow:hidden;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 50% -10%,rgba(15,159,103,.09),transparent 34%),
+    linear-gradient(180deg,#fbfaf6 0%,#f5f7ef 55%,#fbfaf6 100%);
+}
+.kemit-bg-grid{
+  position:absolute;
+  inset:0;
+  opacity:.32;
+  background-image:
+    linear-gradient(rgba(13,59,46,.032) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(13,59,46,.032) 1px,transparent 1px);
+  background-size:55px 55px;
+  mask-image:linear-gradient(to bottom,black,transparent 86%);
+}
+.kemit-bg-glow{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(130px);
+  opacity:.18;
+  will-change:transform;
+}
+.kemit-bg-glow-a{
+  width:520px;height:520px;top:20px;left:-230px;
+  background:var(--emerald);
+  transform:translate3d(var(--hc-bg-x,0px),var(--hc-bg-y,0px),0);
+}
+.kemit-bg-glow-b{
+  width:650px;height:650px;top:120px;right:-290px;
+  background:var(--lime);
+  transform:translate3d(calc(var(--hc-bg-x,0px) * -.7),calc(var(--hc-bg-y,0px) * -.7),0);
+}
+.kemit-bg-glow-c{
+  width:430px;height:430px;top:58%;left:46%;
+  background:var(--sun);opacity:.09;
+  transform:translate3d(calc(var(--hc-bg-x,0px) * .45),calc(var(--hc-bg-y,0px) * -.45),0);
+}
+
+/* 2) HumbleClient product-shell / app-window depth mapped to KEMIT imagery */
+.hero-photo,
+.page-feature,
+.page-hero-media,
+.product-detail-media{
+  position:relative;
+}
+.hero-photo .photo-mat,
+.page-feature .photo-mat,
+.page-hero-media,
+.product-detail-media{
+  --hc-base-x:2deg;
+  --hc-base-y:-4deg;
+  border:1px solid rgba(13,59,46,.12);
+  box-shadow:
+    0 42px 100px rgba(10,39,30,.18),
+    inset 0 1px 0 rgba(255,255,255,.45);
+}
+.page-feature .photo-mat,
+.page-hero-media{--hc-base-x:1.4deg;--hc-base-y:3deg}
+.product-detail-media{--hc-base-x:1deg;--hc-base-y:-3deg}
+
+.motion-tilt{
+  transform:
+    perspective(1400px)
+    rotateX(calc(var(--tilt-x,0deg) + var(--hc-base-x,0deg)))
+    rotateY(calc(var(--tilt-y,0deg) + var(--hc-base-y,0deg)))
+    translate3d(0,var(--tilt-lift,0px),0);
+}
+
+/* Floating status cards adapted from HumbleClient float-card */
+.hero-photo::before,
+.hero-photo::after,
+.page-feature::before,
+.page-feature::after,
+.page-hero-media::before,
+.page-hero-media::after,
+.product-detail-media::before,
+.product-detail-media::after{
+  position:absolute;
+  z-index:8;
+  min-width:138px;
+  padding:10px 13px;
+  border:1px solid rgba(13,59,46,.13);
+  border-radius:13px;
+  color:#173c30;
+  background:rgba(255,255,255,.86);
+  box-shadow:0 20px 45px rgba(10,39,30,.14);
+  backdrop-filter:blur(18px);
+  font-size:9px;
+  font-weight:850;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  pointer-events:none;
+}
+.hero-photo::before,
+.page-feature::before,
+.page-hero-media::before,
+.product-detail-media::before{
+  left:-34px;
+  bottom:58px;
+}
+.hero-photo::after,
+.page-feature::after,
+.page-hero-media::after,
+.product-detail-media::after{
+  right:-34px;
+  top:72px;
+}
+.app-page[data-page="home"] .hero-photo::before{content:"MATIÈRE • BIOMASSE"}
+.app-page[data-page="home"] .hero-photo::after{content:"SOLUTION • ÉNERGIE"}
+.app-page[data-page="boutique"] .page-hero-media::before{content:"CATALOGUE • PRODUITS"}
+.app-page[data-page="boutique"] .page-hero-media::after{content:"COMMANDE • WHATSAPP"}
+.app-page[data-page="produit"] .product-detail-media::before{content:"FORMAT • USAGE"}
+.app-page[data-page="produit"] .product-detail-media::after{content:"KEMIT • PRODUIT"}
+.app-page[data-page="savoir-faire"] .page-feature::before{content:"MATIÈRE • LOCALE"}
+.app-page[data-page="savoir-faire"] .page-feature::after{content:"TRANSFORMATION • KEMIT"}
+.app-page[data-page="histoire"] .page-feature::before{content:"TERRAIN • ÉQUIPE"}
+.app-page[data-page="histoire"] .page-feature::after{content:"VISION • KEMIT"}
+.app-page[data-page="livraison"] .page-feature::before{content:"DOUALA • DÉPART"}
+.app-page[data-page="livraison"] .page-feature::after{content:"AFRIQUE • LIVRAISON"}
+
+/* 3) Problem-card / feature-card behaviour ported to every strategic KEMIT card family */
+.activity-card,
+.product-card,
+.use-card,
+.steps-grid article,
+.story-grid article,
+.zones-grid article,
+.contact-card,
+.product-info-grid article,
+.faq-group{
+  border-color:rgba(13,59,46,.10);
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.96),rgba(248,250,245,.88));
+  box-shadow:0 10px 30px rgba(10,39,30,.045);
+  transition:
+    transform .25s cubic-bezier(.2,.75,.25,1),
+    border-color .25s ease,
+    box-shadow .25s ease,
+    background .25s ease;
+}
+.activity-card:hover,
+.product-card:hover,
+.use-card:hover,
+.steps-grid article:hover,
+.story-grid article:hover,
+.zones-grid article:hover,
+.contact-card:hover,
+.product-info-grid article:hover{
+  transform:translateY(-7px);
+  border-color:rgba(var(--motion-accent-rgb),.28);
+  box-shadow:0 26px 62px rgba(10,39,30,.13);
+}
+
+/* HumbleClient feature-grid asymmetry adapted to the KEMIT home activity trio */
+.app-page[data-page="home"] .activity-grid{
+  grid-template-columns:repeat(12,minmax(0,1fr));
+  gap:15px;
+}
+.app-page[data-page="home"] .activity-card{grid-column:span 4;min-height:100%}
+.app-page[data-page="home"] .activity-card:nth-child(1){grid-column:span 5}
+.app-page[data-page="home"] .activity-card:nth-child(2){grid-column:span 3}
+.app-page[data-page="home"] .activity-card:nth-child(3){grid-column:span 4}
+
+/* 4) HumbleClient workflow line adapted to KEMIT process / delivery / ordering steps */
+.process-strip,
+.steps-grid{
+  position:relative;
+}
+.process-strip::before,
+.steps-grid::before{
+  content:"";
+  position:absolute;
+  z-index:0;
+  left:5%;
+  right:5%;
+  top:23px;
+  height:1px;
+  background:linear-gradient(
+    90deg,
+    rgba(var(--motion-accent-rgb),.18),
+    rgba(var(--motion-accent-rgb),.64),
+    rgba(241,184,75,.58),
+    rgba(var(--motion-accent-rgb),.18)
+  );
+  transform-origin:left center;
+  transform:scaleX(var(--motion-section-progress,.08));
+  box-shadow:0 0 18px rgba(var(--motion-accent-rgb),.12);
+}
+.process-strip article,
+.steps-grid article{
+  z-index:1;
+}
+.process-strip article>span,
+.steps-grid article>span{
+  display:grid;
+  place-items:center;
+  width:46px;height:46px;
+  margin-bottom:24px;
+  border:1px solid rgba(var(--motion-accent-rgb),.20);
+  border-radius:13px;
+  background:rgba(var(--motion-accent-rgb),.07);
+  box-shadow:0 10px 25px rgba(10,39,30,.06);
+}
+
+/* 5) HumbleClient org-map circular system adapted to KEMIT ecosystem panels */
+.graphic-panel{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+}
+.graphic-panel::before{
+  content:"";
+  position:absolute;
+  z-index:0;
+  width:390px;height:390px;
+  right:-95px;top:50%;
+  transform:translateY(-50%);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:50%;
+  box-shadow:
+    0 0 0 56px rgba(255,255,255,.025),
+    0 0 0 112px rgba(184,216,63,.025);
+}
+.graphic-panel::after{
+  width:275px!important;
+  height:275px!important;
+  right:-38px!important;
+  bottom:auto!important;
+  top:50%!important;
+  transform:translateY(-50%);
+  border-style:dashed!important;
+  border-color:rgba(255,255,255,.10)!important;
+  box-shadow:none!important;
+}
+
+/* 6) HumbleClient CTA depth adapted to KEMIT dark bands */
+.dark-band{
+  border-top:1px solid rgba(255,255,255,.06);
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+.dark-band .dark-grid{
+  position:relative;
+}
+.dark-band .dark-grid::after{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  width:420px;height:420px;
+  right:-130px;bottom:-230px;
+  border-radius:50%;
+  background:rgba(184,216,63,.18);
+  filter:blur(105px);
+}
+
+/* 7) FAQ / Contact pages receive the same spatial hierarchy, not generic fades */
+.app-page[data-page="faq"] .faq-layout,
+.app-page[data-page="contact"] .contact-grid{
+  perspective:1200px;
+}
+.app-page[data-page="faq"] .faq-group:nth-child(1),
+.app-page[data-page="contact"] .contact-card:nth-child(odd){
+  transform-origin:left center;
+}
+.app-page[data-page="faq"] .faq-group:nth-child(3),
+.app-page[data-page="contact"] .contact-card:nth-child(even){
+  transform-origin:right center;
+}
+
+/* 8) Exact motion feel: short UI transition + slow atmospheric movement */
+@media (prefers-reduced-motion:no-preference){
+  .kemit-bg-grid{
+    animation:hcKemitGridDrift 30s linear infinite;
+  }
+  .kemit-bg-glow-a{animation:hcKemitGlowA 13s ease-in-out infinite alternate}
+  .kemit-bg-glow-b{animation:hcKemitGlowB 17s ease-in-out infinite alternate}
+  .kemit-bg-glow-c{animation:hcKemitGlowC 19s ease-in-out infinite alternate}
+
+  .hero-photo::before,
+  .page-feature::before,
+  .page-hero-media::before,
+  .product-detail-media::before{
+    animation:hcKemitFloatLeft 5.6s ease-in-out infinite;
+  }
+  .hero-photo::after,
+  .page-feature::after,
+  .page-hero-media::after,
+  .product-detail-media::after{
+    animation:hcKemitFloatRight 6.4s ease-in-out infinite;
+  }
+
+  .process-strip::before,
+  .steps-grid::before{
+    transition:transform .16s linear;
+  }
+
+  .graphic-panel::before{animation:hcKemitOrbitSlow 22s linear infinite}
+  .graphic-panel::after{animation:hcKemitOrbitReverse 17s linear infinite}
+
+  @keyframes hcKemitGridDrift{
+    from{background-position:0 0,0 0}
+    to{background-position:55px 55px,55px 55px}
+  }
+  @keyframes hcKemitGlowA{
+    0%{translate:-18px -8px}
+    100%{translate:42px 32px}
+  }
+  @keyframes hcKemitGlowB{
+    0%{translate:22px 0}
+    100%{translate:-46px 38px}
+  }
+  @keyframes hcKemitGlowC{
+    0%{translate:-12px 25px}
+    100%{translate:36px -28px}
+  }
+  @keyframes hcKemitFloatLeft{
+    0%,100%{translate:0 0;rotate:-1.5deg}
+    50%{translate:0 -8px;rotate:.5deg}
+  }
+  @keyframes hcKemitFloatRight{
+    0%,100%{translate:0 0;rotate:1.5deg}
+    50%{translate:0 7px;rotate:-.5deg}
+  }
+  @keyframes hcKemitOrbitSlow{
+    to{transform:translateY(-50%) rotate(360deg)}
+  }
+  @keyframes hcKemitOrbitReverse{
+    to{transform:translateY(-50%) rotate(-360deg)}
+  }
+}
+
+@media(max-width:980px){
+  .hero-photo::before,.hero-photo::after,
+  .page-feature::before,.page-feature::after,
+  .page-hero-media::before,.page-hero-media::after,
+  .product-detail-media::before,.product-detail-media::after{
+    min-width:auto;
+    padding:8px 10px;
+    font-size:8px;
+  }
+  .hero-photo::before,.page-feature::before,.page-hero-media::before,.product-detail-media::before{left:8px}
+  .hero-photo::after,.page-feature::after,.page-hero-media::after,.product-detail-media::after{right:8px}
+  .app-page[data-page="home"] .activity-grid{grid-template-columns:repeat(2,1fr)}
+  .app-page[data-page="home"] .activity-card,
+  .app-page[data-page="home"] .activity-card:nth-child(1),
+  .app-page[data-page="home"] .activity-card:nth-child(2),
+  .app-page[data-page="home"] .activity-card:nth-child(3){grid-column:auto}
+}
+@media(max-width:650px){
+  .kemit-bg-grid{background-size:42px 42px}
+  .kemit-bg-glow{filter:blur(100px);opacity:.12}
+  .hero-photo::before,.hero-photo::after,
+  .page-feature::before,.page-feature::after,
+  .page-hero-media::before,.page-hero-media::after,
+  .product-detail-media::before,.product-detail-media::after{display:none}
+  .app-page[data-page="home"] .activity-grid{grid-template-columns:1fr}
+  .process-strip::before,.steps-grid::before{display:none}
+  .graphic-panel::before,.graphic-panel::after{opacity:.55}
+}
+
 </style>
