@@ -668,4 +668,270 @@ body{background:radial-gradient(circle at 12% 4%,rgba(15,159,103,.055),transpare
   .motion-flow-grid::after{transform:scaleX(1)!important}
 }
 
+
+/* KEMIT MOTION V4 — material flow, circular energy, stronger page-wide motion */
+
+/* Flux matière → transformation → énergie : fil conducteur sur toutes les pages */
+.section.motion-section{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+}
+.section.motion-section>.shell{position:relative;z-index:1}
+.section.motion-section::after{
+  content:"";
+  position:absolute;
+  z-index:0;
+  left:max(10px,calc((100% - 1180px)/2 - 22px));
+  top:12%;
+  width:2px;
+  height:76%;
+  border-radius:999px;
+  pointer-events:none;
+  background:linear-gradient(
+    to bottom,
+    rgba(var(--motion-accent-rgb),.06),
+    rgba(var(--motion-accent-rgb),.85),
+    rgba(241,184,75,.78),
+    rgba(var(--motion-accent-rgb),.06)
+  );
+  transform:scaleY(max(.08,var(--motion-section-progress,.08)));
+  transform-origin:top center;
+  box-shadow:0 0 16px rgba(var(--motion-accent-rgb),.15);
+  opacity:.75;
+  transition:transform .12s linear;
+}
+.section.motion-section:nth-of-type(even)::after{
+  left:auto;
+  right:max(10px,calc((100% - 1180px)/2 - 22px));
+  background:linear-gradient(
+    to bottom,
+    rgba(241,184,75,.05),
+    rgba(241,184,75,.82),
+    rgba(var(--motion-accent-rgb),.78),
+    rgba(241,184,75,.05)
+  );
+}
+.dark-band.motion-section::after{opacity:.38}
+
+/* Titres : croissance progressive comme une ligne de transformation */
+.section-heading h2::after,
+.editorial-copy h2::after,
+.home-story h2::after{
+  content:"";
+  display:block;
+  width:min(110px,28%);
+  height:3px;
+  margin-top:16px;
+  border-radius:999px;
+  background:linear-gradient(90deg,var(--emerald),var(--lime),var(--sun));
+  transform:scaleX(0);
+  transform-origin:left center;
+  transition:transform .9s cubic-bezier(.16,.78,.24,1) .18s;
+  box-shadow:0 0 18px rgba(15,159,103,.16);
+}
+.section-heading>div.is-visible h2::after,
+.editorial-copy.is-visible h2::after,
+.home-story>div.is-visible h2::after{
+  transform:scaleX(1);
+}
+
+/* Une respiration visible sur chaque hero sans changer le langage graphique validé */
+.hero h1,
+.page-hero h1,
+.product-detail-copy h1{
+  background-size:190% 190%;
+  background-position:0% 50%;
+}
+.hero::after,
+.page-hero::after{
+  background-position:0 var(--motion-grid-y,0px);
+  transition:background-position .16s linear;
+}
+
+/* Cadres photo vivants : cycle / économie circulaire */
+.photo-mat::after,
+.page-hero-media::after,
+.product-detail-media::after{
+  content:"";
+  position:absolute;
+  z-index:2;
+  inset:15px;
+  border:1px solid rgba(255,255,255,.24);
+  border-radius:24px;
+  pointer-events:none;
+  opacity:.42;
+  transform:scale(.985);
+}
+.page-hero-media::after,
+.product-detail-media::after{
+  border-color:rgba(var(--motion-accent-rgb),.22);
+}
+
+/* Les bandes sombres portent le mouvement "énergie" */
+.dark-band>.shell{position:relative;z-index:1}
+.dark-band>.shell::before{
+  content:"";
+  position:absolute;
+  left:0;right:0;top:-28px;
+  height:1px;
+  pointer-events:none;
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(184,216,63,.55),
+    rgba(86,199,171,.75),
+    rgba(241,184,75,.55),
+    transparent
+  );
+  background-size:220% 100%;
+  opacity:.7;
+}
+
+/* FAQ : interaction plus vivante sur toutes les entrées */
+.faq-group summary{
+  position:relative;
+  padding-right:34px;
+  transition:color .22s ease,transform .22s ease;
+}
+.faq-group summary::after{
+  content:"+";
+  position:absolute;
+  right:2px;top:50%;
+  width:22px;height:22px;
+  display:grid;place-items:center;
+  border-radius:50%;
+  color:var(--emerald-deep);
+  background:rgba(15,159,103,.08);
+  transform:translateY(-50%) rotate(0deg);
+  transition:transform .3s cubic-bezier(.16,.78,.24,1),background .22s ease;
+}
+.faq-group details[open] summary::after{
+  transform:translateY(-50%) rotate(45deg);
+  background:rgba(241,184,75,.12);
+}
+.faq-group summary:hover{color:var(--emerald-deep);transform:translateX(3px)}
+
+/* Les étapes / processus gardent un flux actif après leur apparition */
+.motion-flow-grid>article,
+.motion-flow-grid>*{
+  position:relative;
+}
+.motion-flow-grid>article::after,
+.motion-flow-grid>*::after{
+  content:"";
+  position:absolute;
+  pointer-events:none;
+  left:8px;right:8px;bottom:4px;
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(var(--motion-accent-rgb),.55),transparent);
+  background-size:200% 100%;
+  opacity:.35;
+}
+
+/* Accent de navigation : indique que le site reste vivant en scroll */
+.site-header::after{
+  content:"";
+  position:absolute;
+  left:0;bottom:-1px;
+  width:var(--page-progress,0%);
+  height:2px;
+  pointer-events:none;
+  background:linear-gradient(90deg,var(--emerald),var(--lime),var(--sun),var(--clay));
+  box-shadow:0 0 15px rgba(15,159,103,.18);
+  transition:width .08s linear;
+}
+
+@media (prefers-reduced-motion:no-preference){
+  .motion-ready .app-page.is-active{
+    animation:kemitRouteEnterV4 .68s cubic-bezier(.16,.78,.24,1) both;
+  }
+
+  .motion-ready .reveal-item{
+    transition-duration:.88s;
+  }
+
+  .hero h1,
+  .page-hero h1,
+  .product-detail-copy h1{
+    animation:kemitTitleFlow 10s ease-in-out infinite alternate;
+  }
+
+  .photo-mat::after,
+  .page-hero-media::after,
+  .product-detail-media::after{
+    animation:kemitFrameBreathe 5.5s ease-in-out infinite;
+  }
+
+  .dark-band>.shell::before{
+    animation:kemitEnergySweep 6.5s linear infinite;
+  }
+
+  .motion-flow-grid>article::after,
+  .motion-flow-grid>*::after{
+    animation:kemitMaterialFlow 5.2s linear infinite;
+  }
+
+  .motion-flow-grid>article:nth-child(2n)::after,
+  .motion-flow-grid>*:nth-child(2n)::after{
+    animation-delay:-2.6s;
+  }
+
+  .section.motion-section::after{
+    animation:kemitFlowGlow 3.8s ease-in-out infinite alternate;
+  }
+
+  @keyframes kemitRouteEnterV4{
+    0%{opacity:.16;filter:blur(4px);transform:translate3d(0,18px,0)}
+    55%{opacity:1;filter:blur(0)}
+    100%{opacity:1;filter:blur(0);transform:translate3d(0,0,0)}
+  }
+
+  @keyframes kemitTitleFlow{
+    0%{background-position:0% 50%}
+    100%{background-position:100% 50%}
+  }
+
+  @keyframes kemitFrameBreathe{
+    0%,100%{opacity:.28;transform:scale(.985)}
+    50%{opacity:.58;transform:scale(1)}
+  }
+
+  @keyframes kemitEnergySweep{
+    from{background-position:200% 50%}
+    to{background-position:-20% 50%}
+  }
+
+  @keyframes kemitMaterialFlow{
+    from{background-position:200% 50%}
+    to{background-position:-20% 50%}
+  }
+
+  @keyframes kemitFlowGlow{
+    0%{filter:brightness(.9);opacity:.48}
+    100%{filter:brightness(1.2);opacity:.88}
+  }
+}
+
+@media(max-width:980px){
+  .section.motion-section::after{display:none}
+}
+
+@media(max-width:650px){
+  .photo-mat::after,
+  .page-hero-media::after,
+  .product-detail-media::after{inset:10px;border-radius:18px}
+  .dark-band>.shell::before{top:-18px}
+  .section-heading h2::after,
+  .editorial-copy h2::after,
+  .home-story h2::after{width:78px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .section.motion-section::after,
+  .dark-band>.shell::before,
+  .motion-flow-grid>article::after,
+  .motion-flow-grid>*::after{animation:none!important}
+}
+
 </style>
