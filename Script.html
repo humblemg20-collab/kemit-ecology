@@ -369,7 +369,7 @@ window.KEMIT_PRODUCTS = [{"id": "charbon-ecologique", "name": "KIKIMOUH Charbon 
     let page = route.split("/")[0] || "home";
     let productId = route.split("/")[1] || "";
 
-    if (!["home","boutique","produit","savoir-faire","histoire","livraison","faq","contact"].includes(page)) {
+    if (!["home","boutique","produit","professionnels","savoir-faire","histoire","livraison","faq","contact"].includes(page)) {
       page = "home";
       route = "home";
     }
@@ -507,10 +507,68 @@ window.KEMIT_PRODUCTS = [{"id": "charbon-ecologique", "name": "KIKIMOUH Charbon 
       .replaceAll("'","&#039;");
   }
 
+  function trackKemitIntent(event, productId) {
+    if (Array.isArray(window.dataLayer)) {
+      window.dataLayer.push({event: event, product_id: productId || undefined});
+    }
+  }
+
+  function populateProfessionalProducts() {
+    const select = document.querySelector("[data-b2b-product]");
+    if (!select) return;
+    // Reuse the catalogue rather than maintaining a parallel product list.
+    const placeholder = select.querySelector('option[value=""]');
+    select.replaceChildren();
+    if (placeholder) select.append(placeholder);
+    window.KEMIT_PRODUCTS.forEach(product => {
+      const option = document.createElement("option");
+      option.value = product.id;
+      option.textContent = product.name;
+      select.append(option);
+    });
+  }
+
+  function scrollToProfessionalForm() {
+    document.getElementById("demande-devis")?.scrollIntoView({behavior: "smooth", block: "start"});
+  }
+
+  function submitProfessionalRequest(form) {
+    if (!form.reportValidity()) return;
+    const value = name => String(form.elements.namedItem(name)?.value || "").trim();
+    const product = window.KEMIT_PRODUCTS.find(p => p.id === value("product"));
+    const quantity = Number(value("quantity"));
+    if (!product || !Number.isSafeInteger(quantity) || quantity < 1) return;
+    const company = value("company");
+    const destination = value("destination");
+    if (!company || !destination) return;
+    const unit = value("unit");
+    const frequency = value("frequency");
+    const notes = value("notes");
+    const message = [
+      "Bonjour KEMIT ECOLOGY,",
+      "",
+      "Je souhaite recevoir une proposition commerciale pour un approvisionnement professionnel.",
+      "Entreprise : " + company,
+      "Produit : " + product.name,
+      "Volume estimé : " + quantity + " " + unit,
+      "Fréquence : " + frequency,
+      "Destination : " + destination,
+      notes ? "Précisions : " + notes : "",
+      "",
+      "Merci de me confirmer la faisabilité, la disponibilité, le tarif et les modalités de livraison."
+    ].filter((line, index) => line || index < 2).join("\n");
+    trackKemitIntent("kemit_b2b_quote_click", product.id);
+    window.open("https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(message), "_blank", "noopener");
+  }
   function whatsappOrder() {
     if (!currentProduct) return;
-    const qty = document.querySelector("[data-order-qty]")?.value || "1";
-    const dest = document.querySelector("[data-order-destination]")?.value.trim() || "À préciser";
+    const qtyField = document.querySelector("[data-order-qty]");
+    const destField = document.querySelector("[data-order-destination]");
+    if (!qtyField?.reportValidity() || !destField?.reportValidity()) return;
+    const qty = Number(qtyField.value);
+    if (!Number.isSafeInteger(qty) || qty < 1) return;
+    const dest = destField.value.trim();
+    if (!dest) return;
     const format = selectedFormat
       ? `${selectedFormat.label} — ${selectedFormat.price}`
       : "À confirmer";
@@ -526,8 +584,16 @@ Destination : ${dest}
 
 Merci de me confirmer la disponibilité, le total, le paiement et la livraison.`;
 
+    trackKemitIntent("kemit_retail_order_click", currentProduct.id);
     window.open("https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(message), "_blank", "noopener");
   }
+
+  document.addEventListener("submit", e => {
+    const form = e.target.closest("[data-b2b-form]");
+    if (!form) return;
+    e.preventDefault();
+    submitProfessionalRequest(form);
+  });
 
   document.addEventListener("click", e => {
     const routeEl = e.target.closest("[data-route]");
@@ -570,6 +636,11 @@ Merci de me confirmer la disponibilité, le total, le paiement et la livraison.`
       return;
     }
 
+    if (e.target.closest("[data-b2b-scroll]")) {
+      scrollToProfessionalForm();
+      return;
+    }
+
     if (e.target.closest("[data-whatsapp-order]")) {
       whatsappOrder();
       return;
@@ -585,6 +656,7 @@ Merci de me confirmer la disponibilité, le total, le paiement et la livraison.`
   document.addEventListener("DOMContentLoaded", () => {
     hydrateImages();
     renderCatalog();
+    populateProfessionalProducts();
     initMotion();
 
     document.querySelectorAll("[data-year]").forEach(el => el.textContent = new Date().getFullYear());
