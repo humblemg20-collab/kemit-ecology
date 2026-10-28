@@ -3,6 +3,7 @@
     <div class="shell product-detail-grid">
       <div class="product-detail-media">
         <img src="" data-product-image alt="">
+        <div class="product-photo-unavailable" data-product-image-fallback hidden><span>Visuel produit à confirmer</span><strong>Consultez les caractéristiques ci-dessous.</strong></div>
       </div>
       <div class="product-detail-copy">
         <button class="back-link" type="button" data-route="boutique">← Boutique</button>
@@ -17,10 +18,10 @@
 
         <div class="order-inline">
           <label>Quantité
-            <input type="number" min="1" value="1" data-order-qty>
+            <input type="number" min="1" step="1" value="1" data-order-qty required>
           </label>
           <label>Destination
-            <input type="text" placeholder="Ville / pays" data-order-destination>
+            <input type="text" maxlength="150" placeholder="Ville / pays" data-order-destination required>
           </label>
         </div>
 
@@ -59,7 +60,7 @@
   <section class="section dark-band">
     <div class="shell dark-grid">
       <div><p class="eyebrow light">Professionnels & volumes</p><h2>Un besoin régulier ou une commande importante ?</h2></div>
-      <div><p data-product-professional></p><a class="btn btn-light" href="#contact" data-route="contact">Parler de mon besoin</a></div>
+      <div><p data-product-professional></p><button class="btn btn-light" type="button" data-product-b2b>Demander un devis pour ce produit</button></div>
     </div>
   </section>
 
