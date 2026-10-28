@@ -565,7 +565,7 @@ window.KEMIT_PRODUCTS = [{"id": "charbon-ecologique", "name": "KIKIMOUH Charbon 
     const value = name => String(form.elements.namedItem(name)?.value || "").trim();
     const product = window.KEMIT_PRODUCTS.find(p => p.id === value("product"));
     const quantity = Number(value("quantity"));
-    if (!product || !Number.isSafeInteger(quantity) || quantity < 1) return;
+    if (!product || !Number.isFinite(quantity) || quantity <= 0 || quantity > 100000000) return;
     const company = value("company");
     const destination = value("destination");
     if (!company || !destination) return;
