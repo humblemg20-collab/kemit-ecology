@@ -33,6 +33,23 @@ window.KEMIT_PRODUCTS = [{"id": "charbon-ecologique", "name": "KIKIMOUH Charbon 
 
       const mediaCard = img.closest("[data-media-card]");
       if (mediaCard) mediaCard.classList.toggle("has-media", !!source);
+      if (mediaCard?.classList.contains("kemit-gallery-card")) {
+        const setGalleryImageState = () => {
+          const loaded = !!source && img.complete && img.naturalWidth > 0;
+          mediaCard.classList.toggle("has-loaded", loaded);
+          mediaCard.classList.toggle("is-unavailable", !loaded && (!source || img.complete));
+          if (!loaded && img.complete) {
+            const note = mediaCard.querySelector(".kemit-gallery-placeholder small");
+            if (note) note.textContent = "Photographie indisponible";
+          }
+        };
+        if (!img.dataset.galleryListenersBound) {
+          img.dataset.galleryListenersBound = "true";
+          img.addEventListener("load", setGalleryImageState);
+          img.addEventListener("error", setGalleryImageState);
+        }
+        if (img.complete || !source) setGalleryImageState();
+      }
     });
   }
 
