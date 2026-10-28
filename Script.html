@@ -561,6 +561,7 @@ window.KEMIT_PRODUCTS = [{"id": "charbon-ecologique", "name": "KIKIMOUH Charbon 
   }
 
   function submitProfessionalRequest(form) {
+    for (const name of ["company", "destination"]) form.elements.namedItem(name)?.setCustomValidity("");
     if (!form.reportValidity()) return;
     const value = name => String(form.elements.namedItem(name)?.value || "").trim();
     const product = window.KEMIT_PRODUCTS.find(p => p.id === value("product"));
@@ -568,7 +569,14 @@ window.KEMIT_PRODUCTS = [{"id": "charbon-ecologique", "name": "KIKIMOUH Charbon 
     if (!product || !Number.isFinite(quantity) || quantity <= 0 || quantity > 100000000) return;
     const company = value("company");
     const destination = value("destination");
-    if (!company || !destination) return;
+    if (!company || !destination) {
+      const missing = !company ? form.elements.namedItem("company") : form.elements.namedItem("destination");
+      if (missing) {
+        missing.setCustomValidity("Ce champ doit contenir une information valide.");
+        missing.reportValidity();
+      }
+      return;
+    }
     const unit = value("unit");
     const frequency = value("frequency");
     const notes = value("notes");
@@ -592,11 +600,17 @@ window.KEMIT_PRODUCTS = [{"id": "charbon-ecologique", "name": "KIKIMOUH Charbon 
     if (!currentProduct) return;
     const qtyField = document.querySelector("[data-order-qty]");
     const destField = document.querySelector("[data-order-destination]");
+    destField?.setCustomValidity("");
     if (!qtyField?.reportValidity() || !destField?.reportValidity()) return;
     const qty = Number(qtyField.value);
     if (!Number.isSafeInteger(qty) || qty < 1) return;
     const dest = destField.value.trim();
-    if (!dest) return;
+    if (!dest) {
+      destField.setCustomValidity("Précisez votre ville et votre pays.");
+      destField.reportValidity();
+      return;
+    }
+    destField.setCustomValidity("");
     const format = selectedFormat
       ? `${selectedFormat.label} — ${selectedFormat.price}`
       : "À confirmer";
