@@ -1,72 +1,102 @@
 <section class="app-page" data-page="boutique">
-  <section class="page-hero">
+  <section class="page-hero boutique-sales-hero">
     <div class="shell page-hero-grid">
       <div>
-        <p class="eyebrow">Boutique</p>
-        <h1>Choisir selon l’usage.</h1>
-        <p>Produits KEMIT ECOLOGY pour la cuisson, l’agriculture, les usages techniques et les soins cosmétiques.</p>
+        <p class="eyebrow">Boutique KEMIT ECOLOGY</p>
+        <h1>Le bon produit pour votre usage.</h1>
+        <p>Cuisson, agriculture, industrie et cosmétique : filtrez notre catalogue, choisissez un format et préparez votre demande de commande. Les prix et la disponibilité sont confirmés avant paiement.</p>
       </div>
-      <div class="page-hero-media product-montage">
-        <img src="" data-media="product-montage" alt="Sélection de produits KEMIT ECOLOGY" loading="lazy">
-      </div>
+      <div class="page-hero-media product-montage"><img src="" data-media="product-montage" alt="Sélection de références KEMIT ECOLOGY" loading="lazy"></div>
     </div>
   </section>
 
-  <section class="section boutique-editorial-showcase">
-    <div class="shell boutique-editorial-grid">
-      <figure class="boutique-editorial-media">
-        <img src="" data-media="boutique-range" alt="Sélection de formats et conditionnements KEMIT ECOLOGY" loading="lazy">
-      </figure>
-      <div class="boutique-editorial-copy">
-        <p class="eyebrow">Formats & usages</p>
-        <h2>Des solutions pensées pour différents besoins.</h2>
-        <p>Une même expertise, plusieurs présentations et conditionnements selon l’usage. Explorez ensuite le catalogue pour choisir le produit adapté.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section-light">
+  <section class="section section-light boutique-fast-catalog">
     <div class="shell">
+      <div class="section-heading"><div><p class="eyebrow">Choisir selon votre besoin</p><h2>Que souhaitez-vous acheter ?</h2></div><p>La sélection affiche uniquement les références correspondant à l'usage choisi.</p></div>
       <div class="use-grid">
-        <button class="use-card" data-filter="Cuisson & énergie"><span>01</span><strong>Cuisson & énergie</strong><small>Charbon écologique</small></button>
-        <button class="use-card" data-filter="Agriculture"><span>02</span><strong>Agriculture</strong><small>Biochar</small></button>
-        <button class="use-card" data-filter="Industrie & traitement"><span>03</span><strong>Industrie</strong><small>Charbon actif</small></button>
-        <button class="use-card" data-filter="Cosmétique"><span>04</span><strong>Cosmétique</strong><small>Savon & masque</small></button>
+        <button class="use-card" type="button" data-filter="Cuisson & énergie"><span>01</span><strong>Cuisson & énergie</strong><small>Charbon écologique</small></button>
+        <button class="use-card" type="button" data-filter="Agriculture"><span>02</span><strong>Agriculture</strong><small>Biochar</small></button>
+        <button class="use-card" type="button" data-filter="Industrie & traitement"><span>03</span><strong>Industrie</strong><small>Charbon actif</small></button>
+        <button class="use-card" type="button" data-filter="Cosmétique"><span>04</span><strong>Cosmétique</strong><small>Savon et masque</small></button>
       </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="shell">
-      <div class="catalog-toolbar">
-        <div>
-          <p class="eyebrow">Catalogue</p>
-          <h2>Les produits disponibles</h2>
-        </div>
+      <div class="catalog-toolbar" id="kemit-catalogue">
+        <div><p class="eyebrow">Nos références</p><h2>Choisissez votre produit.</h2></div>
         <button class="filter-reset" type="button" data-filter-reset>Tous les produits</button>
       </div>
       <div class="product-grid" data-product-grid></div>
+      <p class="catalog-disclaimer">Prix indicatifs selon les formats affichés. La commande, le stock et le prix total sont confirmés par KEMIT avant tout règlement.</p>
+    </div>
+  </section>
+
+  <section class="section kemit-gallery-section" id="kemit-photo-gallery" aria-labelledby="kemit-photo-gallery-title">
+    <div class="shell">
+      <div class="section-heading">
+        <div><p class="eyebrow">KEMIT en images</p><h2 id="kemit-photo-gallery-title">Découvrez notre univers en images.</h2></div>
+        <p>Des photographies transmises par KEMIT ECOLOGY pour découvrir notre univers. Consultez les fiches du catalogue pour les caractéristiques et formats de chaque produit.</p>
+      </div>
+      <div class="kemit-gallery-grid">
+        <figure class="kemit-gallery-card" data-media-card>
+          <img src="" data-media="kemit-gallery-01" alt="Photographie fournie par KEMIT ECOLOGY — vue 1" loading="lazy" decoding="async">
+          <div class="kemit-gallery-placeholder" aria-hidden="true"><span>Visuel 01</span><small>Chargement de la photographie</small></div>
+          <figcaption>Vue 01</figcaption>
+        </figure>
+        <figure class="kemit-gallery-card" data-media-card>
+          <img src="" data-media="kemit-gallery-02" alt="Photographie fournie par KEMIT ECOLOGY — vue 2" loading="lazy" decoding="async">
+          <div class="kemit-gallery-placeholder" aria-hidden="true"><span>Visuel 02</span><small>Chargement de la photographie</small></div>
+          <figcaption>Vue 02</figcaption>
+        </figure>
+        <figure class="kemit-gallery-card" data-media-card>
+          <img src="" data-media="kemit-gallery-03" alt="Photographie fournie par KEMIT ECOLOGY — vue 3" loading="lazy" decoding="async">
+          <div class="kemit-gallery-placeholder" aria-hidden="true"><span>Visuel 03</span><small>Chargement de la photographie</small></div>
+          <figcaption>Vue 03</figcaption>
+        </figure>
+        <figure class="kemit-gallery-card" data-media-card>
+          <img src="" data-media="kemit-gallery-04" alt="Photographie fournie par KEMIT ECOLOGY — vue 4" loading="lazy" decoding="async">
+          <div class="kemit-gallery-placeholder" aria-hidden="true"><span>Visuel 04</span><small>Chargement de la photographie</small></div>
+          <figcaption>Vue 04</figcaption>
+        </figure>
+        <figure class="kemit-gallery-card" data-media-card>
+          <img src="" data-media="kemit-gallery-05" alt="Photographie fournie par KEMIT ECOLOGY — vue 5" loading="lazy" decoding="async">
+          <div class="kemit-gallery-placeholder" aria-hidden="true"><span>Visuel 05</span><small>Chargement de la photographie</small></div>
+          <figcaption>Vue 05</figcaption>
+        </figure>
+        <figure class="kemit-gallery-card" data-media-card>
+          <img src="" data-media="kemit-gallery-06" alt="Photographie fournie par KEMIT ECOLOGY — vue 6" loading="lazy" decoding="async">
+          <div class="kemit-gallery-placeholder" aria-hidden="true"><span>Visuel 06</span><small>Chargement de la photographie</small></div>
+          <figcaption>Vue 06</figcaption>
+        </figure>
+        <figure class="kemit-gallery-card" data-media-card>
+          <img src="" data-media="kemit-gallery-07" alt="Photographie fournie par KEMIT ECOLOGY — vue 7" loading="lazy" decoding="async">
+          <div class="kemit-gallery-placeholder" aria-hidden="true"><span>Visuel 07</span><small>Chargement de la photographie</small></div>
+          <figcaption>Vue 07</figcaption>
+        </figure>
+      </div>
     </div>
   </section>
 
   <section class="section dark-band">
     <div class="shell dark-grid">
-      <div><p class="eyebrow light">Professionnels & volumes</p><h2>Une demande importante mérite un traitement spécifique.</h2></div>
-      <div><p>Indiquez le produit, le format, la quantité et la destination. KEMIT confirme ensuite disponibilité, logistique et conditions commerciales.</p><a class="btn btn-light" href="#contact" data-route="contact">Parler à KEMIT</a></div>
+      <div><p class="eyebrow light">Professionnels & volumes</p><h2>Pour vos achats récurrents ou importants.</h2></div>
+      <div><p>Indiquez votre produit, votre volume, votre fréquence et votre destination. Nous étudions votre besoin avant de confirmer nos conditions commerciales.</p><a class="btn btn-light" href="#professionnels" data-route="professionnels">Demander un devis professionnel</a></div>
     </div>
   </section>
 
   <section class="section section-cream">
     <div class="shell">
-      <div class="section-heading">
-        <div><p class="eyebrow">Commander</p><h2>Un parcours simple en quatre étapes.</h2></div>
-      </div>
+      <div class="section-heading"><div><p class="eyebrow">Commander simplement</p><h2>Quatre étapes jusqu'à la confirmation.</h2></div></div>
       <div class="steps-grid">
-        <article><span>1</span><h3>Choisir</h3><p>Produit, format et quantité.</p></article>
-        <article><span>2</span><h3>Localiser</h3><p>Ville, pays ou destination.</p></article>
-        <article><span>3</span><h3>Envoyer</h3><p>Message WhatsApp prérempli.</p></article>
-        <article><span>4</span><h3>Confirmer</h3><p>Stock, total, paiement et livraison.</p></article>
+        <article><span>01</span><h3>Choisir</h3><p>Produit, format et quantité.</p></article>
+        <article><span>02</span><h3>Localiser</h3><p>Ville et pays de livraison.</p></article>
+        <article><span>03</span><h3>Envoyer</h3><p>Demande préremplie via WhatsApp.</p></article>
+        <article><span>04</span><h3>Confirmer</h3><p>Disponibilité, montant final et livraison avant paiement.</p></article>
       </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell boutique-editorial-grid">
+      <figure class="boutique-editorial-media"><img src="" data-media="boutique-range" alt="Formats et conditionnements KEMIT ECOLOGY" loading="lazy"></figure>
+      <div class="boutique-editorial-copy"><p class="eyebrow">Conditionnements & usages</p><h2>Une gamme, plusieurs besoins.</h2><p>Les produits et leurs formats sont présentés dans les fiches du catalogue. Pour un besoin particulier, nos équipes peuvent étudier votre demande.</p><a class="text-link" href="#contact" data-route="contact">Poser une question à KEMIT →</a></div>
     </div>
   </section>
 </section>

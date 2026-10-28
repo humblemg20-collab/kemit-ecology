@@ -1,0 +1,78 @@
+{
+  "revision": "2026-10-28",
+  "purpose": "User-submitted photo inventory; integrated into the general Boutique gallery. Product-specific identity not visually verified.",
+  "submitted_links": 9,
+  "unique_images": 7,
+  "candidates": [
+    {
+      "id": "KEMIT-IMG-01",
+      "source_url": "https://img-thumb.mailinblue.com/10710656/images/content_library/original/6ac2ba71ac62c5c11364d9ec.jpeg",
+      "occurrences_in_user_submission": 1,
+      "product_id": null,
+      "verified_subject": false,
+      "status": "INTEGRATED_GENERAL_GALLERY",
+      "gallery_key": "kemit-gallery-01"
+    },
+    {
+      "id": "KEMIT-IMG-02",
+      "source_url": "https://img-thumb.mailinblue.com/10710656/images/content_library/original/6ac2ba6ff4492ef6f73d86ce.jpeg",
+      "occurrences_in_user_submission": 1,
+      "product_id": null,
+      "verified_subject": false,
+      "status": "INTEGRATED_GENERAL_GALLERY",
+      "gallery_key": "kemit-gallery-02"
+    },
+    {
+      "id": "KEMIT-IMG-03",
+      "source_url": "https://img-thumb.mailinblue.com/10710656/images/content_library/original/6ac2ba6fdd67d4ae785e7201.jpeg",
+      "occurrences_in_user_submission": 1,
+      "product_id": null,
+      "verified_subject": false,
+      "status": "INTEGRATED_GENERAL_GALLERY",
+      "gallery_key": "kemit-gallery-03"
+    },
+    {
+      "id": "KEMIT-IMG-04",
+      "source_url": "https://img-thumb.mailinblue.com/10710656/images/content_library/original/6ac2ba6cac62c5c11364d9e9.jpeg",
+      "occurrences_in_user_submission": 1,
+      "product_id": null,
+      "verified_subject": false,
+      "status": "INTEGRATED_GENERAL_GALLERY",
+      "gallery_key": "kemit-gallery-04"
+    },
+    {
+      "id": "KEMIT-IMG-05",
+      "source_url": "https://img-thumb.mailinblue.com/10710656/images/content_library/original/6ac2ba6cac62c5c11364d9e8.jpeg",
+      "occurrences_in_user_submission": 1,
+      "product_id": null,
+      "verified_subject": false,
+      "status": "INTEGRATED_GENERAL_GALLERY",
+      "gallery_key": "kemit-gallery-05"
+    },
+    {
+      "id": "KEMIT-IMG-06",
+      "source_url": "https://img-thumb.mailinblue.com/10710656/images/content_library/original/6ac2ba65dd67d4ae785e71fe.jpeg",
+      "occurrences_in_user_submission": 3,
+      "product_id": null,
+      "verified_subject": false,
+      "status": "INTEGRATED_GENERAL_GALLERY",
+      "gallery_key": "kemit-gallery-06"
+    },
+    {
+      "id": "KEMIT-IMG-07",
+      "source_url": "https://img-thumb.mailinblue.com/10710656/images/content_library/original/6ac2b4ae8a298c3ec4b1b516.jpeg",
+      "occurrences_in_user_submission": 1,
+      "product_id": null,
+      "verified_subject": false,
+      "status": "INTEGRATED_GENERAL_GALLERY",
+      "gallery_key": "kemit-gallery-07"
+    }
+  ],
+  "integration": {
+    "location": "PageBoutique.html#kemit-photo-gallery",
+    "registry": "Media.html",
+    "visual_identification": "NOT_VERIFIED",
+    "publication": "DEVELOPMENT_BRANCH_ONLY",
+    "count": 7
+  }
+}
