@@ -1,6 +1,6 @@
 {
   "revision": "2026-10-28",
-  "purpose": "Candidate photo inventory; NEVER use for product storefront before identity verification",
+  "purpose": "User-submitted photo inventory; integrated into the general Boutique gallery. Product-specific identity not visually verified.",
   "submitted_links": 9,
   "unique_images": 7,
   "candidates": [
@@ -10,7 +10,8 @@
       "occurrences_in_user_submission": 1,
       "product_id": null,
       "verified_subject": false,
-      "status": "PENDING_VISUAL_REVIEW"
+      "status": "INTEGRATED_GENERAL_GALLERY",
+      "gallery_key": "kemit-gallery-01"
     },
     {
       "id": "KEMIT-IMG-02",
@@ -18,7 +19,8 @@
       "occurrences_in_user_submission": 1,
       "product_id": null,
       "verified_subject": false,
-      "status": "PENDING_VISUAL_REVIEW"
+      "status": "INTEGRATED_GENERAL_GALLERY",
+      "gallery_key": "kemit-gallery-02"
     },
     {
       "id": "KEMIT-IMG-03",
@@ -26,7 +28,8 @@
       "occurrences_in_user_submission": 1,
       "product_id": null,
       "verified_subject": false,
-      "status": "PENDING_VISUAL_REVIEW"
+      "status": "INTEGRATED_GENERAL_GALLERY",
+      "gallery_key": "kemit-gallery-03"
     },
     {
       "id": "KEMIT-IMG-04",
@@ -34,7 +37,8 @@
       "occurrences_in_user_submission": 1,
       "product_id": null,
       "verified_subject": false,
-      "status": "PENDING_VISUAL_REVIEW"
+      "status": "INTEGRATED_GENERAL_GALLERY",
+      "gallery_key": "kemit-gallery-04"
     },
     {
       "id": "KEMIT-IMG-05",
@@ -42,7 +46,8 @@
       "occurrences_in_user_submission": 1,
       "product_id": null,
       "verified_subject": false,
-      "status": "PENDING_VISUAL_REVIEW"
+      "status": "INTEGRATED_GENERAL_GALLERY",
+      "gallery_key": "kemit-gallery-05"
     },
     {
       "id": "KEMIT-IMG-06",
@@ -50,7 +55,8 @@
       "occurrences_in_user_submission": 3,
       "product_id": null,
       "verified_subject": false,
-      "status": "PENDING_VISUAL_REVIEW"
+      "status": "INTEGRATED_GENERAL_GALLERY",
+      "gallery_key": "kemit-gallery-06"
     },
     {
       "id": "KEMIT-IMG-07",
@@ -58,7 +64,15 @@
       "occurrences_in_user_submission": 1,
       "product_id": null,
       "verified_subject": false,
-      "status": "PENDING_VISUAL_REVIEW"
+      "status": "INTEGRATED_GENERAL_GALLERY",
+      "gallery_key": "kemit-gallery-07"
     }
-  ]
+  ],
+  "integration": {
+    "location": "PageBoutique.html#kemit-photo-gallery",
+    "registry": "Media.html",
+    "visual_identification": "NOT_VERIFIED",
+    "publication": "DEVELOPMENT_BRANCH_ONLY",
+    "count": 7
+  }
 }
