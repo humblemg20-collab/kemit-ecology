@@ -84,6 +84,18 @@ Le catalogue `window.KEMIT_PRODUCTS` de `Script.html` reste la source unique pou
 
 `Media.html` contient des liens vers des photos authentiques approuvées, mais certaines références sont encore vides. Le frontend affiche une indication de visuel à confirmer lorsque la photo n'existe pas ; **ne pas mapper une photographie à un mauvais produit**. Réintégrer les photos produit réelles uniquement après vérification.
 
+### Galerie boutique : 7 photos reçues
+
+Les 9 liens transmis par KEMIT ont été dédupliqués en **7 images distinctes**, puis ajoutés dans `Media.html` sous les clés `kemit-gallery-01` à `kemit-gallery-07`. Elles sont affichées dans `PageBoutique.html` à l'emplacement `#kemit-photo-gallery`.
+
+- Les URL d'origine ont été conservées, sans réhébergement non demandé.
+- La galerie gère le chargement différé, les erreurs réseau et les images indisponibles.
+- Aucun nom de produit n'est attribué à une image tant que son contenu n'est pas vérifié visuellement.
+- Le registre `docs/kemit-photo-candidates.json` décrit la provenance et l'état des 7 visuels.
+- Les six fiches produits conservent une indication neutre lorsque leur photo spécifique n'est pas encore vérifiée.
+
+**Contrôle prépublication** : vérifier que le serveur Brevo autorise l'affichage depuis Apps Script et que les 7 photographies s'ouvrent sur desktop/mobile. Une URL ajoutée au code ne constitue pas une preuve de disponibilité réseau.
+
 ### Vérification locale
 
 Depuis la racine du dépôt :
