@@ -15,7 +15,8 @@ window.KEMIT_PRODUCTS = [{"id": "charbon-ecologique", "name": "KIKIMOUH Charbon 
     (root || document).querySelectorAll("[data-media]").forEach(img => {
       const key = img.dataset.media;
       const source = window.KEMIT_MEDIA && window.KEMIT_MEDIA[key];
-      if (source) img.src = source;
+      if (source) { img.src = source; img.hidden = false; }
+      else { img.removeAttribute("src"); img.hidden = true; }
 
       const mediaCard = img.closest("[data-media-card]");
       if (mediaCard) mediaCard.classList.toggle("has-media", !!source);
@@ -403,10 +404,14 @@ window.KEMIT_PRODUCTS = [{"id": "charbon-ecologique", "name": "KIKIMOUH Charbon 
   }
 
   function productCard(product) {
+    const photoUrl = window.KEMIT_MEDIA[product.media];
+    const mediaMarkup = photoUrl
+      ? '<img src="' + escapeHtml(photoUrl) + '" alt="' + escapeHtml(product.name) + '" loading="lazy">'
+      : '<div class="product-media-placeholder" role="img" aria-label="Visuel à confirmer pour ' + escapeHtml(product.name) + '"><span>Visuel à confirmer</span></div>';
     return `
       <article class="product-card" data-category="${escapeHtml(product.category)}">
         <div class="product-card-media">
-          <img src="${window.KEMIT_MEDIA[product.media] || ""}" alt="${escapeHtml(product.name)}" loading="lazy">
+          ${mediaMarkup}
         </div>
         <div class="product-card-body">
           <span class="product-card-category">${escapeHtml(product.category)}</span>
@@ -458,8 +463,13 @@ window.KEMIT_PRODUCTS = [{"id": "charbon-ecologique", "name": "KIKIMOUH Charbon 
 
     const img = document.querySelector("[data-product-image]");
     if (img) {
-      img.src = window.KEMIT_MEDIA[product.media] || "";
+      const photo = window.KEMIT_MEDIA[product.media];
+      img.hidden = !photo;
+      if (photo) img.src = photo;
+      else img.removeAttribute("src");
       img.alt = product.name;
+      const fallback = document.querySelector("[data-product-image-fallback]");
+      if (fallback) fallback.hidden = !!photo;
     }
 
     const formats = document.querySelector("[data-product-formats]");
@@ -601,6 +611,11 @@ Merci de me confirmer la disponibilité, le total, le paiement et la livraison.`
       const route = routeEl.dataset.route;
       if (route && route !== "produit") {
         e.preventDefault();
+        if (route === "boutique") {
+          activeFilter = routeEl.dataset.categoryTarget || "all";
+          document.querySelectorAll("[data-filter]").forEach(x => x.classList.toggle("is-selected", x.dataset.filter === activeFilter));
+          renderCatalog();
+        }
         showPage(route, true);
         return;
       }
@@ -633,6 +648,16 @@ Merci de me confirmer la disponibilité, le total, le paiement et la livraison.`
       const index = Number(formatEl.dataset.formatIndex);
       selectedFormat = currentProduct.formats[index] || currentProduct.formats[0];
       document.querySelectorAll("[data-format-index]").forEach(x => x.classList.toggle("is-selected", x === formatEl));
+      return;
+    }
+
+    if (e.target.closest("[data-product-b2b]")) {
+      if (currentProduct) {
+        showPage("professionnels", true);
+        const select = document.querySelector("[data-b2b-product]");
+        if (select) select.value = currentProduct.id;
+        scrollToProfessionalForm();
+      }
       return;
     }
 
