@@ -114,5 +114,8 @@ for(const name of names){
   }
 }
 console.log('KEMIT_CONVERSION_V2_CONTRACT=PASS checks='+passed);
-console.log('KEMIT_UNRESOLVED_NONHOME_PHOTOS='+[...new Set(missingAssets)].join(','));
+const products=JSON.parse(productsMatch[1]);
+const missingProductImages=products.filter(p=>!registry[p.media]).map(p=>p.id+':'+p.media);
+console.log('KEMIT_UNRESOLVED_PAGE_PHOTOS='+[...new Set(missingAssets)].join(','));
+console.log('KEMIT_UNRESOLVED_PRODUCT_PHOTOS='+missingProductImages.join(','));
 console.log('KEMIT_DEPLOYMENT=NOT_AUTHORIZED');
