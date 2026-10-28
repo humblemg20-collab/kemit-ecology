@@ -1768,4 +1768,81 @@ body{background:radial-gradient(circle at 12% 4%,rgba(15,159,103,.055),transpare
   }
 }
 
+
+/* KEMIT CONVERSION V2 — existing design system, two commercial journeys */
+[hidden]{display:none!important}
+html{scroll-padding-top:100px}
+.home-sales-hero h1{font-size:clamp(44px,5.4vw,78px);line-height:1.02;letter-spacing:-.055em}
+.home-sales-hero .hero-lead{max-width:640px}
+.home-proof-grid,.home-category-grid,.professional-use-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.home-proof-card{margin:0;border-radius:23px;overflow:hidden;background:var(--cream);border:1px solid var(--line)}
+.home-proof-card img{width:100%;height:240px;object-fit:cover}
+.home-proof-card figcaption{padding:17px 20px;font-weight:750;font-size:14px}
+.home-category-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
+.home-category-card{display:flex;flex-direction:column;min-height:275px;padding:24px;border:1px solid var(--line);border-radius:23px;background:var(--paper);transition:box-shadow .2s ease,transform .2s ease}
+.home-category-card:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.home-category-card span,.professional-use-card span{font-size:11px;color:var(--green2);font-weight:800;text-transform:uppercase;letter-spacing:.08em}
+.home-category-card h3{margin:23px 0 10px;font-size:clamp(22px,2vw,29px)}
+.home-category-card p{font-size:13px;line-height:1.7;color:var(--muted);margin:0 0 20px}
+.home-category-card strong{margin-top:auto;color:var(--green);font-size:13px}
+.home-category-actions{display:flex;justify-content:center;margin-top:26px}
+.home-journey-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.home-journey-card{display:flex;flex-direction:column;align-items:flex-start;min-height:390px;padding:36px;border-radius:28px;background:var(--cream)}
+.home-journey-card.is-professional{background:var(--green);color:#fff}
+.home-journey-card.is-professional .eyebrow{color:#c2dfcc}
+.home-journey-card h3{font-size:clamp(28px,3vw,42px);margin:14px 0 20px;line-height:1.08;max-width:500px}
+.home-journey-card ol{padding-left:22px;margin:0 0 26px;color:var(--muted);font-size:14px;line-height:1.9}
+.home-journey-card.is-professional ol{color:#d7e8dd}
+.home-journey-card .btn{margin-top:auto}
+.home-assurance-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.home-assurance-grid article{padding:25px;border:1px solid var(--line);border-radius:22px}
+.home-assurance-grid span{color:var(--green2);font-weight:700;font-size:12px}
+.home-assurance-grid h3{margin:18px 0 10px;font-size:24px}
+.home-assurance-grid p{font-size:13px;color:var(--muted);line-height:1.7}
+.home-support-links{display:flex;flex-wrap:wrap;gap:18px;margin-top:26px}
+.home-support-links .text-link{margin-top:0}
+.home-dark-secondary{border-color:rgba(255,255,255,.8);color:#fff}
+.home-dark-secondary:hover{background:rgba(255,255,255,.12)}
+.boutique-sales-hero h1{font-size:clamp(49px,6vw,78px)}
+.boutique-fast-catalog .catalog-toolbar{margin-top:54px}
+.catalog-disclaimer{margin:22px 0 0;color:var(--muted);font-size:12px;line-height:1.7}
+.product-media-placeholder,.product-photo-unavailable{min-height:240px;width:100%;height:100%;display:flex;justify-content:center;align-items:center;flex-direction:column;gap:12px;text-align:center;padding:26px;background:linear-gradient(135deg,#e9eee7,#f6f4ec);color:var(--green);font-size:12px}
+.product-photo-unavailable{min-height:400px}
+.product-photo-unavailable strong{max-width:240px;font:500 23px/1.2 Georgia,serif}
+.professional-hero h1{font-size:clamp(47px,5.9vw,80px);line-height:1}
+.professional-hero .btn{margin-top:12px}
+.professional-fineprint{font-size:12px!important}
+.professional-use-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.professional-use-card{padding:24px;border-radius:22px;border:1px solid var(--line);background:var(--paper)}
+.professional-use-card h3{font-size:24px;margin:20px 0 10px}
+.professional-use-card p{font-size:13px;line-height:1.7;color:var(--muted)}
+.professional-form-layout{display:grid;grid-template-columns:.9fr 1.1fr;gap:65px;align-items:start}
+.professional-form-copy h2{max-width:480px}
+.professional-form-copy>p{max-width:450px;line-height:1.75;color:var(--muted)}
+.professional-steps{margin-top:30px}
+.professional-steps p{margin:12px 0;color:var(--green);line-height:1.6}
+.professional-request-form{padding:32px;background:#fff;border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow)}
+.professional-field{display:flex;flex-direction:column;gap:9px;margin-bottom:18px}
+.professional-field label{font-size:12px;font-weight:750;color:var(--green)}
+.professional-field input,.professional-field select,.professional-field textarea{width:100%;min-width:0;border:1px solid #cdd8cf;border-radius:13px;padding:13px 14px;font:inherit;font-size:14px;background:var(--paper);color:var(--ink)}
+.professional-field textarea{resize:vertical}
+.professional-field input:focus,.professional-field select:focus,.professional-field textarea:focus{border-color:var(--green2);outline:2px solid rgba(30,100,78,.13)}
+.professional-field-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.professional-form-note{color:var(--muted);font-size:11px;line-height:1.65;margin:14px 0 0}
+.professional-close{align-items:center}
+.professional-close .btn{margin-top:14px}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #4d9470;outline-offset:3px}
+@media(max-width:1080px){.home-category-grid,.professional-use-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:850px){.home-proof-grid,.home-assurance-grid{grid-template-columns:1fr 1fr}.professional-form-layout{grid-template-columns:1fr;gap:32px}.home-journey-card{min-height:auto}}
+@media(max-width:650px){
+  .home-sales-hero h1{font-size:clamp(41px,10vw,60px)}
+  .home-proof-grid,.home-category-grid,.home-journey-grid,.home-assurance-grid,.professional-use-grid,.professional-field-grid{grid-template-columns:1fr}
+  .home-proof-card img{height:220px}
+  .home-category-card{min-height:210px}
+  .home-journey-card{padding:26px}
+  .professional-request-form{padding:22px}
+  .home-sales-hero .hero-actions,.home-journey-card .btn{width:100%}
+  .home-sales-hero .hero-actions .btn{width:100%}
+}
+
 </style>
