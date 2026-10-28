@@ -6,10 +6,11 @@
  */
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {resolve} from 'node:path';
+import {dirname,resolve} from 'node:path';
+import {fileURLToPath} from 'node:url';
 import {Script} from 'node:vm';
 
-const root = resolve(import.meta.dirname, '..');
+const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const read = name => readFileSync(resolve(root, name), 'utf8');
 let passed = 0;
 function check(label, fn) {
@@ -65,7 +66,7 @@ check('B2B request form uses the actual catalogue and checks required fields',()
   assert.ok(js.includes('populateProfessionalProducts()'));
   assert.ok(js.includes('window.KEMIT_PRODUCTS.forEach(product =>'));
   assert.ok(js.includes('form.reportValidity()'));
-  assert.ok(js.includes('Number.isSafeInteger(quantity)'));
+  assert.ok(js.includes('Number.isFinite(quantity)'));
   assert.ok(js.includes('trackKemitIntent("kemit_b2b_quote_click"'));
 });
 check('Retail ordering checks quantity and destination',()=>{
