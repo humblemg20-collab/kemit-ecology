@@ -16,7 +16,20 @@ window.KEMIT_PRODUCTS = [{"id": "charbon-ecologique", "name": "KIKIMOUH Charbon 
       const key = img.dataset.media;
       const source = window.KEMIT_MEDIA && window.KEMIT_MEDIA[key];
       if (source) { img.src = source; img.hidden = false; }
-      else { img.removeAttribute("src"); img.hidden = true; }
+      else {
+        img.removeAttribute("src");
+        img.hidden = true;
+        // Never substitute an unrelated photograph for an unverified asset.
+        const host = img.closest(".photo-mat, .page-hero-media, .activity-card.with-photo, .boutique-editorial-media");
+        if (host && !host.querySelector(".kemit-photo-fallback")) {
+          const fallback = document.createElement("span");
+          fallback.className = "kemit-photo-fallback";
+          fallback.setAttribute("role", "img");
+          fallback.setAttribute("aria-label", img.alt || "Photo à confirmer");
+          fallback.textContent = "Visuel en cours de mise à jour";
+          host.prepend(fallback);
+        }
+      }
 
       const mediaCard = img.closest("[data-media-card]");
       if (mediaCard) mediaCard.classList.toggle("has-media", !!source);
@@ -115,7 +128,12 @@ window.KEMIT_PRODUCTS = [{"id": "charbon-ecologique", "name": "KIKIMOUH Charbon 
       ".product-info-grid",
       ".format-options",
       ".faq-group",
-      ".home-media-wall"
+      ".home-media-wall",
+      ".home-category-grid",
+      ".home-proof-grid",
+      ".home-journey-grid",
+      ".home-assurance-grid",
+      ".professional-use-grid"
     ];
 
     scope.querySelectorAll(staggerGroups.join(",")).forEach(group => {
