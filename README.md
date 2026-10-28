@@ -63,3 +63,39 @@ Ne pas utiliser `clasp create` : le projet est déjà lié au Script ID KEMIT EC
 
 ## Note produit
 Les descriptions sensibles, notamment celles du charbon actif naturel, restent volontairement prudentes. Le site ne transforme pas des indications d'étiquette non vérifiées en conseils médicaux.
+
+## Conversion V2 — deux parcours commerciaux
+
+**Statut : branche de développement, aucun déploiement public autorisé.**
+
+Priorité KEMIT ECOLOGY : vente de produits à deux publics.
+
+- Particuliers : `#home` → `#boutique` → `#produit/<id>` → demande de commande WhatsApp (produit, format, quantité, destination).
+- Professionnels : `#home` ou fiche produit → `#professionnels` → formulaire qualifié (entreprise, produit, volume, unité, fréquence, destination) → demande de devis WhatsApp.
+- Pages de réassurance conservées : `#savoir-faire`, `#histoire`, `#livraison`, `#faq`, `#contact`.
+
+L'appel à WhatsApp **n'est pas un paiement ni une vente confirmée**. Le stock, le montant final et les modalités de livraison sont confirmés par KEMIT.
+
+### Source de vérité produit
+
+Le catalogue `window.KEMIT_PRODUCTS` de `Script.html` reste la source unique pour les produits, catégories, formats, tarifs indicatifs et sélection professionnelle. Ne pas entretenir de second catalogue dans `PageProfessionnels.html`.
+
+### Photographies
+
+`Media.html` contient des liens vers des photos authentiques approuvées, mais certaines références sont encore vides. Le frontend affiche une indication de visuel à confirmer lorsque la photo n'existe pas ; **ne pas mapper une photographie à un mauvais produit**. Réintégrer les photos produit réelles uniquement après vérification.
+
+### Vérification locale
+
+Depuis la racine du dépôt :
+
+```bash
+node scripts/verify-kemit-conversion-v2.mjs
+```
+
+Le script vérifie les routes, l'intégration Apps Script, la syntaxe des modules JavaScript, la validité de l'inventaire, les CTA, les validations de commande et les photos utilisées sur la page d'accueil. Il signale également les références média non résolues dans les pages secondaires. Il n'effectue aucune requête externe ni aucun déploiement.
+
+**Validation visuelle restant nécessaire** : tester le rendu mobile/desktop et les messages WhatsApp dans un environnement Apps Script de test, sans lancer de paiement et sans supposer qu'un clic équivaut à une vente.
+
+### Déploiement
+
+Rien ne doit être poussé ou déployé automatiquement sur le projet Apps Script public. Vérifier le diff et les tests, approuver la branche puis effectuer un déploiement contrôlé avec retour arrière possible.
