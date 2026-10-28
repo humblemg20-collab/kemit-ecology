@@ -99,6 +99,28 @@ check('Homepage uses only defined non-empty approved photo references',()=>{
   const keys=[...home.matchAll(/data-media="([^"]+)"/g)].map(m=>m[1]);
   for(const key of keys)assert.ok(registry[key], 'unresolved homepage asset: '+key);
 });
+check('All seven user-supplied photos are registered and rendered once in Boutique',()=>{
+  const registry=JSON.parse(mediaMatch[1]);
+  const provided=JSON.parse(read('docs/kemit-photo-candidates.json'));
+  assert.equal(provided.unique_images,7);
+  assert.equal(provided.submitted_links,9);
+  assert.equal(provided.candidates.length,7);
+  assert.equal(new Set(provided.candidates.map(x=>x.source_url)).size,7);
+  const imgKeys=[...boutique.matchAll(/<img[^>]*data-media="(kemit-gallery-\d+)"/g)].map(m=>m[1]);
+  assert.equal(imgKeys.length,7);
+  assert.equal(new Set(imgKeys).size,7);
+  for(const entry of provided.candidates){
+    assert.ok(imgKeys.includes(entry.gallery_key),'missing photo '+entry.gallery_key);
+    assert.equal(registry[entry.gallery_key],entry.source_url,'URL mismatch '+entry.gallery_key);
+    assert.equal(entry.product_id,null,'unverified product linkage '+entry.gallery_key);
+    assert.equal(entry.status,'INTEGRATED_GENERAL_GALLERY');
+  }
+  assert.ok(js.includes('has-loaded'),'gallery load-state missing');
+  assert.ok(js.includes('img.addEventListener("error"'),'gallery load failure missing');
+  assert.ok(styles.includes('.kemit-gallery-grid'),'gallery responsive styles missing');
+  assert.ok(styles.includes('.kemit-gallery-card.has-loaded'),'gallery image transition missing');
+});
+
 check('B2B and retail both avoid pretending a sale is confirmed',()=>{
   assert.ok(pro.includes("Aucune commande n'est confirmée automatiquement"));
   assert.ok(product.includes('avant tout règlement'));
