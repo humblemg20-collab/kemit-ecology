@@ -1851,4 +1851,21 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .activity-card.with-photo>.kemit-photo-fallback{min-height:210px}
 .page-hero-media>.kemit-photo-fallback{min-height:430px}
 
+
+/* Seven user-supplied KEMIT photos. Preserve the original URLs and original image proportions. */
+.kemit-gallery-section{background:var(--paper)}
+.kemit-gallery-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:17px}
+.kemit-gallery-card{position:relative;display:block;isolation:isolate;aspect-ratio:4/5;min-width:0;overflow:hidden;border-radius:22px;margin:0;background:linear-gradient(145deg,#e8f0e9,#f0eadf);border:1px solid var(--line);box-shadow:0 12px 30px rgba(10,39,30,.06)}
+.kemit-gallery-card img{position:absolute;inset:0;z-index:1;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .35s ease}
+.kemit-gallery-card.has-loaded img{opacity:1}
+.kemit-gallery-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;padding:16px;color:var(--green2);text-align:center}
+.kemit-gallery-placeholder span{font:500 35px/1 Georgia,serif}
+.kemit-gallery-placeholder small{font-size:11px;letter-spacing:.03em;color:var(--muted)}
+.kemit-gallery-card.has-loaded .kemit-gallery-placeholder{display:none}
+.kemit-gallery-card figcaption{position:absolute;z-index:2;left:12px;bottom:12px;padding:7px 11px;border-radius:999px;background:rgba(13,59,46,.88);color:#fff;font-size:11px;font-weight:750}
+.kemit-gallery-card.is-unavailable{border-style:dashed}
+@media(max-width:950px){.kemit-gallery-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:650px){.kemit-gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.kemit-gallery-card{border-radius:16px}}
+@media(max-width:400px){.kemit-gallery-grid{grid-template-columns:1fr 1fr;gap:9px}.kemit-gallery-card figcaption{font-size:10px}}
+
 </style>
