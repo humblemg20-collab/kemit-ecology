@@ -10,6 +10,7 @@
         <p class="eyebrow" data-product-category></p>
         <h1 data-product-name></h1>
         <p class="product-lead" data-product-description></p>
+        <p class="product-outcome" data-product-outcome></p>
 
         <div class="format-panel">
           <p class="mini-label">Choisissez votre format</p>
@@ -36,37 +37,38 @@
   </section>
 
   <section class="section section-light">
-    <div class="shell"><div class="section-heading product-info-heading"><div><p class="eyebrow">Bien choisir</p><h2>Les informations utiles avant de commander.</h2></div></div><div class="product-info-grid">
+    <div class="shell"><div class="section-heading product-info-heading"><div><p class="eyebrow">Bien choisir</p><h2>Les informations qui vous aident à décider.</h2></div><p>Vérifiez l’usage, le format et les précautions avant d’envoyer votre demande.</p></div><div class="product-info-grid">
       <article><span>Usage</span><p data-product-usage></p></article>
       <article><span>Composition</span><p data-product-composition></p></article>
       <article><span>Public</span><p data-product-audience></p></article>
       <article><span>Disponibilité</span><p data-product-stock></p></article>
       <article><span>Conservation</span><p data-product-conservation></p></article>
       <article><span>Précautions</span><p data-product-precautions></p></article>
-    </div></div>
+    </div><button class="btn btn-primary" type="button" data-whatsapp-order data-inline-action onclick="window.kemitWhatsappOrder()">Demander ce format sur WhatsApp</button></div>
   </section>
 
   <section class="section" data-product-scene hidden>
     <div class="shell split-editorial">
       <figure class="scene-media"><img src="" data-product-scene-image alt="" loading="lazy"></figure>
       <div class="editorial-copy">
-        <p class="eyebrow">Produit réel</p>
+        <p class="eyebrow">Voir avant de décider</p>
         <h2 data-product-scene-title></h2>
         <p data-product-scene-text></p>
+        <a class="text-link" href="#boutique" data-route="boutique">Comparer avec les autres solutions →</a>
       </div>
     </div>
   </section>
 
   <section class="section dark-band">
     <div class="shell dark-grid">
-      <div><p class="eyebrow light">Professionnels & volumes</p><h2>Un besoin régulier ou une commande importante ?</h2></div>
-      <div><p data-product-professional></p><button class="btn btn-light" type="button" data-product-b2b data-inline-action onclick="window.kemitProductB2B()">Demander un devis pour ce produit</button></div>
+      <div><p class="eyebrow light">Professionnels & volumes</p><h2>Transformez cette référence en approvisionnement.</h2></div>
+      <div><p data-product-professional></p><button class="btn btn-light" type="button" data-product-b2b data-inline-action onclick="window.kemitProductB2B()">Préparer un devis pour ce produit</button></div>
     </div>
   </section>
 
   <section class="section">
     <div class="shell">
-      <div class="section-heading"><div><p class="eyebrow">Continuez votre sélection</p><h2>D’autres références KEMIT ECOLOGY à découvrir.</h2></div></div>
+      <div class="section-heading"><div><p class="eyebrow">Comparer avant de choisir</p><h2>Si cette solution n’est pas la bonne, trouvez la suivante.</h2></div><p>Chaque carte vous ramène à une fiche avec son usage, son format et son prochain pas.</p></div>
       <div class="product-grid related-grid" data-related-products></div>
     </div>
   </section>

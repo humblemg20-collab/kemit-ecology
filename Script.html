@@ -438,6 +438,19 @@ window.KEMIT_PRODUCTS = [{"id": "charbon-ecologique", "name": "KIKIMOUH Charbon 
     return product.formats?.[0]?.price || "Sur demande";
   }
 
+  const PRODUCT_OUTCOMES = {
+    "charbon-ecologique": "Passez d'un besoin de combustible à une chaleur issue de biomasses transformées.",
+    "biochar": "Donnez à votre projet agricole une ressource carbonée pensée pour la gestion des sols.",
+    "charbon-actif-industriel": "Cadrez votre besoin de traitement avec une référence à valider selon votre application.",
+    "anti-poison": "Choisissez un format pratique et vérifiez l'usage adapté avant toute utilisation liée à la santé.",
+    "savon-charbon": "Simplifiez le nettoyage quotidien avec un soin cosmétique au charbon, simple à intégrer.",
+    "masque-charbon": "Complétez votre routine avec un soin cosmétique au charbon, facile à préparer et à utiliser."
+  };
+
+  function productOutcome(product) {
+    return PRODUCT_OUTCOMES[product.id] || "Trouvez le format adapté à votre usage et à votre projet.";
+  }
+
   function productCard(product) {
     const photoUrl = window.KEMIT_MEDIA[product.media];
     const mediaMarkup = photoUrl
@@ -451,10 +464,11 @@ window.KEMIT_PRODUCTS = [{"id": "charbon-ecologique", "name": "KIKIMOUH Charbon 
         <div class="product-card-body">
           <span class="product-card-category">${escapeHtml(product.category)}</span>
           <h3>${escapeHtml(product.name)}</h3>
-          <p>${escapeHtml(product.short)}</p>
+          <p class="product-card-outcome">${escapeHtml(productOutcome(product))}</p>
+          <p class="product-card-description">${escapeHtml(product.short)}</p>
           <div class="product-card-footer">
             <span class="price-from">Dès ${escapeHtml(productPrice(product))}</span>
-            <button class="card-link" type="button" data-product-id="${product.id}">Voir le produit →</button>
+            <button class="card-link" type="button" data-product-id="${product.id}">Découvrir la solution →</button>
           </div>
         </div>
       </article>
@@ -488,6 +502,7 @@ window.KEMIT_PRODUCTS = [{"id": "charbon-ecologique", "name": "KIKIMOUH Charbon 
     setText("[data-product-category]", product.category);
     setText("[data-product-name]", product.name);
     setText("[data-product-description]", product.description);
+    setText("[data-product-outcome]", productOutcome(product));
     setText("[data-product-usage]", product.usage);
     setText("[data-product-composition]", product.composition);
     setText("[data-product-audience]", product.audience);

@@ -3,25 +3,39 @@
     <div class="shell page-hero-grid">
       <div>
         <p class="eyebrow">Boutique KEMIT ECOLOGY</p>
-        <h1>Le bon produit pour votre usage.</h1>
-        <p>Cuisson, agriculture, industrie et cosmétique : filtrez notre catalogue, choisissez un format et préparez votre demande de commande. Les prix et la disponibilité sont confirmés avant paiement.</p>
+        <h1>Choisissez la solution qui fait avancer votre projet.</h1>
+        <p>Ne cherchez pas seulement un produit. Partez du résultat attendu — cuisiner, nourrir un sol, traiter un besoin technique ou simplifier une routine — puis choisissez le format qui vous convient.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#kemit-catalogue">Trouver ma solution</a>
+          <a class="btn btn-outline" href="#professionnels" data-route="professionnels">J'achète en volume</a>
+        </div>
+        <div class="hero-meta"><span>Formats visibles</span><span>Prix indicatifs affichés</span><span>Confirmation avant paiement</span></div>
       </div>
       <div class="page-hero-media product-montage"><img src="" data-media="product-montage" alt="Sélection de références KEMIT ECOLOGY" loading="lazy"></div>
     </div>
   </section>
 
+  <section class="section boutique-conversion-strip" aria-label="Les engagements de la boutique">
+    <div class="shell boutique-conversion-grid">
+      <article><span>01</span><h2>Un besoin clair</h2><p>Vous partez de votre usage, pas d'un catalogue compliqué.</p></article>
+      <article><span>02</span><h2>Un format adapté</h2><p>Vous comparez les conditionnements avant d'envoyer votre demande.</p></article>
+      <article><span>03</span><h2>Une commande cadrée</h2><p>Stock, montant total et livraison sont confirmés avant tout règlement.</p></article>
+    </div>
+    <div class="shell"><a class="text-link" href="#kemit-catalogue">Commencer par mon usage →</a></div>
+  </section>
+
   <section class="section section-light boutique-fast-catalog">
     <div class="shell">
-      <div class="section-heading"><div><p class="eyebrow">Choisir selon votre besoin</p><h2>Que souhaitez-vous acheter ?</h2></div><p>La sélection affiche uniquement les références correspondant à l'usage choisi.</p></div>
+      <div class="section-heading"><div><p class="eyebrow">Choisir selon votre besoin</p><h2>Quel résultat voulez-vous obtenir ?</h2></div><p>Commencez par votre usage. Nous vous montrons les références qui peuvent répondre à ce besoin.</p></div>
       <div class="use-grid">
-        <button class="use-card" type="button" data-filter="Cuisson & énergie" data-inline-action onclick="window.kemitFilter('Cuisson &amp; énergie')"><span>01</span><strong>Cuisson & énergie</strong><small>Charbon écologique</small></button>
-        <button class="use-card" type="button" data-filter="Agriculture" data-inline-action onclick="window.kemitFilter('Agriculture')"><span>02</span><strong>Agriculture</strong><small>Biochar</small></button>
-        <button class="use-card" type="button" data-filter="Industrie & traitement" data-inline-action onclick="window.kemitFilter('Industrie &amp; traitement')"><span>03</span><strong>Industrie</strong><small>Charbon actif</small></button>
-        <button class="use-card" type="button" data-filter="Cosmétique" data-inline-action onclick="window.kemitFilter('Cosmétique')"><span>04</span><strong>Cosmétique</strong><small>Savon et masque</small></button>
+        <button class="use-card" type="button" data-filter="Cuisson & énergie" data-inline-action onclick="window.kemitFilter('Cuisson &amp; énergie')"><span>01</span><strong>Une chaleur prête à l'emploi</strong><small>Cuisson & énergie · charbon écologique</small></button>
+        <button class="use-card" type="button" data-filter="Agriculture" data-inline-action onclick="window.kemitFilter('Agriculture')"><span>02</span><strong>Un sol mieux préparé</strong><small>Agriculture · biochar</small></button>
+        <button class="use-card" type="button" data-filter="Industrie & traitement" data-inline-action onclick="window.kemitFilter('Industrie &amp; traitement')"><span>03</span><strong>Une réponse technique cadrée</strong><small>Industrie · charbon actif</small></button>
+        <button class="use-card" type="button" data-filter="Cosmétique" data-inline-action onclick="window.kemitFilter('Cosmétique')"><span>04</span><strong>Une routine plus simple</strong><small>Cosmétique · savon et masque</small></button>
       </div>
       <div class="catalog-toolbar" id="kemit-catalogue">
-        <div><p class="eyebrow">Nos références</p><h2>Choisissez votre produit.</h2></div>
-        <button class="filter-reset" type="button" data-filter-reset data-inline-action onclick="window.kemitFilter('all')">Tous les produits</button>
+        <div><p class="eyebrow">Nos références</p><h2>Trouvez le produit qui change votre usage.</h2></div>
+        <button class="filter-reset" type="button" data-filter-reset data-inline-action onclick="window.kemitFilter('all')">Voir toute la gamme</button>
       </div>
       <div class="product-grid" data-product-grid></div>
       <p class="catalog-disclaimer">Prix indicatifs selon les formats affichés. La commande, le stock et le prix total sont confirmés par KEMIT avant tout règlement.</p>
@@ -31,8 +45,8 @@
   <section class="section kemit-gallery-section" id="kemit-photo-gallery" aria-labelledby="kemit-photo-gallery-title">
     <div class="shell">
       <div class="section-heading">
-        <div><p class="eyebrow">KEMIT en images</p><h2 id="kemit-photo-gallery-title">Découvrez notre univers en images.</h2></div>
-        <p>Des photographies transmises par KEMIT ECOLOGY pour découvrir notre univers. Consultez les fiches du catalogue pour les caractéristiques et formats de chaque produit.</p>
+        <div><p class="eyebrow">La preuve par le terrain</p><h2 id="kemit-photo-gallery-title">Voyez ce qu'il y a derrière chaque référence.</h2></div>
+        <p>Des images de la matière, des équipes et du terrain pour vous aider à acheter avec plus de contexte. Les fiches du catalogue précisent les formats, usages et conditions de commande.</p>
       </div>
       <div class="kemit-gallery-grid">
         <figure class="kemit-gallery-card" data-media-card>
@@ -106,24 +120,25 @@
           <figcaption>Du terrain au produit</figcaption>
         </figure>
       </div>
+      <a class="text-link" href="#kemit-catalogue">Revenir aux solutions disponibles →</a>
     </div>
   </section>
 
   <section class="section dark-band">
     <div class="shell dark-grid">
-      <div><p class="eyebrow light">Professionnels & volumes</p><h2>Pour vos achats récurrents ou importants.</h2></div>
-      <div><p>Indiquez votre produit, votre volume, votre fréquence et votre destination. Nous étudions votre besoin avant de confirmer nos conditions commerciales.</p><a class="btn btn-light" href="#professionnels" data-route="professionnels">Demander un devis professionnel</a></div>
+      <div><p class="eyebrow light">Professionnels & volumes</p><h2>Transformez un besoin récurrent en approvisionnement maîtrisé.</h2></div>
+      <div><p>Donnez-nous votre produit, votre volume, votre fréquence et votre destination. Vous recevez une réponse commerciale construite autour de votre réalité opérationnelle.</p><a class="btn btn-light" href="#professionnels" data-route="professionnels">Construire mon approvisionnement</a></div>
     </div>
   </section>
 
   <section class="section section-cream">
     <div class="shell">
-      <div class="section-heading"><div><p class="eyebrow">Commander simplement</p><h2>Quatre étapes jusqu'à la confirmation.</h2></div></div>
+      <div class="section-heading"><div><p class="eyebrow">Commander simplement</p><h2>De votre besoin à une commande claire.</h2></div><p>Chaque étape réduit l'incertitude avant que vous vous engagiez.</p></div>
       <div class="steps-grid">
-        <article><span>01</span><h3>Choisir</h3><p>Produit, format et quantité.</p></article>
-        <article><span>02</span><h3>Localiser</h3><p>Ville et pays de livraison.</p></article>
-        <article><span>03</span><h3>Envoyer</h3><p>Demande préremplie via WhatsApp.</p></article>
-        <article><span>04</span><h3>Confirmer</h3><p>Disponibilité, montant final et livraison avant paiement.</p></article>
+        <article><span>01</span><h3>Clarifier</h3><p>Vous identifiez l'usage, le produit et le format utiles.</p></article>
+        <article><span>02</span><h3>Dimensionner</h3><p>Vous indiquez la quantité, la destination et le rythme d'achat.</p></article>
+        <article><span>03</span><h3>Échanger</h3><p>Votre demande préremplie arrive directement à KEMIT via WhatsApp.</p></article>
+        <article><span>04</span><h3>Décider</h3><p>Vous validez après confirmation du stock, du montant et de la livraison.</p></article>
       </div>
     </div>
   </section>
@@ -131,7 +146,7 @@
   <section class="section">
     <div class="shell boutique-editorial-grid">
       <figure class="boutique-editorial-media"><img src="" data-media="boutique-range" alt="Formats et conditionnements KEMIT ECOLOGY" loading="lazy"></figure>
-      <div class="boutique-editorial-copy"><p class="eyebrow">Conditionnements & usages</p><h2>Une gamme, plusieurs besoins.</h2><p>Les produits et leurs formats sont présentés dans les fiches du catalogue. Pour un besoin particulier, nos équipes peuvent étudier votre demande.</p><a class="text-link" href="#contact" data-route="contact">Poser une question à KEMIT →</a></div>
+      <div class="boutique-editorial-copy"><p class="eyebrow">Conditionnements & usages</p><h2>Du choix à l'usage, sans zone grise.</h2><p>Chaque fiche vous aide à relier un produit à votre situation : format, usage, précautions et logistique. Si votre besoin sort du cadre, nous pouvons l'étudier avec vous.</p><a class="text-link" href="#contact" data-route="contact">Parler de mon besoin à KEMIT →</a></div>
     </div>
   </section>
 </section>
