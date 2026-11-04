@@ -31,6 +31,7 @@ Les petites photos du lot sont rééchantillonnées proprement et affichées dan
 - `PageHome.html`
 - `PageBoutique.html`
 - `PageProduit.html`
+- `PageProfessionnels.html`
 - `PageSavoirFaire.html`
 - `PageHistoire.html`
 - `PageLivraison.html`
@@ -43,6 +44,7 @@ Les petites photos du lot sont rééchantillonnées proprement et affichées dan
 - `#home`
 - `#boutique`
 - `#produit/biochar`
+- `#professionnels`
 - `#savoir-faire`
 - `#histoire`
 - `#livraison`
