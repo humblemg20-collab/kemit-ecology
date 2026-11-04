@@ -797,5 +797,20 @@ Merci de me confirmer la disponibilité, le total, le paiement et la livraison.`
     const route = routeFromHash();
     showPage(route, false);
   });
+
+  // Re-run media hydration after the page and remote assets are ready.
+  // This keeps images visible when Apps Script finishes injecting Media.html
+  // slightly after the first DOMContentLoaded pass.
+  window.addEventListener("load", () => {
+    hydrateImages();
+    window.requestAnimationFrame(hydrateImages);
+    // Never leave the page in its pre-animation hidden state if an
+    // IntersectionObserver callback is delayed by the Apps Script iframe.
+    window.setTimeout(() => {
+      document.querySelectorAll(".motion-ready .reveal-item").forEach(el => {
+        el.classList.add("is-visible");
+      });
+    }, 1200);
+  });
 })();
 </script>
