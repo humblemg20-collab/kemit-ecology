@@ -14,14 +14,14 @@
     <div class="shell">
       <div class="section-heading"><div><p class="eyebrow">Choisir selon votre besoin</p><h2>Que souhaitez-vous acheter ?</h2></div><p>La sélection affiche uniquement les références correspondant à l'usage choisi.</p></div>
       <div class="use-grid">
-        <button class="use-card" type="button" data-filter="Cuisson & énergie"><span>01</span><strong>Cuisson & énergie</strong><small>Charbon écologique</small></button>
-        <button class="use-card" type="button" data-filter="Agriculture"><span>02</span><strong>Agriculture</strong><small>Biochar</small></button>
-        <button class="use-card" type="button" data-filter="Industrie & traitement"><span>03</span><strong>Industrie</strong><small>Charbon actif</small></button>
-        <button class="use-card" type="button" data-filter="Cosmétique"><span>04</span><strong>Cosmétique</strong><small>Savon et masque</small></button>
+        <button class="use-card" type="button" data-filter="Cuisson & énergie" data-inline-action onclick="window.kemitFilter('Cuisson &amp; énergie')"><span>01</span><strong>Cuisson & énergie</strong><small>Charbon écologique</small></button>
+        <button class="use-card" type="button" data-filter="Agriculture" data-inline-action onclick="window.kemitFilter('Agriculture')"><span>02</span><strong>Agriculture</strong><small>Biochar</small></button>
+        <button class="use-card" type="button" data-filter="Industrie & traitement" data-inline-action onclick="window.kemitFilter('Industrie &amp; traitement')"><span>03</span><strong>Industrie</strong><small>Charbon actif</small></button>
+        <button class="use-card" type="button" data-filter="Cosmétique" data-inline-action onclick="window.kemitFilter('Cosmétique')"><span>04</span><strong>Cosmétique</strong><small>Savon et masque</small></button>
       </div>
       <div class="catalog-toolbar" id="kemit-catalogue">
         <div><p class="eyebrow">Nos références</p><h2>Choisissez votre produit.</h2></div>
-        <button class="filter-reset" type="button" data-filter-reset>Tous les produits</button>
+        <button class="filter-reset" type="button" data-filter-reset data-inline-action onclick="window.kemitFilter('all')">Tous les produits</button>
       </div>
       <div class="product-grid" data-product-grid></div>
       <p class="catalog-disclaimer">Prix indicatifs selon les formats affichés. La commande, le stock et le prix total sont confirmés par KEMIT avant tout règlement.</p>

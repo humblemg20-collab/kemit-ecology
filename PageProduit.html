@@ -6,7 +6,7 @@
         <div class="product-photo-unavailable" data-product-image-fallback hidden><span>Visuel produit à confirmer</span><strong>Consultez les caractéristiques ci-dessous.</strong></div>
       </div>
       <div class="product-detail-copy">
-        <button class="back-link" type="button" data-route="boutique">← Boutique</button>
+        <button class="back-link" type="button" data-route="boutique" data-inline-action onclick="window.kemitGoTo('boutique')">← Boutique</button>
         <p class="eyebrow" data-product-category></p>
         <h1 data-product-name></h1>
         <p class="product-lead" data-product-description></p>
@@ -29,7 +29,7 @@
           <span>Commande directe</span><span>Confirmation avant paiement</span><span>Livraison selon destination</span>
         </div>
 
-        <button class="btn btn-primary btn-full" type="button" data-whatsapp-order>Commander ce produit sur WhatsApp</button>
+        <button class="btn btn-primary btn-full" type="button" data-whatsapp-order data-inline-action onclick="window.kemitWhatsappOrder()">Commander ce produit sur WhatsApp</button>
         <p class="order-note">KEMIT ECOLOGY confirme la disponibilité, le total et la solution de livraison avant tout règlement.</p>
       </div>
     </div>
@@ -60,7 +60,7 @@
   <section class="section dark-band">
     <div class="shell dark-grid">
       <div><p class="eyebrow light">Professionnels & volumes</p><h2>Un besoin régulier ou une commande importante ?</h2></div>
-      <div><p data-product-professional></p><button class="btn btn-light" type="button" data-product-b2b>Demander un devis pour ce produit</button></div>
+      <div><p data-product-professional></p><button class="btn btn-light" type="button" data-product-b2b data-inline-action onclick="window.kemitProductB2B()">Demander un devis pour ce produit</button></div>
     </div>
   </section>
 

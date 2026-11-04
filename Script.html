@@ -577,6 +577,39 @@ window.KEMIT_PRODUCTS = [{"id": "charbon-ecologique", "name": "KIKIMOUH Charbon 
     document.getElementById("demande-devis")?.scrollIntoView({behavior: "smooth", block: "start"});
   }
 
+  function kemitToggleNav() {
+    document.querySelector("[data-nav]")?.classList.toggle("is-open");
+  }
+
+  function kemitFilter(filter) {
+    activeFilter = filter || "all";
+    document.querySelectorAll("[data-filter]").forEach(x => x.classList.toggle("is-selected", activeFilter !== "all" && x.dataset.filter === activeFilter));
+    renderCatalog();
+  }
+
+  function kemitGoTo(route) {
+    if (route === "boutique") {
+      activeFilter = "all";
+      document.querySelectorAll("[data-filter]").forEach(x => x.classList.remove("is-selected"));
+      renderCatalog();
+    }
+    showPage(route, true);
+  }
+
+  function kemitProductB2B() {
+    if (!currentProduct) return;
+    showPage("professionnels", true);
+    const select = document.querySelector("[data-b2b-product]");
+    if (select) select.value = currentProduct.id;
+    scrollToProfessionalForm();
+  }
+
+  window.kemitToggleNav = kemitToggleNav;
+  window.kemitFilter = kemitFilter;
+  window.kemitGoTo = kemitGoTo;
+  window.kemitProductB2B = kemitProductB2B;
+  window.kemitScrollToProfessionalForm = scrollToProfessionalForm;
+
   function submitProfessionalRequest(form) {
     for (const name of ["company", "destination"]) form.elements.namedItem(name)?.setCustomValidity("");
     if (!form.reportValidity()) return;
@@ -647,6 +680,8 @@ Merci de me confirmer la disponibilité, le total, le paiement et la livraison.`
     window.open("https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(message), "_blank", "noopener");
   }
 
+  window.kemitWhatsappOrder = whatsappOrder;
+
   document.addEventListener("submit", e => {
     const form = e.target.closest("[data-b2b-form]");
     if (!form) return;
@@ -655,6 +690,8 @@ Merci de me confirmer la disponibilité, le total, le paiement et la livraison.`
   });
 
   document.addEventListener("click", e => {
+    if (e.target.closest("[data-inline-action]")) return;
+
     const routeEl = e.target.closest("[data-route]");
     if (routeEl) {
       const route = routeEl.dataset.route;
