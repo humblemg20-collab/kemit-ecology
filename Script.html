@@ -5,6 +5,7 @@ window.KEMIT_PRODUCTS = [{"id": "charbon-ecologique", "name": "KIKIMOUH Charbon 
   "use strict";
 
   const WHATSAPP = "237678420995";
+  const WHATSAPP_BASE = "https:" + String.fromCharCode(47, 47) + "wa.me/";
   let currentProduct = null;
   let selectedFormat = null;
   let activeFilter = "all";
@@ -659,7 +660,7 @@ window.KEMIT_PRODUCTS = [{"id": "charbon-ecologique", "name": "KIKIMOUH Charbon 
       "Merci de me confirmer la faisabilité, la disponibilité, le tarif et les modalités de livraison."
     ].filter((line, index) => line || index < 2).join(String.fromCharCode(10));
     trackKemitIntent("kemit_b2b_quote_click", product.id);
-    window.open("https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(message), "_blank", "noopener");
+    window.open(WHATSAPP_BASE + WHATSAPP + "?text=" + encodeURIComponent(message), "_blank", "noopener");
   }
   function whatsappOrder() {
     if (!currentProduct) return;
@@ -692,7 +693,7 @@ Destination : ${dest}
 Merci de me confirmer la disponibilité, le total, le paiement et la livraison.`;
 
     trackKemitIntent("kemit_retail_order_click", currentProduct.id);
-    window.open("https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(message), "_blank", "noopener");
+    window.open(WHATSAPP_BASE + WHATSAPP + "?text=" + encodeURIComponent(message), "_blank", "noopener");
   }
 
   window.kemitWhatsappOrder = whatsappOrder;
@@ -788,7 +789,7 @@ Merci de me confirmer la disponibilité, le total, le paiement et la livraison.`
     document.querySelectorAll("[data-year]").forEach(el => el.textContent = new Date().getFullYear());
 
     document.querySelectorAll("[data-whatsapp-generic]").forEach(a => {
-      a.href = "https://wa.me/" + WHATSAPP + "?text=" +
+      a.href = WHATSAPP_BASE + WHATSAPP + "?text=" +
         encodeURIComponent("Bonjour KEMIT ECOLOGY, je souhaite vous contacter au sujet de vos produits ou services.");
       a.target = "_blank";
       a.rel = "noopener";
