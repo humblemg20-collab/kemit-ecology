@@ -657,7 +657,7 @@ window.KEMIT_PRODUCTS = [{"id": "charbon-ecologique", "name": "KIKIMOUH Charbon 
       notes ? "Précisions : " + notes : "",
       "",
       "Merci de me confirmer la faisabilité, la disponibilité, le tarif et les modalités de livraison."
-    ].filter((line, index) => line || index < 2).join("\n");
+    ].filter((line, index) => line || index < 2).join(String.fromCharCode(10));
     trackKemitIntent("kemit_b2b_quote_click", product.id);
     window.open("https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(message), "_blank", "noopener");
   }
