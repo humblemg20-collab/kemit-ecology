@@ -812,5 +812,12 @@ Merci de me confirmer la disponibilité, le total, le paiement et la livraison.`
       });
     }, 1200);
   });
+
+  // Apps Script peut injecter ce bloc après DOMContentLoaded. Dans ce cas,
+  // les écouteurs ci-dessus sont déjà passés : hydrate immédiatement les
+  // images présentes dans le DOM pour éviter de laisser src="".
+  if (document.readyState !== "loading") {
+    hydrateImages();
+  }
 })();
 </script>
