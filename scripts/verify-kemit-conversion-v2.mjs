@@ -22,16 +22,20 @@ const app = read("App.html");
 const head = read("Header.html");
 const footer = read("Footer.html");
 const script = read("Script.html");
-const styles = read("Styles.html");
+const styleFiles = ["StylesFoundation.html","StylesMotion.html","StylesExperience.html"];
+const styles = styleFiles.map(read).join("\n");
+const stylesEntry = read("Styles.html");
 const media = read("Media.html");
+const productsModule = read("Products.html");
 const js = strip(script);
 const mediaJs = strip(media);
+const productsJs = strip(productsModule);
 const home = read("PageHome.html");
 const boutique = read("PageBoutique.html");
 const pro = read("PageProfessionnels.html");
 const productPage = read("PageProduit.html");
 const pages = pageNames.map(name => ({name, html:read(name + ".html")}));
-const productMatch = script.match(/window\.KEMIT_PRODUCTS = (\[[^\n]*\]);/);
+const productMatch = productsModule.match(/window\.KEMIT_PRODUCTS = (\[[^\n]*\]);/);
 const mediaMatch = media.match(/window\.KEMIT_MEDIA = (\{[\s\S]*?\});/);
 assert.ok(productMatch, "catalog missing");
 assert.ok(mediaMatch, "media registry missing");
@@ -49,10 +53,16 @@ check("All Apps Script includes are present", () => {
     assert.ok(existsSync(resolve(root,match[1]+".html")),match[1]+".html missing");
   }
   for (const name of pageNames) assert.ok(app.includes('include("'+name+'")'), name);
+  assert.ok(app.indexOf('include("Media")') < app.indexOf('include("Products")'));
+  assert.ok(app.indexOf('include("Products")') < app.indexOf('include("Script")'));
+  for(const name of styleFiles) {
+    assert.ok(stylesEntry.includes('include("'+name.replace(".html","")+'")'),name);
+  }
 });
 check("JavaScript syntax parses", () => {
   new Script(js,{filename:"Script.html"});
   new Script(mediaJs,{filename:"Media.html"});
+  new Script(productsJs,{filename:"Products.html"});
 });
 check("All SPA routes are unique and linked", () => {
   const found = pages.map(p => {
@@ -76,6 +86,7 @@ check("Catalogue unique, with explicit FCFA prices and no hidden products", () =
   assert.ok(!products.some(p=>p.id==="anti-poison"),"withdrawn product still in source");
   assert.ok(!js.includes("usd * 600"),"runtime USD conversion must not return");
   assert.ok(!js.includes("KEMIT_PRODUCTS = window.KEMIT_PRODUCTS.filter"));
+  assert.ok(!js.includes("window.KEMIT_PRODUCTS = ["),"catalog duplicated in runtime code");
   for(const p of products) {
     assert.ok(p.name && p.category && p.formats?.length,p.id);
     for(const format of p.formats) assert.match(format.price,/^[\d\s\u00a0\u202f]+ FCFA$/,"price "+p.id);
