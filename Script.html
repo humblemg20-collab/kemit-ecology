@@ -18,7 +18,7 @@
     (root || active || document).querySelectorAll("img[data-media]").forEach(img => {
       const key = img.dataset.media;
       const source = (window.KEMIT_MEDIA || {})[key] || "";
-      const host = img.closest(".photo-mat, .page-hero-media, .activity-card.with-photo, .boutique-editorial-media");
+      const host = img.closest(".photo-mat, .page-hero-media, .activity-card.with-photo, .boutique-editorial-media, .sf-image-frame, .sf-hero-media");
       const mediaCard = img.closest("[data-media-card]");
 
       const setMediaState = (loaded, failed) => {
@@ -77,9 +77,13 @@
         return;
       }
       video.hidden = false;
+      // Posters keep the documentary footage visually meaningful before playback.
+      const posterKey = video.dataset.posterMedia;
+      const poster = posterKey && (window.KEMIT_MEDIA || {})[posterKey];
+      if (poster && video.getAttribute("poster") !== poster) video.poster = poster;
       if (video.getAttribute("src") !== url) {
-        video.src = url;
         video.preload = "none";
+        video.src = url;
       }
     });
   }
@@ -771,6 +775,15 @@ Merci de me confirmer la disponibilité, le total, le paiement et la livraison.`
   });
 
   document.addEventListener("click", e => {
+    const stepJump = e.target.closest("[data-sf-scroll]");
+    if (stepJump) {
+      e.preventDefault();
+      const destination = document.getElementById(stepJump.dataset.sfScroll);
+      if (destination && destination.closest(".app-page.is-active")) {
+        destination.scrollIntoView({behavior:prefersReducedMotion() ? "auto" : "smooth",block:"start"});
+      }
+      return;
+    }
     if (e.target.closest("[data-inline-action]")) return;
 
     const routeEl = e.target.closest("[data-route]");
