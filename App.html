@@ -6,7 +6,35 @@
   <meta name="description" content="<?= initialDescription ?>">
   <meta name="theme-color" content="#0d3b2e">
   <title>KEMIT ECOLOGY</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://raw.githubusercontent.com" crossorigin>
+  <link rel="dns-prefetch" href="//img-thumb.mailinblue.com">
   <?!= include("Styles"); ?>
+  <?!= include("Media"); ?>
+  <script>
+    // Fetch the active route's lead visual before the rest of the SPA parses.
+    (function () {
+      var hashRoute = window.location.hash.replace(/^#/, "").split("/")[0];
+      var queryRoute = new URLSearchParams(window.location.search).get("page");
+      var route = hashRoute || queryRoute || "home";
+      var key = ({
+        home: "media-home-team",
+        boutique: "product-montage",
+        professionnels: "media-home-production",
+        "savoir-faire": "media-home-production",
+        histoire: "photo-team-history",
+        livraison: "photo-delivery"
+      })[route];
+      var url = key && window.KEMIT_MEDIA && window.KEMIT_MEDIA[key];
+      if (!url) return;
+      var link = document.createElement("link");
+      link.rel = "preload";
+      link.as = "image";
+      link.href = url;
+      link.setAttribute("fetchpriority", "high");
+      document.head.appendChild(link);
+    })();
+  </script>
 </head>
 
 <body data-initial-route="<?= initialRoute ?>">
@@ -32,7 +60,6 @@
   </main>
 
   <?!= include("Footer"); ?>
-  <?!= include("Media"); ?>
   <?!= include("Products"); ?>
   <?!= include("Script"); ?>
 </body>
