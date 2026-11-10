@@ -443,7 +443,6 @@ window.KEMIT_PRODUCTS = [{"id": "charbon-ecologique", "name": "KIKIMOUH Charbon 
     "charbon-ecologique": "Passez d'un besoin de combustible à une chaleur issue de biomasses transformées.",
     "biochar": "Donnez à votre projet agricole une ressource carbonée pensée pour la gestion des sols.",
     "charbon-actif-industriel": "Cadrez votre besoin de traitement avec une référence à valider selon votre application.",
-    "anti-poison": "Choisissez un format pratique et vérifiez l'usage adapté avant toute utilisation liée à la santé.",
     "savon-charbon": "Simplifiez le nettoyage quotidien avec un soin cosmétique au charbon, simple à intégrer.",
     "masque-charbon": "Complétez votre routine avec un soin cosmétique au charbon, facile à préparer et à utiliser."
   };
@@ -821,4 +820,7 @@ Merci de me confirmer la disponibilité, le total, le paiement et la livraison.`
     hydrateImages();
   }
 })();
+window.KEMIT_PRODUCTS = window.KEMIT_PRODUCTS.filter(function (product) {
+  return product.id !== "anti-poison";
+});
 </script>
