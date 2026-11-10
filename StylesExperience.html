@@ -288,4 +288,38 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
     filter:none !important;
   }
 }
+
+/* Homepage / story: preserve both people and the captions in the original
+   two-photo montage. The previous 1:1.1 cover crop cut the image edges. */
+.home-team-section .home-team-grid figure {
+  background:#f0f4ec;
+  overflow:hidden;
+}
+.home-team-section .home-team-grid figure img {
+  display:block;
+  width:100%;
+  height:auto;
+  aspect-ratio:auto;
+  max-height:none;
+  object-fit:contain;
+  object-position:center;
+  filter:none;
+}
+@media (min-width:900px) {
+  .home-team-section .home-team-grid {
+    grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+    gap:clamp(35px,4.5vw,72px);
+  }
+}
+@media (max-width:899px) {
+  .home-team-section .home-team-grid {
+    grid-template-columns:1fr;
+    gap:34px;
+  }
+  .home-team-section .home-team-grid figure {
+    width:100%;
+    max-width:680px;
+    margin-inline:auto;
+  }
+}
 </style>
