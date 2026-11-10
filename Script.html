@@ -823,4 +823,11 @@ Merci de me confirmer la disponibilité, le total, le paiement et la livraison.`
 window.KEMIT_PRODUCTS = window.KEMIT_PRODUCTS.filter(function (product) {
   return product.id !== "anti-poison";
 });
+window.KEMIT_PRODUCTS.forEach(function (product) {
+  product.formats = product.formats.map(function (format) {
+    var usd = Number(String(format.price).replace(/[^0-9.]/g, ""));
+    var fcfa = Math.round(usd * 600 / 100) * 100;
+    return Object.assign({}, format, { price: fcfa.toLocaleString("fr-FR") + " FCFA" });
+  });
+});
 </script>
