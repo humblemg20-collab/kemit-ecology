@@ -5,3 +5,9 @@ docs/**
 scripts/**
 assets/**
 hostinger/**
+DESIGN.md
+premium-ui.json
+.github/**
+.env
+.env.*
+*.zip
