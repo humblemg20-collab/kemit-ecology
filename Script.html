@@ -63,7 +63,9 @@
         img.src = source;
         setMediaState(false, false);
       }
-      if (img.complete) setMediaState(img.naturalWidth > 0, img.naturalWidth === 0);
+      // A lazy image can temporarily report complete with no decoded bitmap.
+      // Only a real error event should mark a remotely hosted image unavailable.
+      if (img.complete && img.naturalWidth > 0) setMediaState(true, false);
     });
   }
 
