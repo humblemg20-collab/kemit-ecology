@@ -9,7 +9,7 @@ Application monopage (SPA) en français, avec routes par hash, catalogue produit
 - `Code.js` : point d'entrée Apps Script `doGet`, rendu du template et inclusion HTML.
 - `App.html` : squelette HTML et ordre de chargement.
 - `Styles.html` : orchestration des trois modules CSS, **sans modifier leur ordre**.
-- `StylesFoundation.html` : styles de base ; `StylesMotion.html` : animations et compositions ; `StylesExperience.html` : pages, commerce et savoir-faire.
+- `StylesFoundation.html` : styles de base ; `StylesMotion.html` : animations et compositions ; `StylesExperience.html` : pages et commerce ; `StylesSavoirFaire.html` : direction visuelle dédiée à la page Savoir-faire.
 - `Media.html` : registre **unique** des URL d'images et de vidéos, avec clés `data-media` / `data-video-media`.
 - `Products.html` : **source unique des cinq produits publiés**, prix explicites en FCFA.
 - `Script.html` : navigation, catalogue, interactions, formulaire professionnel, motion et chargement des médias.
@@ -23,6 +23,14 @@ Application monopage (SPA) en français, avec routes par hash, catalogue produit
 `#home`, `#boutique`, `#produit/<id>`, `#professionnels`, `#savoir-faire`, `#histoire`, `#livraison`, `#faq`, `#contact`.
 
 Un appel `/exec?page=boutique` ou `/exec?page=produit&id=biochar` choisit une route initiale. La navigation interne utilise ensuite les fragments `#...`. Les titres et descriptions sont mis à jour côté client pour chaque page ; **cela ne remplace pas un véritable rendu SEO multi-URL**.
+
+### Page Savoir-faire — refonte éditoriale
+
+La route `#savoir-faire` conserve les 5 étapes et les deux vidéos terrain, mais utilise maintenant un parcours documentaire immersif : hero photographique, manifeste de transformation, navigation entre les cinq chapitres, grande alternance photo/texte, vidéos avec affiches et double CTA commercial.
+
+Le code reste isolé dans `PageSavoirFaire.html` et `StylesSavoirFaire.html`. Les boutons internes `data-sf-scroll` déclenchent un `scrollIntoView` sans changer la route hash de la SPA. Les vidéos utilisent `data-video-media` et `data-poster-media` ; les images utilisent `data-media`. Ne pas remettre d'URL média directement dans la page.
+
+Les photographies et le contenu restent issus des références existantes. Les images non chargées ont un fond visible et un repli en cas d'erreur réseau. Les étapes 02 et 03 contiennent encore des images relativement lourdes, à optimiser séparément après validation des originaux.
 
 ### Images et vidéos
 
