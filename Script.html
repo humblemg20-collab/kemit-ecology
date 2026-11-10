@@ -471,7 +471,11 @@
         showPage("boutique", true);
         return;
       }
-      openProduct(productId, false);
+      document.querySelector("[data-nav]")?.classList.remove("is-open");
+      document.querySelector("[data-nav-toggle]")?.setAttribute("aria-expanded", "false");
+      // The product handler owns hash, metadata, scroll and motion replay.
+      openProduct(productId, updateHash);
+      return;
     }
 
     if (updateHash && location.hash !== "#" + route) {
@@ -545,7 +549,10 @@
 
   function openProduct(id, updateHash=true) {
     const product = window.KEMIT_PRODUCTS.find(p => p.id === id);
-    if (!product) return;
+    if (!product) {
+      showPage("boutique", updateHash);
+      return;
+    }
     currentProduct = product;
     selectedFormat = product.formats?.[0] || null;
 
