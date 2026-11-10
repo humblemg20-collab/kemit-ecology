@@ -14,7 +14,8 @@
 
   // KEMIT MEDIA — single source of truth, network-aware loading state.
   function hydrateImages(root) {
-    (root || document).querySelectorAll("img[data-media]").forEach(img => {
+    const active = document.querySelector(".app-page.is-active");
+    (root || active || document).querySelectorAll("img[data-media]").forEach(img => {
       const key = img.dataset.media;
       const source = (window.KEMIT_MEDIA || {})[key] || "";
       const host = img.closest(".photo-mat, .page-hero-media, .activity-card.with-photo, .boutique-editorial-media");
@@ -67,7 +68,8 @@
   }
 
   function hydrateVideos(root) {
-    (root || document).querySelectorAll("video[data-video-media]").forEach(video => {
+    const active = document.querySelector(".app-page.is-active");
+    (root || active || document).querySelectorAll("video[data-video-media]").forEach(video => {
       const url = (window.KEMIT_MEDIA || {})[video.dataset.videoMedia] || "";
       if (!url) {
         video.hidden = true;
@@ -485,6 +487,9 @@
     document.querySelector("[data-nav]")?.classList.remove("is-open");
     document.querySelector("[data-nav-toggle]")?.setAttribute("aria-expanded", "false");
     updateRouteMeta(page, page === "produit" ? currentProduct : null);
+    // Do not start downloads for pages hidden by the SPA router.
+    hydrateImages();
+    hydrateVideos();
     window.scrollTo({top:0,left:0,behavior:"auto"});
     refreshMotion(true);
   }
@@ -844,8 +849,6 @@ Merci de me confirmer la disponibilité, le total, le paiement et la livraison.`
   function bootKemitSite() {
     if (siteInitialized) return;
     siteInitialized = true;
-    hydrateImages();
-    hydrateVideos();
     renderCatalog();
     populateProfessionalProducts();
     initMotion();
