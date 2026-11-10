@@ -2,11 +2,11 @@
   <div class="shell header-inner">
     <?!= include("Logo"); ?>
 
-    <button class="nav-toggle" type="button" aria-label="Ouvrir le menu" data-nav-toggle data-inline-action onclick="window.kemitToggleNav()">
+    <button class="nav-toggle" type="button" aria-label="Ouvrir le menu" aria-controls="kemit-main-nav" aria-expanded="false" data-nav-toggle data-inline-action onclick="window.kemitToggleNav()">
       <span></span><span></span>
     </button>
 
-    <nav class="main-nav" data-nav>
+    <nav id="kemit-main-nav" class="main-nav" data-nav>
       <a href="#home" data-route="home">Accueil</a>
       <a href="#boutique" data-route="boutique">Boutique</a>
       <a href="#professionnels" data-route="professionnels">Professionnels</a>
