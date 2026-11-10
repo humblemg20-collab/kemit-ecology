@@ -100,11 +100,15 @@
 .sf-page .sf-process-head h2{font-size:clamp(59px,6.4vw,100px);line-height:.94;margin:0}
 .sf-page .sf-process-head h2 em{color:#536f50}
 .sf-page .sf-process-head>p{font-size:16px;line-height:1.75;max-width:400px;margin:0 0 9px;color:#566259}
+.sf-page .sf-process-index-wrap{
+  position:sticky;top:72px;z-index:15;
+  background:rgba(240,242,235,.96);
+  backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);
+}
 .sf-page .sf-process-nav{
   display:flex;align-items:center;gap:0;overflow-x:auto;scrollbar-width:thin;
-  position:sticky;top:72px;z-index:15;background:rgba(240,242,235,.94);
+  background:transparent;
   border-top:1px solid #b9c7b6;border-bottom:1px solid #b9c7b6;
-  backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);
 }
 .sf-page .sf-process-nav button{
   flex:1 0 auto;min-height:69px;display:flex;align-items:center;gap:13px;padding:12px 19px;
@@ -219,7 +223,7 @@
   .sf-page .sf-intro-layout{grid-template-columns:160px minmax(0,1fr);gap:38px}
   .sf-page .sf-step-layout{gap:36px}
   .sf-page .sf-step h3{font-size:clamp(45px,5vw,63px)}
-  .sf-page .sf-process-nav{top:64px}
+  .sf-page .sf-process-index-wrap{top:64px}
 }
 @media(max-width:760px){
   .sf-page .sf-hero,.sf-page .sf-hero-content{min-height:680px}
@@ -240,7 +244,7 @@
   .sf-page .sf-process{padding-top:86px}
   .sf-page .sf-process-head,.sf-page .sf-field-heading,.sf-page .sf-outro-layout{grid-template-columns:1fr;gap:28px}
   .sf-page .sf-process-head h2{font-size:clamp(57px,8vw,76px)}
-  .sf-page .sf-process-nav{top:64px}
+  .sf-page .sf-process-index-wrap{top:64px}
   .sf-page .sf-process-nav button{min-height:57px;padding:10px 14px}
   .sf-page .sf-step{padding:67px 0;scroll-margin-top:131px}
   .sf-page .sf-step-layout{grid-template-columns:1fr;gap:29px}
@@ -277,7 +281,7 @@
   .sf-page .sf-film figcaption{display:grid;gap:7px}
   .sf-page .sf-outro-actions{flex-direction:column;align-items:stretch}
   .sf-page .sf-outro-footer{flex-direction:column;gap:10px}
-  .sf-page .sf-process-nav{top:64px}
+  .sf-page .sf-process-index-wrap{top:64px}
 }
 @media(prefers-reduced-motion:reduce){
   .sf-page .sf-button,.sf-page .sf-image-frame img{transition:none!important}
