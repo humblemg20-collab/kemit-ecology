@@ -22,7 +22,7 @@ const app = read("App.html");
 const head = read("Header.html");
 const footer = read("Footer.html");
 const script = read("Script.html");
-const styleFiles = ["StylesFoundation.html","StylesMotion.html","StylesExperience.html"];
+const styleFiles = ["StylesFoundation.html","StylesMotion.html","StylesExperience.html","StylesSavoirFaire.html"];
 const styles = styleFiles.map(read).join("\n");
 const stylesEntry = read("Styles.html");
 const media = read("Media.html");
@@ -172,6 +172,32 @@ check("Only active page media are hydrated; lead visual is preloaded early", () 
   assert.ok(styles.includes('.home-cinematic-hero .hero-photo.reveal-item'));
 });
 
+check("Savoir-faire is a complete, linked and responsive editorial experience", () => {
+  const craft = read("PageSavoirFaire.html");
+  const craftStyle = read("StylesSavoirFaire.html");
+  assert.ok(app.includes('include("Styles")'));
+  assert.ok(stylesEntry.includes('include("StylesSavoirFaire")'),"Savoir-faire CSS not included");
+  assert.match(craft,/class="app-page savoir-faire-page sf-page" data-page="savoir-faire"/);
+  for (let n=1;n<=5;n++) {
+    const key=String(n).padStart(2,"0");
+    assert.ok(craft.includes('id="sf-step-'+key+'"'),"missing step "+key);
+    assert.ok(craft.includes('id="sf-step-title-'+key+'"'),"missing title "+key);
+  }
+  const ids=new Set([...craft.matchAll(/id="([^"]+)"/g)].map(m=>m[1]));
+  const jumps=[...craft.matchAll(/data-sf-scroll="([^"]+)"/g)].map(m=>m[1]);
+  assert.equal(jumps.length,7,"five steps and two in-page controls expected");
+  for(const id of jumps) assert.ok(ids.has(id),"unknown scroll target "+id);
+  assert.ok(js.includes('e.target.closest("[data-sf-scroll]")'),"scroll controls missing");
+  assert.ok(js.includes('video.dataset.posterMedia'),"video poster support missing");
+  assert.equal((craft.match(/data-video-media="/g)||[]).length,2);
+  assert.equal((craft.match(/data-poster-media="/g)||[]).length,2);
+  assert.ok(craftStyle.includes(".sf-page .sf-step-layout"));
+  assert.ok(craftStyle.includes(".sf-page .sf-process-index-wrap"));
+  assert.ok(craftStyle.includes("@media(max-width:760px)"));
+  assert.ok(craftStyle.includes("prefers-reduced-motion:reduce"));
+  assert.ok(js.includes(".sf-image-frame, .sf-hero-media"),"image fallback missing");
+  assert.ok(!js.includes("img.naturalWidth === 0"),"lazy-loaded images should not be treated as failed prematurely");
+});
 check("Reduced motion and keyboard focus remain supported", () => {
   assert.ok(styles.includes("prefers-reduced-motion"));
   assert.ok(styles.includes(":focus-visible"));
