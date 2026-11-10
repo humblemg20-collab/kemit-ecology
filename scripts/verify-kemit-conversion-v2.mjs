@@ -160,6 +160,18 @@ check("Accessible mobile menu and intentional image loading", () => {
   assert.ok(boutique.includes('fetchpriority="high"'));
   assert.ok(productPage.includes('fetchpriority="high"'));
 });
+check("Only active page media are hydrated; lead visual is preloaded early", () => {
+  assert.equal((app.match(/include\("Media"\)/g) || []).length, 1);
+  assert.ok(app.indexOf('include("Media")') < app.indexOf('</head>'));
+  assert.ok(app.includes('rel="preconnect" href="https://cdn.jsdelivr.net"'));
+  assert.ok(app.includes('link.rel = "preload"'));
+  assert.ok(app.includes('link.as = "image"'));
+  assert.ok(js.includes('root || active || document'),"media hydration should scope to active route");
+  assert.ok(js.includes('hydrateImages();\n    hydrateVideos();\n    window.scrollTo'),"media hydration must run after route activation");
+  assert.ok(!js.includes('siteInitialized = true;\n    hydrateImages();'),"inactive pages must not hydrate on boot");
+  assert.ok(styles.includes('.home-cinematic-hero .hero-photo.reveal-item'));
+});
+
 check("Reduced motion and keyboard focus remain supported", () => {
   assert.ok(styles.includes("prefers-reduced-motion"));
   assert.ok(styles.includes(":focus-visible"));
