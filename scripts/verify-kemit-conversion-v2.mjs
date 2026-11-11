@@ -22,7 +22,7 @@ const app = read("App.html");
 const head = read("Header.html");
 const footer = read("Footer.html");
 const script = read("Script.html");
-const styleFiles = ["StylesFoundation.html","StylesMotion.html","StylesExperience.html","StylesSavoirFaire.html"];
+const styleFiles = ["StylesFoundation.html","StylesMotion.html","StylesExperience.html","StylesSavoirFaire.html","StylesReadability.html"];
 const styles = styleFiles.map(read).join("\n");
 const stylesEntry = read("Styles.html");
 const media = read("Media.html");
@@ -197,6 +197,16 @@ check("Savoir-faire is a complete, linked and responsive editorial experience", 
   assert.ok(craftStyle.includes("prefers-reduced-motion:reduce"));
   assert.ok(js.includes(".sf-image-frame, .sf-hero-media"),"image fallback missing");
   assert.ok(!js.includes("img.naturalWidth === 0"),"lazy-loaded images should not be treated as failed prematurely");
+});
+check("Readable typography keeps primary text and forms accessible", () => {
+  const sheet = read("StylesReadability.html");
+  assert.ok(stylesEntry.includes('include("StylesReadability")'));
+  assert.ok(sheet.includes(".main-nav a{"));
+  assert.ok(sheet.includes(".app-page .product-card-description"));
+  assert.ok(sheet.includes(".app-page .faq-group details>p"));
+  assert.ok(sheet.includes(".site-footer .footer-grid p"));
+  assert.ok(sheet.includes("font-size:16px!important"));
+  assert.ok(sheet.includes("@media(max-width:650px)"));
 });
 check("Reduced motion and keyboard focus remain supported", () => {
   assert.ok(styles.includes("prefers-reduced-motion"));
