@@ -1,0 +1,116 @@
+<style>
+/*
+ * KEMIT ECOLOGY — mobile swipe rows
+ * Keeps desktop grids untouched. The JS adds .kemit-swipe-row to actual card
+ * collections, and provides accessible previous/next controls.
+ * Do not apply to hero columns, professional forms, address blocks, footer,
+ * or the two independently controlled animated homepage marquees.
+ */
+.kemit-swipe-toolbar{display:none}
+@media(max-width:767px){
+  .app-page .kemit-swipe-row{
+    display:grid!important;
+    grid-template-columns:none!important;
+    grid-template-rows:none!important;
+    grid-auto-flow:column!important;
+    grid-auto-columns:minmax(0,min(80vw,320px))!important;
+    grid-auto-rows:auto!important;
+    align-items:stretch!important;
+    justify-content:start!important;
+    gap:12px!important;
+    width:auto;
+    max-width:100%!important;
+    min-width:0!important;
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    scroll-snap-type:x mandatory;
+    scroll-padding-inline:4px;
+    overscroll-behavior-x:contain;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:thin;
+    scrollbar-color:#788f80 transparent;
+    padding:4px 4px 14px!important;
+  }
+  .app-page .kemit-swipe-row > *{
+    min-width:0!important;
+    max-width:100%!important;
+    grid-column:auto!important;
+    grid-row:auto!important;
+    scroll-snap-align:start;
+    scroll-snap-stop:normal;
+  }
+  .app-page .kemit-swipe-row > :is(article,figure,a,button){
+    height:auto;
+  }
+  .app-page .kemit-swipe-row :is(a,button):focus-visible{
+    outline-offset:-3px;
+  }
+  /* Smaller informational cards reveal a piece of the following slide. */
+  .app-page :is(
+    .home-category-grid,.home-process-grid,.use-grid,.steps-grid,
+    .zones-grid,.process-strip,.three-values,.product-info-grid,
+    .boutique-conversion-grid,.professional-use-grid
+  ).kemit-swipe-row{
+    grid-auto-columns:minmax(0,min(74vw,285px))!important;
+  }
+  /* Image-rich galleries retain landscape-friendly card dimensions. */
+  .app-page :is(
+    .kemit-gallery-grid,.professional-proof-gallery,
+    .home-team-pro-gallery,.sf-film-grid
+  ).kemit-swipe-row{
+    grid-auto-columns:minmax(0,min(84vw,355px))!important;
+  }
+  /* Product and contact cards have readable widths and no clipped actions. */
+  .app-page :is(.product-grid,.contact-grid,.story-grid,.faq-layout)
+    .kemit-swipe-row{min-width:0}
+  .app-page :is(.product-grid,.contact-grid,.story-grid,.faq-layout).kemit-swipe-row{
+    grid-auto-columns:minmax(0,min(83vw,350px))!important;
+  }
+  .app-page .home-team-pro-gallery.kemit-swipe-row .home-team-pro-card-main{
+    grid-column:auto!important;grid-row:auto!important;
+  }
+  .app-page .home-process-grid.kemit-swipe-row article{
+    border-right:0!important;
+    border-bottom:0!important;
+    margin:0!important;
+    padding:20px 14px!important;
+  }
+  .app-page .steps-grid.kemit-swipe-row::before,
+  .app-page .process-strip.kemit-swipe-row::before{
+    display:none!important;
+  }
+  .app-page .kemit-swipe-toolbar{
+    display:flex;justify-content:space-between;align-items:center;
+    gap:8px;margin:13px 0 9px;
+    min-width:0;
+  }
+  .app-page .kemit-swipe-toolbar.is-wide{
+    width:calc(100% - 28px);max-width:1180px;
+    margin-left:auto;margin-right:auto;
+  }
+  .app-page .kemit-swipe-toolbar[hidden]{display:none!important}
+  .kemit-swipe-hint{
+    color:#44594e;font-size:13px;font-weight:650;line-height:1.45;
+  }
+  .kemit-swipe-actions{display:flex;align-items:center;gap:7px;flex-shrink:0}
+  .kemit-swipe-arrow{
+    display:grid;place-items:center;width:44px;height:44px;
+    border:1px solid #a5b8ab;border-radius:50%;
+    color:#183a2c;background:#fff;
+    font:700 25px/1 system-ui,sans-serif;
+    cursor:pointer;-webkit-tap-highlight-color:transparent;
+  }
+  .kemit-swipe-arrow:disabled{
+    opacity:.35;cursor:default;
+  }
+  .kemit-swipe-arrow:focus-visible{
+    outline:3px solid #587d4e;outline-offset:2px;
+  }
+  .app-page .kemit-swipe-row:focus-visible{
+    outline:2px solid #587d4e;outline-offset:2px;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .app-page .kemit-swipe-row{scroll-behavior:auto!important}
+}
+</style>
