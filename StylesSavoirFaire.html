@@ -142,6 +142,11 @@
   transition:transform .8s cubic-bezier(.2,.75,.25,1),filter .6s ease;filter:saturate(.85);
 }
 .sf-page .sf-step-visual:hover img{transform:scale(1.035);filter:saturate(1)}
+/* La vidéo reste dans le cadre photographique existant, sans agrandissement ni recadrage. */
+.sf-page .sf-image-frame video{
+  position:absolute;inset:0;display:block;width:100%;height:100%;
+  object-fit:contain;object-position:center;background:#172d22;
+}
 .sf-page .sf-image-frame .kemit-photo-fallback{
   position:absolute;inset:0;z-index:1;min-height:100%;padding:32px;
   background:linear-gradient(135deg,#234333,#10251c);color:#e8f0de;font-size:15px;
