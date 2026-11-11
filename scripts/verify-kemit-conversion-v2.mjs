@@ -22,7 +22,7 @@ const app = read("App.html");
 const head = read("Header.html");
 const footer = read("Footer.html");
 const script = read("Script.html");
-const styleFiles = ["StylesFoundation.html","StylesMotion.html","StylesExperience.html","StylesSavoirFaire.html","StylesMobileLite.html"];
+const styleFiles = ["StylesFoundation.html","StylesMotion.html","StylesExperience.html","StylesSavoirFaire.html","StylesMobileLite.html","StylesDesktopFocus.html"];
 const styles = styleFiles.map(read).join("\n");
 const stylesEntry = read("Styles.html");
 const media = read("Media.html");
@@ -208,11 +208,27 @@ check("Mobile essentials preserve access and avoid hidden media downloads", () =
   assert.ok(mobileCSS.includes('.app-page[data-page="produit"] > section:nth-of-type(5)'));
   assert.ok(head.includes('data-route="faq" class="mobile-only-route"'));
   assert.ok(head.includes('data-route="histoire" class="mobile-only-route"'));
-  assert.ok(js.includes("mediaHiddenOnMobile(img)"));
-  assert.ok(js.includes("mediaHiddenOnMobile(video)"));
+  assert.ok(js.includes("mediaHiddenByLayout(img)"));
+  assert.ok(js.includes("mediaHiddenByLayout(video)"));
   assert.ok(js.includes("function mobileLiteActive()"));
   assert.ok(pro.includes('data-b2b-form'));
   assert.ok(productPage.includes('data-whatsapp-order'));
+});
+check("Desktop focus removes redundant blocks without removing purchase or quote paths", () => {
+  const desktopCSS = read("StylesDesktopFocus.html");
+  assert.ok(stylesEntry.includes('include("StylesDesktopFocus")'));
+  assert.ok(desktopCSS.includes("@media (min-width:981px)"));
+  assert.ok(desktopCSS.includes('section[data-desktop-optional]'));
+  for (const name of ["PageHome","PageBoutique","PageProduit","PageProfessionnels",
+                       "PageSavoirFaire","PageHistoire","PageLivraison"]) {
+    assert.ok(read(name+".html").includes("data-desktop-optional"),name);
+  }
+  assert.ok(!pro.includes('id="demande-devis" data-desktop-optional'));
+  assert.ok(pro.includes('id="demande-devis"'));
+  assert.ok(productPage.includes('data-whatsapp-order'));
+  assert.ok(js.includes("function mediaHiddenByLayout("));
+  assert.ok(js.includes("function pauseInactiveVideos("));
+  assert.ok(js.includes('window.matchMedia("(min-width: 981px)")'));
 });
 check("Reduced motion and keyboard focus remain supported", () => {
   assert.ok(styles.includes("prefers-reduced-motion"));
