@@ -1,4 +1,6 @@
 <style>
+/* Mobile-only links must never appear on the desktop navigation. */
+.main-nav .mobile-only-route{display:none}
 /*
  * KEMIT ECOLOGY — Mobile Essentiel V1
  * Progressive visual simplification only up to 767px.
@@ -32,6 +34,7 @@
   }
   .header-inner,.site-header.is-scrolled .header-inner{height:62px!important}
   .main-nav{top:62px!important;max-height:calc(100dvh - 72px);overflow-y:auto}
+  .main-nav.is-open .mobile-only-route{display:block!important}
   .shell{width:calc(100% - 32px)!important;max-width:100%!important}
   .section,.page-hero,.page-hero.compact,.product-detail-hero{
     padding:30px 0!important
