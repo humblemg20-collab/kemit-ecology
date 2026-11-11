@@ -12,18 +12,6 @@
 
   const pages = () => Array.from(document.querySelectorAll("[data-page]"));
 
-  function mobileLiteActive() {
-    return !!(window.matchMedia && window.matchMedia("(max-width: 767px)").matches);
-  }
-
-  function mediaHiddenOnMobile(element) {
-    if (!mobileLiteActive()) return false;
-    for (let node = element; node && node !== document.documentElement; node = node.parentElement) {
-      if (window.getComputedStyle(node).display === "none") return true;
-    }
-    return false;
-  }
-
   // KEMIT MEDIA — single source of truth, network-aware loading state.
   // Prewarm small, page-leading photographs so navigation can reuse browser cache.
   // Large editorial PNGs remain lazy and should be delivered as compressed WebP/AVIF.
@@ -41,7 +29,6 @@
     const key = ROUTE_HERO_MEDIA[String(route || "").split("/")[0]];
     const url = key && (window.KEMIT_MEDIA || {})[key];
     if (!url || warmedHeroImages.has(url)) return;
-    if (mobileLiteActive() && !["home", "savoir-faire"].includes(String(route).split("/")[0])) return;
     const img = new Image();
     img.decoding = "async";
     img.fetchPriority = "low";
@@ -61,8 +48,6 @@
   document.addEventListener("touchstart", event => warmNavigationTarget(event.target), {passive:true});
 
   function warmLikelyNextHeroes(activeRoute) {
-    // On mobile, skip background prefetches to prioritize the active page.
-    if (mobileLiteActive()) return;
     const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
     if (connection && (connection.saveData || /^(slow-2g|2g|3g)$/.test(connection.effectiveType || ""))) return;
     const suggested = ["boutique", "professionnels", "savoir-faire", "home", "histoire"];
@@ -82,7 +67,6 @@
   function hydrateImages(root) {
     const active = document.querySelector(".app-page.is-active");
     (root || active || document).querySelectorAll("img[data-media]").forEach(img => {
-      if (mediaHiddenOnMobile(img)) return;
       const key = img.dataset.media;
       const source = (window.KEMIT_MEDIA || {})[key] || "";
       const host = img.closest(".photo-mat, .page-hero-media, .activity-card.with-photo, .boutique-editorial-media, .sf-image-frame, .sf-hero-media");
@@ -139,7 +123,6 @@
   function hydrateVideos(root) {
     const active = document.querySelector(".app-page.is-active");
     (root || active || document).querySelectorAll("video[data-video-media]").forEach(video => {
-      if (mediaHiddenOnMobile(video)) return;
       const url = (window.KEMIT_MEDIA || {})[video.dataset.videoMedia] || "";
       if (!url) {
         video.hidden = true;
@@ -165,12 +148,11 @@
   let motionScrollRaf = 0;
 
   function prefersReducedMotion() {
-    return mobileLiteActive() || !!(window.matchMedia &&
+    return !!(window.matchMedia &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches);
   }
 
   function ensureAmbientLayer(root) {
-    if (mobileLiteActive()) return;
     if (!root || root.querySelector(":scope > .kemit-ambient")) return;
     root.classList.add("has-kemit-ambient");
     const layer = document.createElement("div");
@@ -181,7 +163,6 @@
   }
 
   function ensureScrollProgress() {
-    if (mobileLiteActive()) return;
     if (document.querySelector(".kemit-scroll-progress")) return;
     const bar = document.createElement("div");
     bar.className = "kemit-scroll-progress";
@@ -318,12 +299,6 @@
     const scope = root || document;
     const replay = !!(options && options.replay);
 
-    // Keep all content visible without creating reveal/tilt observers on mobile.
-    if (mobileLiteActive()) {
-      scope.querySelectorAll(".reveal-item").forEach(el => el.classList.add("is-visible"));
-      return;
-    }
-
     decorateMotion(scope);
     enhanceMotionClasses(scope);
     registerTiltTargets(scope);
@@ -377,7 +352,6 @@
 
   function updateScrollMotion() {
     motionScrollRaf = 0;
-    if (mobileLiteActive()) return;
     const activePage = document.querySelector(".app-page.is-active");
     if (!activePage) return;
 
@@ -431,10 +405,6 @@
     window.requestAnimationFrame(() => {
       const activePage = document.querySelector(".app-page.is-active");
       if (!activePage) return;
-      if (mobileLiteActive()) {
-        activePage.querySelectorAll(".reveal-item").forEach(el => el.classList.add("is-visible"));
-        return;
-      }
       ensureAmbientLayer(activePage);
       if (replay && motionObserver) motionObserver.disconnect();
       if (replay) resetInactivePageMotion(activePage);
@@ -958,18 +928,6 @@ Merci de me confirmer la disponibilité, le total, le paiement et la livraison.`
   });
 
   window.addEventListener("hashchange", () => showPage(routeFromHash(), false));
-
-  // Newly visible images are hydrated if the viewport switches to desktop.
-  if (window.matchMedia) {
-    const mobileMedia = window.matchMedia("(max-width: 767px)");
-    const onViewportChange = () => {
-      hydrateImages();
-      hydrateVideos();
-      refreshMotion(false);
-    };
-    if (mobileMedia.addEventListener) mobileMedia.addEventListener("change", onViewportChange);
-    else if (mobileMedia.addListener) mobileMedia.addListener(onViewportChange);
-  }
 
   let siteInitialized = false;
   function bootKemitSite() {
