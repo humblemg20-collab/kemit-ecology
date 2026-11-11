@@ -19,6 +19,9 @@
       // Apps Script's sandbox URL may not carry the original ?page=... query.
       // Use the initial route provided by doGet to preload the correct hero.
       var route = hashRoute || "<?= initialRoute ?>".split("/")[0] || "home";
+      // The compact mobile layout omits these decorative lead images.
+      if (window.matchMedia && window.matchMedia("(max-width: 767px)").matches &&
+          route !== "home" && route !== "savoir-faire") return;
       var key = ({
         home: "media-home-team",
         boutique: "product-montage",
