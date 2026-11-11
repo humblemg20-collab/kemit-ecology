@@ -44,6 +44,7 @@
       const limit = Math.max(0, grid.scrollWidth - grid.clientWidth);
       const usable = mobile && grid.closest(".app-page.is-active") && limit > 6;
       toolbar.hidden = !usable;
+      grid.tabIndex = mobile ? 0 : -1;
       previous.disabled = !usable || grid.scrollLeft <= 5;
       next.disabled = !usable || grid.scrollLeft >= limit - 5;
     });
@@ -63,7 +64,7 @@
         if (grid.classList.contains("kemit-swipe-row")) return;
         grid.classList.add("kemit-swipe-row");
         if (!grid.id) grid.id = "kemit-swipe-row-" + (++index);
-        grid.tabIndex = 0;
+        grid.tabIndex = -1;
         if (!grid.hasAttribute("aria-label")) {
           grid.setAttribute("aria-label", "Cartes à parcourir horizontalement sur téléphone");
         }
