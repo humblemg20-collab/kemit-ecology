@@ -1,0 +1,186 @@
+<style>
+/*
+ * KEMIT ECOLOGY — Lisibilité V1
+ * Typographic overrides only. Keep the existing page layouts, visual identity,
+ * animations and navigation unchanged on mobile and desktop.
+ * Body copy: 15-17px; controls: 14-16px; labels: at least 12px.
+ */
+:root{
+  --kemit-readable-body:clamp(15px,1.05vw,17px);
+  --kemit-readable-muted:#56645d;
+}
+/* Small branding, menu items and action buttons were previously 8-10px. */
+.brand-copy small{font-size:10px!important;letter-spacing:.12em!important}
+.main-nav a{
+  font-size:clamp(12px,1.03vw,14px)!important;
+  letter-spacing:.035em!important;
+  color:#56635d!important
+}
+.main-nav a.is-current,.main-nav a:hover{color:var(--obsidian,#080808)!important}
+.header-cta,.btn{
+  font-size:14px!important;
+  letter-spacing:.035em!important;
+  line-height:1.35!important;
+  white-space:normal;
+  text-align:center
+}
+.eyebrow,.mini-label,.app-page .home-section-index{
+  font-size:12px!important;
+  letter-spacing:.075em!important;
+  line-height:1.45!important
+}
+.hero-meta{font-size:12px!important;line-height:1.5!important}
+.app-page .hero-lead,.app-page .page-hero p:not(.eyebrow):not(.mini-label),
+.app-page .product-lead,.app-page .editorial-copy>p{
+  font-size:clamp(16px,1.12vw,18px)!important;
+  line-height:1.7!important
+}
+.app-page .section-heading>p,.app-page .professional-form-copy>p,
+.app-page .professional-steps p,.app-page .address-grid p{
+  font-size:var(--kemit-readable-body)!important;
+  line-height:1.7!important
+}
+.text-link,.app-page .back-link{
+  font-size:15px!important;line-height:1.45!important
+}
+/* Commercial content: keep compact cards, but legible descriptions and prices. */
+.app-page .home-category-card p,
+.app-page .home-assurance-grid p,
+.app-page .activity-card p,
+.app-page .process-strip p,
+.app-page .steps-grid p,
+.app-page .story-grid p,
+.app-page .zones-grid p,
+.app-page .contact-card p,
+.app-page .boutique-conversion-grid p,
+.app-page .professional-use-card p,
+.app-page .product-card-description,
+.app-page .product-info-grid p{
+  font-size:15px!important;line-height:1.65!important
+}
+.app-page .home-category-card strong{font-size:15px!important}
+.app-page .home-category-card>span,
+.app-page .professional-use-card>span,
+.app-page .home-assurance-grid span,
+.app-page .boutique-conversion-grid span{
+  font-size:12px!important;line-height:1.45!important
+}
+.app-page .use-card small{
+  font-size:14px!important;line-height:1.55!important
+}
+.app-page .home-journey-card ol{
+  font-size:16px!important;line-height:1.7!important
+}
+.app-page .product-card-category{
+  font-size:12px!important;letter-spacing:.065em!important
+}
+.app-page .product-card-outcome{
+  font-size:17px!important;line-height:1.4!important
+}
+.app-page .price-from{font-size:18px!important;line-height:1.35!important}
+.app-page .card-link{
+  font-size:14px!important;line-height:1.4!important;
+  text-align:left;white-space:normal
+}
+.app-page .catalog-disclaimer,
+.app-page .professional-fineprint,
+.app-page .professional-form-note,
+.app-page .order-note{
+  font-size:14px!important;line-height:1.65!important
+}
+.app-page .product-info-grid span,
+.app-page .contact-card>span,
+.app-page .small-photo-feature figcaption span,
+.app-page .product-trust-strip span,
+.app-page .home-team-section .home-story-captions small{
+  font-size:12px!important;letter-spacing:.06em!important;
+  line-height:1.45!important
+}
+.app-page .format-chip{font-size:14px!important;line-height:1.45!important}
+.app-page .order-inline label,.app-page .professional-field label{
+  font-size:14px!important;line-height:1.5!important;
+  letter-spacing:.025em!important
+}
+.app-page :is(input,textarea,select){
+  font-size:16px!important;line-height:1.4!important
+}
+.app-page .filter-reset{font-size:14px!important;line-height:1.4!important}
+/* FAQ, terms, delivery and contact — answer text cannot be tiny. */
+.app-page .faq-group summary{
+  font-size:16px!important;line-height:1.5!important
+}
+.app-page .faq-group details>p{
+  font-size:15px!important;line-height:1.7!important
+}
+/* Gallery captions and social proof on both horizontal homepage marquees. */
+.app-page .home-action-slide figcaption,
+.app-page .home-trust-slide figcaption,
+.app-page .home-process-video figcaption,
+.app-page .kemit-gallery-card figcaption,
+.app-page .professional-proof-card figcaption span,
+.app-page .home-team-pro-card figcaption strong{
+  font-size:12px!important;line-height:1.45!important;
+  letter-spacing:.04em!important;white-space:normal
+}
+.app-page .kemit-gallery-placeholder small,
+.app-page .media-wall-card figcaption span{
+  font-size:12px!important;line-height:1.45!important
+}
+.app-page .media-wall-card figcaption strong{
+  font-size:14px!important;line-height:1.4!important
+}
+.app-page .home-marquee-toggle{font-size:14px!important}
+/* Footer was previously 9-11px; improve readability without changing its columns. */
+.site-footer .footer-grid p,.site-footer .footer-grid a{
+  font-size:14px!important;line-height:1.65!important
+}
+.site-footer .footer-title{font-size:13px!important}
+.site-footer .footer-bottom{
+  font-size:12px!important;line-height:1.5!important;
+  text-transform:none!important
+}
+/* Savoir-faire has its own typography system; preserve its display headings. */
+.sf-page .sf-button,.sf-page .sf-process-nav button,
+.sf-page .sf-process-nav button span,
+.sf-page .sf-scroll-control{
+  font-size:14px!important;line-height:1.4!important
+}
+.sf-page .sf-label,.sf-page .sf-eyebrow,.sf-page .sf-section-meta,
+.sf-page .sf-hero-kicker,.sf-page .sf-hero-bottom,
+.sf-page .sf-step-numbers,.sf-page .sf-step-key,
+.sf-page .sf-step-visual figcaption,.sf-page .sf-film-index,
+.sf-page .sf-film figcaption span,.sf-page .sf-facts span,
+.sf-page .sf-outro-footer{
+  font-size:12px!important;line-height:1.5!important;
+  letter-spacing:.06em!important
+}
+.sf-page .sf-intro-columns p,.sf-page .sf-process-head>p,
+.sf-page .sf-step-text>p:not(.sf-step-key),
+.sf-page .sf-field-heading>p,.sf-page .sf-outro-side>p{
+  font-size:17px!important;line-height:1.75!important
+}
+@media(max-width:980px){
+  .main-nav.is-open a{
+    font-size:16px!important;
+    line-height:1.5!important;
+    padding:7px 3px
+  }
+}
+@media(max-width:650px){
+  .app-page .section-heading>p{font-size:16px!important}
+  .app-page .hero-lead,.app-page .page-hero p:not(.eyebrow):not(.mini-label){
+    font-size:17px!important
+  }
+  .app-page .home-category-card p,.app-page .product-card-description,
+  .app-page .product-info-grid p,.app-page .contact-card p{
+    font-size:16px!important
+  }
+  .app-page .product-card-footer{
+    flex-wrap:wrap;gap:10px
+  }
+  .app-page .card-link{min-height:40px}
+  .app-page .hero-meta{font-size:12px!important}
+  .app-page .home-action-slide figcaption,
+  .app-page .home-trust-slide figcaption{font-size:12px!important}
+}
+</style>
