@@ -462,9 +462,11 @@
   // No effect on direct /exec visits.
   function notifyHostRoute(route) {
     if (window.top === window.self) return;
+    const bridgeToken = document.body && document.body.dataset.kemitBridge;
+    if (!/^[a-f0-9]{32}$/.test(bridgeToken || "")) return;
     try {
       window.top.postMessage(
-        {type: "KEMIT_ROUTE_CHANGED", route: String(route || "home")},
+        {type: "KEMIT_ROUTE_CHANGED", route: String(route || "home"), token: bridgeToken},
         "https://kemitecology.afrigreen24.com"
       );
     } catch (error) {
