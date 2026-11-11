@@ -22,7 +22,7 @@ const app = read("App.html");
 const head = read("Header.html");
 const footer = read("Footer.html");
 const script = read("Script.html");
-const styleFiles = ["StylesFoundation.html","StylesMotion.html","StylesExperience.html","StylesSavoirFaire.html"];
+const styleFiles = ["StylesFoundation.html","StylesMotion.html","StylesExperience.html","StylesSavoirFaire.html","StylesMobileLite.html"];
 const styles = styleFiles.map(read).join("\n");
 const stylesEntry = read("Styles.html");
 const media = read("Media.html");
@@ -197,6 +197,22 @@ check("Savoir-faire is a complete, linked and responsive editorial experience", 
   assert.ok(craftStyle.includes("prefers-reduced-motion:reduce"));
   assert.ok(js.includes(".sf-image-frame, .sf-hero-media"),"image fallback missing");
   assert.ok(!js.includes("img.naturalWidth === 0"),"lazy-loaded images should not be treated as failed prematurely");
+});
+check("Mobile essentials preserve access and avoid hidden media downloads", () => {
+  const mobileCSS = read("StylesMobileLite.html");
+  assert.ok(stylesEntry.includes('include("StylesMobileLite")'));
+  assert.ok(mobileCSS.includes("@media (max-width:767px)"));
+  assert.ok(mobileCSS.includes('.app-page[data-page="home"] > section:nth-of-type(3)'));
+  assert.ok(mobileCSS.includes('.app-page[data-page="boutique"] > section:nth-of-type(4)'));
+  assert.ok(mobileCSS.includes('.app-page[data-page="savoir-faire"] > section:nth-of-type(4)'));
+  assert.ok(mobileCSS.includes('.app-page[data-page="produit"] > section:nth-of-type(5)'));
+  assert.ok(head.includes('data-route="faq" class="mobile-only-route"'));
+  assert.ok(head.includes('data-route="histoire" class="mobile-only-route"'));
+  assert.ok(js.includes("mediaHiddenOnMobile(img)"));
+  assert.ok(js.includes("mediaHiddenOnMobile(video)"));
+  assert.ok(js.includes("function mobileLiteActive()"));
+  assert.ok(pro.includes('data-b2b-form'));
+  assert.ok(productPage.includes('data-whatsapp-order'));
 });
 check("Reduced motion and keyboard focus remain supported", () => {
   assert.ok(styles.includes("prefers-reduced-motion"));
