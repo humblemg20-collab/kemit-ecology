@@ -498,4 +498,42 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
     animation-play-state: running;
   }
 }
+
+/* KEMIT — independently controllable homepage marquees.
+   Controls are outside the moving tracks, so they remain tappable. */
+.home-marquee-controls{
+  display:flex;justify-content:flex-end;align-items:center;
+  margin:14px 0 -38px;position:relative;z-index:3;pointer-events:none;
+}
+.home-marquee-toggle{
+  display:inline-flex;gap:9px;align-items:center;justify-content:center;
+  min-width:98px;min-height:42px;padding:8px 15px;
+  border:1px solid rgba(13,59,46,.26);border-radius:999px;
+  background:#fff;color:#0d3b2e;font:750 12px/1.2 Inter,system-ui,sans-serif;
+  letter-spacing:.01em;cursor:pointer;pointer-events:auto;
+  box-shadow:0 4px 15px rgba(8,30,22,.12);
+}
+.home-action-section .home-marquee-toggle,.home-action-section .home-marquee-toggle:hover{
+  background:#fff;color:#0d3b2e
+}
+.home-marquee-toggle:hover{background:#eaf2e9}
+.home-marquee-toggle:focus-visible{outline:3px solid #8bc778;outline-offset:3px}
+.home-marquee-icon{font-size:16px;line-height:1;width:17px;text-align:center}
+/* Manual Pause always wins over sticky touch :hover; Play resumes from same frame. */
+.home-action-carousel.is-marquee-paused .home-action-track,
+.home-trust-gallery.is-marquee-paused .home-trust-track{
+  animation-play-state:paused!important
+}
+.home-action-carousel.is-marquee-resumed .home-action-track,
+.home-trust-gallery.is-marquee-resumed .home-trust-track{
+  animation-play-state:running!important
+}
+@media(max-width:650px){
+  .home-marquee-controls{margin:10px 0 -20px}
+  .home-marquee-toggle{min-width:90px;min-height:44px;padding:9px 13px}
+}
+/* Visitors requesting reduced motion can scroll the galleries manually instead. */
+@media(prefers-reduced-motion:reduce){
+  .home-marquee-controls{display:none!important}
+}
 </style>
