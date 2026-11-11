@@ -22,7 +22,7 @@ const app = read("App.html");
 const head = read("Header.html");
 const footer = read("Footer.html");
 const script = read("Script.html");
-const styleFiles = ["StylesFoundation.html","StylesMotion.html","StylesExperience.html","StylesSavoirFaire.html","StylesReadability.html"];
+const styleFiles = ["StylesFoundation.html","StylesMotion.html","StylesExperience.html","StylesSavoirFaire.html","StylesReadability.html","StylesMobileSwipe.html"];
 const styles = styleFiles.map(read).join("\n");
 const stylesEntry = read("Styles.html");
 const media = read("Media.html");
@@ -207,6 +207,23 @@ check("Readable typography keeps primary text and forms accessible", () => {
   assert.ok(sheet.includes(".site-footer .footer-grid p"));
   assert.ok(sheet.includes("font-size:16px!important"));
   assert.ok(sheet.includes("@media(max-width:650px)"));
+});
+check("Swipeable card collections remain mobile-only and keyboard accessible", () => {
+  const css = read("StylesMobileSwipe.html");
+  assert.ok(stylesEntry.includes('include("StylesMobileSwipe")'));
+  assert.ok(css.includes("@media(max-width:767px)"),"mobile-only layout missing");
+  assert.ok(css.includes("scroll-snap-type:x mandatory"),"snap scrolling missing");
+  assert.ok(css.includes(".app-page .kemit-swipe-row"),"horizontal layout missing");
+  assert.ok(js.includes("function initMobileSwipeRows()"));
+  assert.ok(js.includes("function scrollSwipeRow(grid, direction)"));
+  assert.ok(js.includes('data.swipeDirection') || js.includes("dataset.swipeDirection"));
+  assert.ok(js.includes("scheduleSwipeRefresh();"));
+  for (const selector of [".home-category-grid",".product-grid",".professional-use-grid",
+     ".steps-grid",".contact-grid",".faq-layout",".sf-film-grid"]) {
+    assert.ok(js.includes('"'+selector+'"'),selector+" missing from swipe rows");
+  }
+  assert.ok(read("PageHome.html").includes('data-marquee-toggle="action"'));
+  assert.ok(read("PageHome.html").includes('data-marquee-toggle="trust"'));
 });
 check("Reduced motion and keyboard focus remain supported", () => {
   assert.ok(styles.includes("prefers-reduced-motion"));
