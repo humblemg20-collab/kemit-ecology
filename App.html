@@ -8,20 +8,22 @@
   <title>KEMIT ECOLOGY</title>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="preconnect" href="https://raw.githubusercontent.com" crossorigin>
-  <link rel="dns-prefetch" href="//img-thumb.mailinblue.com">
+  <link rel="preconnect" href="https://img-thumb.mailinblue.com" crossorigin>
+  <link rel="preconnect" href="https://img.mailinblue.com" crossorigin>
   <?!= include("Styles"); ?>
   <?!= include("Media"); ?>
   <script>
     // Fetch the active route's lead visual before the rest of the SPA parses.
     (function () {
       var hashRoute = window.location.hash.replace(/^#/, "").split("/")[0];
-      var queryRoute = new URLSearchParams(window.location.search).get("page");
-      var route = hashRoute || queryRoute || "home";
+      // Apps Script's sandbox URL may not carry the original ?page=... query.
+      // Use the initial route provided by doGet to preload the correct hero.
+      var route = hashRoute || "<?= initialRoute ?>".split("/")[0] || "home";
       var key = ({
         home: "media-home-team",
         boutique: "product-montage",
-        professionnels: "media-home-production",
-        "savoir-faire": "media-home-production",
+        professionnels: "pro-hero-kikimouh",
+        "savoir-faire": "savoir-faire-hero-reno",
         histoire: "photo-team-history",
         livraison: "photo-delivery"
       })[route];
