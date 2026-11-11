@@ -846,6 +846,30 @@ Merci de me confirmer la disponibilité, le total, le paiement et la livraison.`
   });
 
   document.addEventListener("click", e => {
+    // Independent Pause / Play controls for the two homepage image marquees.
+    const marqueeButton = e.target.closest("[data-marquee-toggle]");
+    if (marqueeButton) {
+      e.preventDefault();
+      const track = document.getElementById(marqueeButton.getAttribute("aria-controls"));
+      const carousel = track && track.closest(".home-action-carousel, .home-trust-gallery");
+      if (!carousel) return;
+      const paused = !carousel.classList.contains("is-marquee-paused");
+      carousel.classList.toggle("is-marquee-paused", paused);
+      carousel.classList.toggle("is-marquee-resumed", !paused);
+      marqueeButton.setAttribute("aria-pressed", String(paused));
+      marqueeButton.setAttribute(
+        "aria-label",
+        (paused ? "Relancer" : "Mettre en pause") +
+        (marqueeButton.dataset.marqueeToggle === "trust"
+          ? " le défilement des distinctions KEMIT"
+          : " le défilement des photos du terrain")
+      );
+      const label = marqueeButton.querySelector("[data-marquee-label]");
+      if (label) label.textContent = paused ? "Lecture" : "Pause";
+      const icon = marqueeButton.querySelector("[data-marquee-icon]");
+      if (icon) icon.textContent = paused ? "▶" : "Ⅱ";
+      return;
+    }
     const stepJump = e.target.closest("[data-sf-scroll]");
     if (stepJump) {
       e.preventDefault();
