@@ -211,7 +211,9 @@ check("Readable typography keeps primary text and forms accessible", () => {
 check("Swipeable card collections remain mobile-only and keyboard accessible", () => {
   const css = read("StylesMobileSwipe.html");
   assert.ok(stylesEntry.includes('include("StylesMobileSwipe")'));
-  assert.ok(css.includes("@media(max-width:767px)"),"mobile-only layout missing");
+  assert.ok(css.includes("@media(max-width:980px)"),"compact layout breakpoint missing");
+  assert.ok(css.includes("grid-auto-columns:100%!important"),"each swipe view must show one card");
+  assert.ok(js.includes('window.matchMedia("(max-width: 980px)").matches'))
   assert.ok(css.includes("scroll-snap-type:x mandatory"),"snap scrolling missing");
   assert.ok(css.includes(".app-page .kemit-swipe-row"),"horizontal layout missing");
   assert.ok(js.includes("function initMobileSwipeRows()"));
