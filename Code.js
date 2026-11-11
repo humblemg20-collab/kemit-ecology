@@ -10,6 +10,9 @@ function doGet(e) {
     ? "produit/" + productId
     : page;
 
+  const bridge = (e && e.parameter && e.parameter.kemitBridge) || "";
+  template.bridgeToken = /^[a-f0-9]{32}$/.test(bridge) ? bridge : "";
+
   template.initialDescription =
     "KEMIT ECOLOGY transforme et valorise la biomasse à travers des produits, de la formation et de l’accompagnement.";
 
