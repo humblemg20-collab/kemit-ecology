@@ -322,4 +322,30 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
     margin-inline:auto;
   }
 }
+
+/* Story: display each half of the original composite as a full-width portrait.
+   No remote asset replacement; retain the original source and original people. */
+.home-team-section .home-story-journey{margin:0;background:transparent;overflow:visible}
+.home-team-section .home-story-portraits{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.home-team-section .home-story-portrait{
+  position:relative;min-width:0;aspect-ratio:3/4.15;overflow:hidden;background:#e4e9df;
+}
+.home-team-section .home-story-portrait img{
+  position:absolute;top:-7%;left:0;width:200%;max-width:none;height:114%;
+  aspect-ratio:auto;object-fit:fill;filter:none;display:block;
+}
+.home-team-section .home-story-portrait-us img{left:-100%}
+.home-team-section .home-story-captions{
+  display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:13px;
+  font-size:15px;font-weight:750;color:#1c3527;letter-spacing:.01em;
+}
+.home-team-section .home-story-captions span{display:flex;flex-direction:column;gap:4px}
+.home-team-section .home-story-captions small{
+  font-size:10px;font-weight:750;text-transform:uppercase;letter-spacing:.14em;color:#6c826b;
+}
+@media(max-width:600px){
+  .home-team-section .home-story-portraits{gap:7px}
+  .home-team-section .home-story-portrait{aspect-ratio:3/4.35}
+  .home-team-section .home-story-captions{gap:7px}
+}
 </style>
