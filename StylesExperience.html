@@ -330,11 +330,14 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .home-team-section .home-story-portrait{
   position:relative;min-width:0;aspect-ratio:3/4.15;overflow:hidden;background:#e4e9df;
 }
-.home-team-section .home-story-portrait img{
-  position:absolute;top:-7%;left:0;width:200%;max-width:none;height:114%;
+/* Higher specificity than the generic .home-team-grid figure img rule:
+   fill the portrait frame with the corresponding half of the source montage. */
+.home-team-section .home-team-grid .home-story-portrait img{
+  position:absolute;top:0;left:0;
+  width:200%;max-width:none;height:100%;
   aspect-ratio:auto;object-fit:fill;filter:none;display:block;
 }
-.home-team-section .home-story-portrait-us img{left:-100%}
+.home-team-section .home-team-grid .home-story-portrait-us img{left:-100%}
 .home-team-section .home-story-captions{
   display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:13px;
   font-size:15px;font-weight:750;color:#1c3527;letter-spacing:.01em;
