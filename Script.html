@@ -28,7 +28,7 @@
   let swipeRowsInitialized = false;
 
   function scrollSwipeRow(grid, direction) {
-    if (!grid || !window.matchMedia("(max-width: 767px)").matches) return;
+    if (!grid || !window.matchMedia("(max-width: 980px)").matches) return;
     const first = grid.firstElementChild;
     const gap = parseFloat(window.getComputedStyle(grid).columnGap) || 12;
     const amount = (first ? first.getBoundingClientRect().width : grid.clientWidth * .8) + gap;
@@ -39,7 +39,7 @@
   }
 
   function refreshSwipeRows() {
-    const mobile = window.matchMedia("(max-width: 767px)").matches;
+    const mobile = window.matchMedia("(max-width: 980px)").matches;
     swipeRows.forEach(({grid, toolbar, previous, next}) => {
       const limit = Math.max(0, grid.scrollWidth - grid.clientWidth);
       const usable = mobile && grid.closest(".app-page.is-active") && limit > 6;
