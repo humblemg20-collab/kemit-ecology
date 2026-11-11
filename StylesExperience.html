@@ -383,4 +383,107 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
     object-position:center 38%;
   }
 }
+
+/* Page Professionnels — témoignages photographiques, sans impact sur les autres routes. */
+[data-page="professionnels"] .professional-hero .page-feature .photo-mat img{
+  object-position:center 44%;
+}
+[data-page="professionnels"] .professional-proof-section{
+  padding:clamp(68px,8vw,110px) 0;
+  background:#f7f8f4;
+  border-top:1px solid rgba(14,55,37,.10);
+}
+[data-page="professionnels"] .professional-proof-header{
+  display:grid;
+  grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);
+  align-items:end;
+  gap:clamp(24px,5vw,74px);
+  margin-bottom:36px;
+}
+[data-page="professionnels"] .professional-proof-header h2{
+  max-width:760px;
+  font-size:clamp(42px,5vw,72px);
+  line-height:.98;
+}
+[data-page="professionnels"] .professional-proof-header>p{
+  max-width:410px;
+  margin:0 0 4px;
+  color:var(--muted);
+  font-size:16px;
+  line-height:1.75;
+}
+[data-page="professionnels"] .professional-proof-gallery{
+  display:grid;
+  grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);
+  gap:20px;
+  align-items:stretch;
+}
+[data-page="professionnels"] .professional-proof-card{
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  margin:0;
+  background:#fff;
+  border:1px solid var(--line);
+}
+[data-page="professionnels"] .professional-proof-photo{
+  display:block;
+  position:relative;
+  height:clamp(310px,35vw,465px);
+  min-height:0;
+  padding:0;
+  overflow:hidden;
+  background:#e1e8df;
+  border-radius:0;
+  box-shadow:none;
+}
+[data-page="professionnels"] .professional-proof-photo img{
+  display:block;
+  width:100%;
+  max-width:none;
+  height:100%;
+  aspect-ratio:auto;
+  object-fit:cover;
+  object-position:center;
+  border-radius:0;
+  box-shadow:none;
+  filter:saturate(.94);
+  transition:transform .5s ease;
+}
+[data-page="professionnels"] .professional-proof-card-network img{object-position:center 49%}
+[data-page="professionnels"] .professional-proof-card-outreach img{object-position:center 65%}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){
+  [data-page="professionnels"] .professional-proof-card:hover img{transform:scale(1.025)}
+}
+[data-page="professionnels"] .professional-proof-card figcaption{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  padding:24px 26px 27px;
+}
+[data-page="professionnels"] .professional-proof-card figcaption span{
+  color:#507351;
+  font-size:10px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.13em;
+}
+[data-page="professionnels"] .professional-proof-card figcaption strong{
+  max-width:470px;
+  color:#153525;
+  font:400 clamp(24px,2.5vw,32px)/1.12 Georgia,"Times New Roman",serif;
+  letter-spacing:-.035em;
+}
+@media(max-width:760px){
+  [data-page="professionnels"] .professional-proof-header,
+  [data-page="professionnels"] .professional-proof-gallery{
+    grid-template-columns:1fr;
+  }
+  [data-page="professionnels"] .professional-proof-header{gap:18px;margin-bottom:27px}
+  [data-page="professionnels"] .professional-proof-header>p{max-width:620px}
+  [data-page="professionnels"] .professional-proof-gallery{gap:18px}
+  [data-page="professionnels"] .professional-proof-photo{height:clamp(300px,75vw,430px)}
+  [data-page="professionnels"] .professional-proof-card figcaption{padding:20px}
+  [data-page="professionnels"] .professional-proof-card-outreach img{object-position:center 60%}
+}
 </style>
