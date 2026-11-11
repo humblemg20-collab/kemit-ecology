@@ -12,6 +12,109 @@
 
   const pages = () => Array.from(document.querySelectorAll("[data-page]"));
 
+  // Mobile horizontal card rows: native finger swipe plus optional prev/next
+  // arrows. No layout changes on desktop; the existing animated marquees,
+  // form fields and long editorial copy are intentionally excluded.
+  const SWIPE_CARD_GROUPS = [
+    ".home-category-grid", ".home-journey-grid", ".home-process-grid",
+    ".home-team-pro-gallery", ".home-assurance-grid", ".home-proof-grid",
+    ".boutique-conversion-grid", ".use-grid", ".product-grid",
+    ".kemit-gallery-grid", ".steps-grid", ".zones-grid", ".story-grid",
+    ".professional-proof-gallery", ".professional-use-grid",
+    ".product-info-grid", ".process-strip", ".three-values",
+    ".contact-grid", ".faq-layout", ".sf-film-grid"
+  ];
+  const swipeRows = [];
+  let swipeRowsInitialized = false;
+
+  function scrollSwipeRow(grid, direction) {
+    if (!grid || !window.matchMedia("(max-width: 767px)").matches) return;
+    const first = grid.firstElementChild;
+    const gap = parseFloat(window.getComputedStyle(grid).columnGap) || 12;
+    const amount = (first ? first.getBoundingClientRect().width : grid.clientWidth * .8) + gap;
+    grid.scrollBy({
+      left: direction * amount,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"
+    });
+  }
+
+  function refreshSwipeRows() {
+    const mobile = window.matchMedia("(max-width: 767px)").matches;
+    swipeRows.forEach(({grid, toolbar, previous, next}) => {
+      const limit = Math.max(0, grid.scrollWidth - grid.clientWidth);
+      const usable = mobile && grid.closest(".app-page.is-active") && limit > 6;
+      toolbar.hidden = !usable;
+      previous.disabled = !usable || grid.scrollLeft <= 5;
+      next.disabled = !usable || grid.scrollLeft >= limit - 5;
+    });
+  }
+
+  function scheduleSwipeRefresh() {
+    window.requestAnimationFrame(refreshSwipeRows);
+  }
+
+  function initMobileSwipeRows() {
+    if (swipeRowsInitialized) return;
+    swipeRowsInitialized = true;
+    let index = 0;
+    document.querySelectorAll(".app-page").forEach(page => {
+      page.querySelectorAll(SWIPE_CARD_GROUPS.join(",")).forEach(grid => {
+        if (grid.children.length < 2 && !grid.classList.contains("product-grid")) return;
+        if (grid.classList.contains("kemit-swipe-row")) return;
+        grid.classList.add("kemit-swipe-row");
+        if (!grid.id) grid.id = "kemit-swipe-row-" + (++index);
+        grid.tabIndex = 0;
+        if (!grid.hasAttribute("aria-label")) {
+          grid.setAttribute("aria-label", "Cartes à parcourir horizontalement sur téléphone");
+        }
+        const toolbar = document.createElement("div");
+        toolbar.className = "kemit-swipe-toolbar";
+        if (grid.classList.contains("shell")) toolbar.classList.add("is-wide");
+        toolbar.hidden = true;
+
+        const hint = document.createElement("span");
+        hint.className = "kemit-swipe-hint";
+        hint.textContent = "Glissez pour voir la suite";
+        toolbar.appendChild(hint);
+
+        const actions = document.createElement("div");
+        actions.className = "kemit-swipe-actions";
+        function arrow(direction, symbol, label) {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "kemit-swipe-arrow";
+          button.textContent = symbol;
+          button.setAttribute("aria-label", label);
+          button.setAttribute("aria-controls", grid.id);
+          button.dataset.swipeDirection = String(direction);
+          actions.appendChild(button);
+          return button;
+        }
+        const previous = arrow(-1, "‹", "Voir les cartes précédentes");
+        const next = arrow(1, "›", "Voir les cartes suivantes");
+        toolbar.appendChild(actions);
+        grid.parentElement.insertBefore(toolbar, grid);
+
+        swipeRows.push({grid, toolbar, previous, next});
+        grid.addEventListener("scroll", scheduleSwipeRefresh, {passive:true});
+        grid.addEventListener("keydown", event => {
+          if (event.target !== grid) return;
+          if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+            event.preventDefault();
+            scrollSwipeRow(grid, event.key === "ArrowRight" ? 1 : -1);
+          }
+        });
+        if (grid.classList.contains("product-grid") && "MutationObserver" in window) {
+          new MutationObserver(scheduleSwipeRefresh).observe(grid, {childList:true});
+        }
+      });
+    });
+    window.addEventListener("resize", scheduleSwipeRefresh, {passive:true});
+    window.addEventListener("load", scheduleSwipeRefresh, {once:true});
+    scheduleSwipeRefresh();
+  }
+
+
   // KEMIT MEDIA — single source of truth, network-aware loading state.
   // Prewarm small, page-leading photographs so navigation can reuse browser cache.
   // Large editorial PNGs remain lazy and should be delivered as compressed WebP/AVIF.
@@ -566,6 +669,7 @@
     hydrateVideos();
     window.scrollTo({top:0,left:0,behavior:"auto"});
     refreshMotion(true);
+    scheduleSwipeRefresh();
   }
 
   function productPrice(product) {
@@ -682,6 +786,7 @@
     }
 
     renderRelated(product);
+    scheduleSwipeRefresh();
 
     pages().forEach(el => el.classList.toggle("is-active", el.dataset.page === "produit"));
     if (updateHash) history.pushState(null, "", "#produit/" + product.id);
@@ -846,6 +951,13 @@ Merci de me confirmer la disponibilité, le total, le paiement et la livraison.`
   });
 
   document.addEventListener("click", e => {
+    const swipeArrow = e.target.closest("[data-swipe-direction]");
+    if (swipeArrow) {
+      e.preventDefault();
+      const grid = document.getElementById(swipeArrow.getAttribute("aria-controls"));
+      if (grid) scrollSwipeRow(grid, Number(swipeArrow.dataset.swipeDirection));
+      return;
+    }
     // Independent Pause / Play controls for the two homepage image marquees.
     const marqueeButton = e.target.closest("[data-marquee-toggle]");
     if (marqueeButton) {
@@ -959,6 +1071,7 @@ Merci de me confirmer la disponibilité, le total, le paiement et la livraison.`
     siteInitialized = true;
     renderCatalog();
     populateProfessionalProducts();
+    initMobileSwipeRows();
     initMotion();
 
     document.querySelectorAll("[data-year]").forEach(el => el.textContent = new Date().getFullYear());
