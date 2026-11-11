@@ -37,6 +37,10 @@
     var frame=document.getElementById("kemit-frame");
     var loading=document.getElementById("kemit-loading");
     var fallback=document.getElementById("kemit-fallback");
+    // Unpredictable token tied to this iframe load, also accepted for opaque Google sandboxes.
+    var bytes=new Uint8Array(16);
+    crypto.getRandomValues(bytes);
+    var bridgeToken=Array.from(bytes,function(n){return n.toString(16).padStart(2,"0");}).join("");
 
     function normalizeRoute(value){
       var route=String(value||"").replace(/^\/+|\/+$/g,"").replace(/\/+/g,"/");
@@ -61,6 +65,7 @@
       }else{
         url.searchParams.set("page",route);
       }
+      url.searchParams.set("kemitBridge",bridgeToken);
       return url.href;
     }
     function setPageTitle(route){
@@ -75,13 +80,15 @@
       frame.src=url;
     }
     function trustedGoogleOrigin(origin){
+      // Some Apps Script sandboxes have an opaque origin; the session token authenticates them.
+      if(origin==="null")return true;
       try{
         var url=new URL(origin);
         var host=url.hostname.toLowerCase();
         return url.protocol==="https:" && (
           host==="script.google.com" ||
           host==="script.googleusercontent.com" ||
-          host.endsWith(".script.googleusercontent.com") ||
+          host.endsWith(".googleusercontent.com") ||
           host.endsWith("-script.googleusercontent.com")
         );
       }catch(error){return false;}
@@ -98,6 +105,7 @@
       if(!trustedGoogleOrigin(event.origin))return;
       var message=event.data;
       if(!message||message.type!=="KEMIT_ROUTE_CHANGED"||typeof message.route!=="string")return;
+      if(message.token!==bridgeToken)return;
       var route=normalizeRoute(message.route);
       if(route==="home" && message.route!=="home")return;
       if(route!==current){
