@@ -95,6 +95,8 @@
   .app-page[data-page="produit"] > section:nth-of-type(5){display:none!important}
 
   /* Accueil: one real hero image, four compact product paths, two order choices. */
+  .app-page[data-page="home"] .hero-grid{min-height:0!important}
+  .app-page[data-page="home"] .hero-copy{padding:15px 0 3px!important}
   .app-page[data-page="home"] .hero-photo{margin-top:0!important}
   .app-page[data-page="home"] .hero-photo .photo-mat{
     height:220px!important;min-height:0!important;padding:0!important
@@ -123,6 +125,13 @@
   }
   .app-page[data-page="home"] .home-journey-card{min-height:0!important;border-radius:18px!important}
   .app-page[data-page="home"] .home-journey-content{padding:18px!important}
+  /* Removing the photo must not leave white copy on a pale card. */
+  .app-page[data-page="home"] .home-journey-card.has-image:not(.is-professional){
+    background:#123629!important;color:#fff!important
+  }
+  .app-page[data-page="home"] .home-journey-card.has-image:not(.is-professional) h3{
+    color:#fff!important
+  }
   .app-page[data-page="home"] .home-final-cta{padding:26px 0!important}
 
   /* Boutique: products immediately after brief header, no gallery or redundant stages. */
