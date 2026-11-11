@@ -1,5 +1,5 @@
 # KEMIT ECOLOGY Hostinger bridge: deep-link fallback.
-# Place only in kemit.afrigreen24.com's own document root.
+# Place only in kemitecology.afrigreen24.com's own document root.
 <IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
