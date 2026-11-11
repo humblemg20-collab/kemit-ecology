@@ -7,13 +7,13 @@
  * or the two independently controlled animated homepage marquees.
  */
 .kemit-swipe-toolbar{display:none}
-@media(max-width:767px){
+@media(max-width:980px){
   .app-page .kemit-swipe-row{
     display:grid!important;
     grid-template-columns:none!important;
     grid-template-rows:none!important;
     grid-auto-flow:column!important;
-    grid-auto-columns:minmax(0,min(80vw,320px))!important;
+    grid-auto-columns:100%!important;
     grid-auto-rows:auto!important;
     align-items:stretch!important;
     justify-content:start!important;
@@ -24,12 +24,12 @@
     overflow-x:auto!important;
     overflow-y:hidden!important;
     scroll-snap-type:x mandatory;
-    scroll-padding-inline:4px;
+    scroll-padding-inline:0;
     overscroll-behavior-x:contain;
     -webkit-overflow-scrolling:touch;
     scrollbar-width:thin;
     scrollbar-color:#788f80 transparent;
-    padding:4px 4px 14px!important;
+    padding:4px 0 14px!important;
   }
   .app-page .kemit-swipe-row > *{
     min-width:0!important;
@@ -45,24 +45,25 @@
   .app-page .kemit-swipe-row :is(a,button):focus-visible{
     outline-offset:-3px;
   }
-  /* Smaller informational cards reveal a piece of the following slide. */
-  .app-page :is(
-    .home-category-grid,.home-process-grid,.use-grid,.steps-grid,
-    .zones-grid,.process-strip,.three-values,.product-info-grid,
-    .boutique-conversion-grid,.professional-use-grid
-  ).kemit-swipe-row{
-    grid-auto-columns:minmax(0,min(74vw,285px))!important;
+  /* Exactly one full-width card per stop — no crowded 2/3/4-card view. */
+  .app-page .kemit-swipe-row > *{
+    width:100%!important;
+    box-sizing:border-box;
   }
-  /* Image-rich galleries retain landscape-friendly card dimensions. */
+  /* Some older page grids declare repeat(4,1fr) or two-column layouts.
+     A swipe row explicitly disables them at the compact breakpoint. */
   .app-page :is(
-    .kemit-gallery-grid,.professional-proof-gallery,
-    .home-team-pro-gallery,.sf-film-grid
+    .home-category-grid,.home-journey-grid,.home-process-grid,
+    .home-team-pro-gallery,.home-assurance-grid,.home-proof-grid,
+    .boutique-conversion-grid,.use-grid,.product-grid,.related-grid,
+    .kemit-gallery-grid,.steps-grid,.zones-grid,.story-grid,
+    .professional-proof-gallery,.professional-use-grid,
+    .product-info-grid,.process-strip,.three-values,.contact-grid,
+    .faq-layout,.sf-film-grid
   ).kemit-swipe-row{
-    grid-auto-columns:minmax(0,min(84vw,355px))!important;
-  }
-  /* Product and contact cards have readable widths and no clipped actions. */
-  .app-page :is(.product-grid,.contact-grid,.story-grid,.faq-layout).kemit-swipe-row{
-    grid-auto-columns:minmax(0,min(83vw,350px))!important;
+    grid-template-columns:none!important;
+    grid-auto-columns:100%!important;
+    grid-auto-flow:column!important;
   }
   .app-page .home-team-pro-gallery.kemit-swipe-row .home-team-pro-card-main{
     grid-column:auto!important;grid-row:auto!important;
