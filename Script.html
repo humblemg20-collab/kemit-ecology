@@ -13,6 +13,57 @@
   const pages = () => Array.from(document.querySelectorAll("[data-page]"));
 
   // KEMIT MEDIA — single source of truth, network-aware loading state.
+  // Prewarm small, page-leading photographs so navigation can reuse browser cache.
+  // Large editorial PNGs remain lazy and should be delivered as compressed WebP/AVIF.
+  const ROUTE_HERO_MEDIA = {
+    home: "media-home-team",
+    boutique: "product-montage",
+    professionnels: "pro-hero-kikimouh",
+    "savoir-faire": "savoir-faire-hero-reno",
+    histoire: "photo-team-history",
+    livraison: "photo-delivery"
+  };
+  const warmedHeroImages = new Map();
+
+  function warmRouteHero(route) {
+    const key = ROUTE_HERO_MEDIA[String(route || "").split("/")[0]];
+    const url = key && (window.KEMIT_MEDIA || {})[key];
+    if (!url || warmedHeroImages.has(url)) return;
+    const img = new Image();
+    img.decoding = "async";
+    img.fetchPriority = "low";
+    warmedHeroImages.set(url, img);
+    img.src = url;
+  }
+
+  function warmNavigationTarget(target) {
+    if (!target || !target.closest) return;
+    const link = target.closest("[data-route]");
+    if (link) warmRouteHero(link.dataset.route);
+  }
+
+  // Warm on intent (hover, keyboard or touch) before a route is opened.
+  document.addEventListener("pointerover", event => warmNavigationTarget(event.target), {passive:true});
+  document.addEventListener("focusin", event => warmNavigationTarget(event.target));
+  document.addEventListener("touchstart", event => warmNavigationTarget(event.target), {passive:true});
+
+  function warmLikelyNextHeroes(activeRoute) {
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    if (connection && (connection.saveData || /^(slow-2g|2g|3g)$/.test(connection.effectiveType || ""))) return;
+    const suggested = ["boutique", "professionnels", "savoir-faire", "home", "histoire"];
+    const work = () => {
+      if (document.visibilityState === "hidden") return;
+      suggested.filter(route => route !== activeRoute.split("/")[0])
+        .slice(0, 4).forEach((route, index) => {
+          window.setTimeout(() => {
+            if (document.visibilityState !== "hidden") warmRouteHero(route);
+          }, index * 350);
+        });
+    };
+    if ("requestIdleCallback" in window) window.requestIdleCallback(work, {timeout:3000});
+    else window.setTimeout(work, 900);
+  }
+
   function hydrateImages(root) {
     const active = document.querySelector(".app-page.is-active");
     (root || active || document).querySelectorAll("img[data-media]").forEach(img => {
@@ -897,6 +948,7 @@ Merci de me confirmer la disponibilité, le total, le paiement et la livraison.`
 
     const route = routeFromHash();
     showPage(route, false);
+    warmLikelyNextHeroes(route);
   }
 
   if (document.readyState === "loading") {
