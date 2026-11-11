@@ -16,17 +16,8 @@
     return !!(window.matchMedia && window.matchMedia("(max-width: 767px)").matches);
   }
 
-  function desktopFocusActive() {
-    return !!(window.matchMedia && window.matchMedia("(min-width: 981px)").matches);
-  }
-
-  function streamlinedLayoutActive() {
-    return mobileLiteActive() || desktopFocusActive();
-  }
-
-  // Do not request pictures or footage in editorial blocks hidden by either layout.
-  function mediaHiddenByLayout(element) {
-    if (!streamlinedLayoutActive()) return false;
+  function mediaHiddenOnMobile(element) {
+    if (!mobileLiteActive()) return false;
     for (let node = element; node && node !== document.documentElement; node = node.parentElement) {
       if (window.getComputedStyle(node).display === "none") return true;
     }
@@ -91,7 +82,7 @@
   function hydrateImages(root) {
     const active = document.querySelector(".app-page.is-active");
     (root || active || document).querySelectorAll("img[data-media]").forEach(img => {
-      if (mediaHiddenByLayout(img)) return;
+      if (mediaHiddenOnMobile(img)) return;
       const key = img.dataset.media;
       const source = (window.KEMIT_MEDIA || {})[key] || "";
       const host = img.closest(".photo-mat, .page-hero-media, .activity-card.with-photo, .boutique-editorial-media, .sf-image-frame, .sf-hero-media");
@@ -145,19 +136,10 @@
     });
   }
 
-  function pauseInactiveVideos() {
-    document.querySelectorAll("video[data-video-media]").forEach(video => {
-      const onActivePage = !!video.closest(".app-page.is-active");
-      if (!onActivePage || mediaHiddenByLayout(video)) {
-        if (!video.paused) video.pause();
-      }
-    });
-  }
-
   function hydrateVideos(root) {
     const active = document.querySelector(".app-page.is-active");
     (root || active || document).querySelectorAll("video[data-video-media]").forEach(video => {
-      if (mediaHiddenByLayout(video)) return;
+      if (mediaHiddenOnMobile(video)) return;
       const url = (window.KEMIT_MEDIA || {})[video.dataset.videoMedia] || "";
       if (!url) {
         video.hidden = true;
@@ -183,12 +165,12 @@
   let motionScrollRaf = 0;
 
   function prefersReducedMotion() {
-    return streamlinedLayoutActive() || !!(window.matchMedia &&
+    return mobileLiteActive() || !!(window.matchMedia &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches);
   }
 
   function ensureAmbientLayer(root) {
-    if (streamlinedLayoutActive()) return;
+    if (mobileLiteActive()) return;
     if (!root || root.querySelector(":scope > .kemit-ambient")) return;
     root.classList.add("has-kemit-ambient");
     const layer = document.createElement("div");
@@ -199,7 +181,7 @@
   }
 
   function ensureScrollProgress() {
-    if (streamlinedLayoutActive()) return;
+    if (mobileLiteActive()) return;
     if (document.querySelector(".kemit-scroll-progress")) return;
     const bar = document.createElement("div");
     bar.className = "kemit-scroll-progress";
@@ -337,7 +319,7 @@
     const replay = !!(options && options.replay);
 
     // Keep all content visible without creating reveal/tilt observers on mobile.
-    if (streamlinedLayoutActive()) {
+    if (mobileLiteActive()) {
       scope.querySelectorAll(".reveal-item").forEach(el => el.classList.add("is-visible"));
       return;
     }
@@ -395,7 +377,7 @@
 
   function updateScrollMotion() {
     motionScrollRaf = 0;
-    if (streamlinedLayoutActive()) return;
+    if (mobileLiteActive()) return;
     const activePage = document.querySelector(".app-page.is-active");
     if (!activePage) return;
 
@@ -449,7 +431,7 @@
     window.requestAnimationFrame(() => {
       const activePage = document.querySelector(".app-page.is-active");
       if (!activePage) return;
-      if (streamlinedLayoutActive()) {
+      if (mobileLiteActive()) {
         activePage.querySelectorAll(".reveal-item").forEach(el => el.classList.add("is-visible"));
         return;
       }
@@ -610,7 +592,6 @@
     updateRouteMeta(page, page === "produit" ? currentProduct : null);
     notifyHostRoute(page);
     // Do not start downloads for pages hidden by the SPA router.
-    pauseInactiveVideos();
     hydrateImages();
     hydrateVideos();
     window.scrollTo({top:0,left:0,behavior:"auto"});
@@ -733,7 +714,6 @@
     renderRelated(product);
 
     pages().forEach(el => el.classList.toggle("is-active", el.dataset.page === "produit"));
-    pauseInactiveVideos();
     if (updateHash) history.pushState(null, "", "#produit/" + product.id);
     updateRouteMeta("produit", product);
     notifyHostRoute("produit/" + product.id);
@@ -981,20 +961,14 @@ Merci de me confirmer la disponibilité, le total, le paiement et la livraison.`
 
   // Newly visible images are hydrated if the viewport switches to desktop.
   if (window.matchMedia) {
-    const layoutQueries = [
-      window.matchMedia("(max-width: 767px)"),
-      window.matchMedia("(min-width: 981px)")
-    ];
+    const mobileMedia = window.matchMedia("(max-width: 767px)");
     const onViewportChange = () => {
-      pauseInactiveVideos();
       hydrateImages();
       hydrateVideos();
       refreshMotion(false);
     };
-    layoutQueries.forEach(media => {
-      if (media.addEventListener) media.addEventListener("change", onViewportChange);
-      else if (media.addListener) media.addListener(onViewportChange);
-    });
+    if (mobileMedia.addEventListener) mobileMedia.addEventListener("change", onViewportChange);
+    else if (mobileMedia.addListener) mobileMedia.addListener(onViewportChange);
   }
 
   let siteInitialized = false;
