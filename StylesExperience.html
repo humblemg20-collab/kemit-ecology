@@ -486,4 +486,16 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   [data-page="professionnels"] .professional-proof-card figcaption{padding:20px}
   [data-page="professionnels"] .professional-proof-card-outreach img{object-position:center 60%}
 }
+
+/* Touch devices: CSS :hover can stick after a tap, leaving both homepage
+   marquees paused indefinitely. Keep their automatic motion running.
+   Mouse/trackpad users retain the existing hover-to-pause behavior. */
+@media (hover: none), (pointer: coarse) {
+  .home-action-carousel:hover .home-action-track,
+  .home-action-carousel:focus-within .home-action-track,
+  .home-trust-gallery:hover .home-trust-track,
+  .home-trust-gallery:focus-within .home-trust-track {
+    animation-play-state: running;
+  }
+}
 </style>
