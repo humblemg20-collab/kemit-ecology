@@ -16,7 +16,8 @@ function doGet(e) {
   return template
     .evaluate()
     .setTitle(SITE_NAME)
-    .addMetaTag("viewport", "width=device-width, initial-scale=1");
+    .addMetaTag("viewport", "width=device-width, initial-scale=1")
+    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }
 
 function include(filename) {

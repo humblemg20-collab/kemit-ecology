@@ -458,6 +458,20 @@
     return raw || document.body.dataset.initialRoute || "home";
   }
 
+  // Inform the trusted Hostinger bridge of SPA route changes.
+  // No effect on direct /exec visits.
+  function notifyHostRoute(route) {
+    if (window.top === window.self) return;
+    try {
+      window.top.postMessage(
+        {type: "KEMIT_ROUTE_CHANGED", route: String(route || "home")},
+        "https://kemit.afrigreen24.com"
+      );
+    } catch (error) {
+      // Embedding is optional: never break ordinary site navigation.
+    }
+  }
+
   function showPage(route, updateHash) {
     let page = route.split("/")[0] || "home";
     let productId = route.split("/")[1] || "";
@@ -493,6 +507,7 @@
     document.querySelector("[data-nav]")?.classList.remove("is-open");
     document.querySelector("[data-nav-toggle]")?.setAttribute("aria-expanded", "false");
     updateRouteMeta(page, page === "produit" ? currentProduct : null);
+    notifyHostRoute(page);
     // Do not start downloads for pages hidden by the SPA router.
     hydrateImages();
     hydrateVideos();
@@ -618,6 +633,7 @@
     pages().forEach(el => el.classList.toggle("is-active", el.dataset.page === "produit"));
     if (updateHash) history.pushState(null, "", "#produit/" + product.id);
     updateRouteMeta("produit", product);
+    notifyHostRoute("produit/" + product.id);
     window.scrollTo({top:0,left:0,behavior:"auto"});
     refreshMotion(true);
   }
