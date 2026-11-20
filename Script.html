@@ -1122,6 +1122,7 @@ Merci de me confirmer la disponibilité, le total, le paiement et la livraison.`
   function initConversionPopup() {
     const popup = document.getElementById("kemit-conversion-popup");
     if (!popup || localStorage.getItem("kemit_conversion_popup_seen")) return;
+    hydrateImages(popup);
     popup.hidden = false;
     document.body.classList.add("kemit-popup-open");
     localStorage.setItem("kemit_conversion_popup_seen", "1");
