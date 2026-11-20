@@ -1119,6 +1119,22 @@ Merci de me confirmer la disponibilité, le total, le paiement et la livraison.`
   window.addEventListener("hashchange", () => showPage(routeFromHash(), false));
 
   let siteInitialized = false;
+  function initConversionPopup() {
+    const popup = document.getElementById("kemit-conversion-popup");
+    if (!popup || localStorage.getItem("kemit_conversion_popup_seen")) return;
+    popup.hidden = false;
+    document.body.classList.add("kemit-popup-open");
+    localStorage.setItem("kemit_conversion_popup_seen", "1");
+    trackKemitIntent("conversion_popup_view", "");
+    popup.querySelectorAll("[data-popup-close]").forEach(control => {
+      control.addEventListener("click", () => {
+        popup.hidden = true;
+        document.body.classList.remove("kemit-popup-open");
+        trackKemitIntent("conversion_popup_close", "");
+      });
+    });
+  }
+
   function bootKemitSite() {
     if (siteInitialized) return;
     siteInitialized = true;
@@ -1139,6 +1155,7 @@ Merci de me confirmer la disponibilité, le total, le paiement et la livraison.`
     const route = routeFromHash();
     showPage(route, false);
     warmLikelyNextHeroes(route);
+    initConversionPopup();
   }
 
   if (document.readyState === "loading") {
