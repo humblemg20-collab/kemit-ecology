@@ -1140,8 +1140,6 @@ Merci de me confirmer la disponibilité, le total, le paiement et la livraison.`
     siteInitialized = true;
     renderCatalog();
     populateProfessionalProducts();
-    initMobileSwipeRows();
-    initMotion();
 
     document.querySelectorAll("[data-year]").forEach(el => el.textContent = new Date().getFullYear());
 
@@ -1154,8 +1152,14 @@ Merci de me confirmer la disponibilité, le total, le paiement et la livraison.`
 
     const route = routeFromHash();
     showPage(route, false);
-    warmLikelyNextHeroes(route);
     initConversionPopup();
+    const continueBoot = () => {
+      initMobileSwipeRows();
+      initMotion();
+      warmLikelyNextHeroes(route);
+    };
+    if (window.requestIdleCallback) requestIdleCallback(continueBoot, {timeout: 800});
+    else setTimeout(continueBoot, 0);
   }
 
   if (document.readyState === "loading") {
