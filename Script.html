@@ -638,6 +638,8 @@
       route = "home";
     }
 
+    trackKemitIntent("page_view", page);
+
     pages().forEach(el => el.classList.toggle("is-active", el.dataset.page === page));
 
     document.querySelectorAll(".main-nav [data-route]").forEach(a => {
@@ -738,6 +740,7 @@
       return;
     }
     currentProduct = product;
+    trackKemitIntent("product_view", product.id);
     selectedFormat = product.formats?.[0] || null;
 
     setText("[data-product-category]", product.category);
@@ -812,9 +815,54 @@
   }
 
   function trackKemitIntent(event, productId) {
+    const payload = {
+      event: event,
+      product_id: productId || "",
+      page: routeFromHash().split("/")[0],
+      visitor_id: getKemitVisitorId(),
+      session_id: getKemitSessionId(),
+      source: document.referrer || "direct"
+    };
     if (Array.isArray(window.dataLayer)) {
-      window.dataLayer.push({event: event, product_id: productId || undefined});
+      window.dataLayer.push(payload);
     }
+    if (window.google && google.script && google.script.run) {
+      google.script.run.withFailureHandler(() => {}).logKemitActivity(payload);
+    }
+  }
+
+  function getKemitVisitorId() {
+    const key = "kemit_visitor_id";
+    let value = localStorage.getItem(key);
+    if (!value) {
+      value = (crypto.randomUUID ? crypto.randomUUID() : "v-" + Date.now() + "-" + Math.random().toString(36).slice(2));
+      localStorage.setItem(key, value);
+    }
+    return value;
+  }
+
+  function getKemitSessionId() {
+    const key = "kemit_session_id";
+    let value = sessionStorage.getItem(key);
+    if (!value) {
+      value = "s-" + Date.now() + "-" + Math.random().toString(36).slice(2);
+      sessionStorage.setItem(key, value);
+    }
+    return value;
+  }
+
+  function trackKemitButton(button) {
+    if (!button) return;
+    const label = (button.dataset.trackLabel || button.textContent || "").trim().replace(/\s+/g, " ");
+    const lower = label.toLowerCase();
+    const event = lower.includes("whatsapp") || lower.includes("commander") || lower.includes("acheter")
+      ? "sales_whatsapp_click"
+      : lower.includes("devis") || lower.includes("approvisionnement") || lower.includes("volume")
+        ? "sales_quote_click"
+        : lower.includes("produit") || lower.includes("solution")
+          ? "sales_catalogue_click"
+          : "site_button_click";
+    trackKemitIntent(event, currentProduct?.id || "");
   }
 
   function populateProfessionalProducts() {
@@ -952,6 +1000,10 @@ Merci de me confirmer la disponibilité, le total, le paiement et la livraison.`
   });
 
   document.addEventListener("click", e => {
+    const clickedButton = e.target.closest("a,button");
+    if (clickedButton && !clickedButton.matches("[data-marquee-toggle],[data-swipe-direction],[data-nav-toggle]")) {
+      trackKemitButton(clickedButton);
+    }
     const swipeArrow = e.target.closest("[data-swipe-direction]");
     if (swipeArrow) {
       e.preventDefault();
