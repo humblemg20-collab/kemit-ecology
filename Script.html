@@ -814,13 +814,14 @@
       .replaceAll("'","&#039;");
   }
 
-  function trackKemitIntent(event, productId) {
+  function trackKemitIntent(event, productId, buttonLabel) {
     const payload = {
       event: event,
       product_id: productId || "",
       page: routeFromHash().split("/")[0],
       visitor_id: getKemitVisitorId(),
       session_id: getKemitSessionId(),
+      button: buttonLabel || "",
       source: document.referrer || "direct"
     };
     if (Array.isArray(window.dataLayer)) {
@@ -862,7 +863,7 @@
         : lower.includes("produit") || lower.includes("solution")
           ? "sales_catalogue_click"
           : "site_button_click";
-    trackKemitIntent(event, currentProduct?.id || "");
+    trackKemitIntent(event, currentProduct?.id || "", label);
   }
 
   function populateProfessionalProducts() {
