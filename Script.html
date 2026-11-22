@@ -675,8 +675,23 @@
     scheduleSwipeRefresh();
   }
 
+  const KEMIT_XAF_PER_EUR = 655.957;
+
+  function formatKemitPrice(rawPrice) {
+    const raw = String(rawPrice || "").trim();
+    const digits = raw.replace(/[^0-9]/g, "");
+    const amount = Number(digits);
+    if (!amount) return raw || "Sur demande";
+    const euros = (amount / KEMIT_XAF_PER_EUR).toLocaleString("fr-FR", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+    const fcfa = amount.toLocaleString("fr-FR");
+    return `${euros} € (${fcfa} FCFA)`;
+  }
+
   function productPrice(product) {
-    return product.formats?.[0]?.price || "Sur demande";
+    return formatKemitPrice(product.formats?.[0]?.price || "Sur demande");
   }
 
   const PRODUCT_OUTCOMES = {
@@ -770,7 +785,7 @@
     if (formats) {
       formats.innerHTML = product.formats.map((f,i) => `
         <button class="format-chip ${i===0 ? "is-selected":""}" type="button" data-format-index="${i}">
-          ${escapeHtml(f.label)} · ${escapeHtml(f.price)}
+          ${escapeHtml(f.label)} · ${escapeHtml(formatKemitPrice(f.price))}
         </button>
       `).join("");
     }
@@ -1022,7 +1037,7 @@
     const qty = Number(qtyField.value);
     if (!Number.isSafeInteger(qty) || qty < 1) return;
     const format = selectedFormat
-      ? `${selectedFormat.label} — ${selectedFormat.price}`
+      ? `${selectedFormat.label} — ${formatKemitPrice(selectedFormat.price)}`
       : "À confirmer";
 
     const message =
