@@ -69,6 +69,20 @@
         <div class="professional-steps"><p><strong>1.</strong> Décrivez votre besoin.</p><p><strong>2.</strong> Ouvrez le message WhatsApp préparé.</p><p><strong>3.</strong> KEMIT confirme les conditions possibles.</p></div>
       </div>
       <form class="professional-request-form" data-b2b-form novalidate>
+        <div class="professional-field-grid">
+          <div class="professional-field">
+            <label for="kemit-b2b-name">Votre nom</label>
+            <input id="kemit-b2b-name" name="name" maxlength="120" autocomplete="name" placeholder="Nom et prénom" required>
+          </div>
+          <div class="professional-field">
+            <label for="kemit-b2b-phone">WhatsApp / téléphone</label>
+            <input id="kemit-b2b-phone" name="phone" type="tel" maxlength="40" autocomplete="tel" placeholder="Ex. +237 ..." required>
+          </div>
+        </div>
+        <div class="professional-field">
+          <label for="kemit-b2b-email">E-mail <span>(facultatif)</span></label>
+          <input id="kemit-b2b-email" name="email" type="email" maxlength="160" autocomplete="email" placeholder="vous@entreprise.com">
+        </div>
         <div class="professional-field">
           <label for="kemit-b2b-company">Entreprise, exploitation ou structure</label>
           <input id="kemit-b2b-company" name="company" maxlength="120" autocomplete="organization" placeholder="Entreprise, exploitation ou votre nom" required>
@@ -91,15 +105,26 @@
           <label for="kemit-b2b-frequency">Fréquence souhaitée</label>
           <select id="kemit-b2b-frequency" name="frequency" required><option value="Commande ponctuelle">Commande ponctuelle</option><option value="Hebdomadaire">Hebdomadaire</option><option value="Mensuelle">Mensuelle</option><option value="À définir">À définir</option></select>
         </div>
+        <div class="professional-field-grid">
+          <div class="professional-field">
+            <label for="kemit-b2b-country">Pays</label>
+            <input id="kemit-b2b-country" name="country" maxlength="80" autocomplete="country-name" placeholder="Ex. Cameroun" required>
+          </div>
+          <div class="professional-field">
+            <label for="kemit-b2b-city">Ville</label>
+            <input id="kemit-b2b-city" name="city" maxlength="100" autocomplete="address-level2" placeholder="Ex. Douala" required>
+          </div>
+        </div>
         <div class="professional-field">
-          <label for="kemit-b2b-destination">Ville et pays de destination</label>
-          <input id="kemit-b2b-destination" name="destination" maxlength="150" placeholder="Ex. Douala, Cameroun" autocomplete="address-level2" required>
+          <label for="kemit-b2b-neighborhood">Quartier / zone de livraison <span>(facultatif)</span></label>
+          <input id="kemit-b2b-neighborhood" name="neighborhood" maxlength="120" autocomplete="address-line2" placeholder="Ex. Bonabéri">
         </div>
         <div class="professional-field">
           <label for="kemit-b2b-notes">Précisions utiles (facultatif)</label>
           <textarea id="kemit-b2b-notes" name="notes" class="resize-none" maxlength="900" rows="4" placeholder="Usage prévu, contraintes logistiques, calendrier..."></textarea>
         </div>
         <button type="submit" class="btn btn-primary btn-full">Envoyer mon brief sur WhatsApp</button>
+        <p class="form-status" data-b2b-status role="status" aria-live="polite"></p>
         <p class="professional-form-note">Aucune commande n'est confirmée automatiquement. KEMIT vous communiquera la disponibilité, les tarifs et les conditions après examen.</p>
       </form>
     </div>

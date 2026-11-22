@@ -1,5 +1,24 @@
 const SITE_NAME = "KEMIT ECOLOGY";
 
+function getKemitActivitySpreadsheet_() {
+  const props = PropertiesService.getScriptProperties();
+  let spreadsheetId = props.getProperty("KEMIT_ACTIVITY_SHEET_ID");
+  if (spreadsheetId) return SpreadsheetApp.openById(spreadsheetId);
+
+  const spreadsheet = SpreadsheetApp.create("KEMIT ECOLOGY — Activités visiteurs");
+  props.setProperty("KEMIT_ACTIVITY_SHEET_ID", spreadsheet.getId());
+  return spreadsheet;
+}
+
+function getKemitSheet_(spreadsheet, name, headers) {
+  const sheet = spreadsheet.getSheetByName(name) || spreadsheet.insertSheet(name);
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(headers);
+    sheet.setFrozenRows(1);
+  }
+  return sheet;
+}
+
 function doGet(e) {
   const template = HtmlService.createTemplateFromFile("App");
 
@@ -32,23 +51,8 @@ function include(filename) {
 
 function logKemitActivity(activity) {
   const data = activity || {};
-  const props = PropertiesService.getScriptProperties();
-  let spreadsheetId = props.getProperty("KEMIT_ACTIVITY_SHEET_ID");
-  let spreadsheet;
-
-  if (spreadsheetId) {
-    spreadsheet = SpreadsheetApp.openById(spreadsheetId);
-  } else {
-    spreadsheet = SpreadsheetApp.create("KEMIT ECOLOGY — Activités visiteurs");
-    spreadsheetId = spreadsheet.getId();
-    props.setProperty("KEMIT_ACTIVITY_SHEET_ID", spreadsheetId);
-  }
-
-  const sheet = spreadsheet.getSheets()[0];
-  if (sheet.getLastRow() === 0) {
-    sheet.appendRow(["Date", "Événement", "Visiteur", "Session", "Page", "Produit", "Bouton", "Source"]);
-    sheet.setFrozenRows(1);
-  }
+  const spreadsheet = getKemitActivitySpreadsheet_();
+  const sheet = getKemitSheet_(spreadsheet, "Activités", ["Date", "Événement", "Visiteur", "Session", "Page", "Produit", "Bouton", "Source"]);
 
   sheet.appendRow([
     new Date(),
@@ -59,6 +63,45 @@ function logKemitActivity(activity) {
     String(data.product_id || "").slice(0, 120),
     String(data.button || "").slice(0, 160),
     String(data.source || "").slice(0, 300)
+  ]);
+
+  return {ok: true};
+}
+
+function logKemitLead(lead) {
+  const data = lead || {};
+  const spreadsheet = getKemitActivitySpreadsheet_();
+  const sheet = getKemitSheet_(spreadsheet, "Prospects", [
+    "Date", "Type", "Nom", "Téléphone", "E-mail", "Entreprise", "Pays", "Ville", "Quartier",
+    "Produit / service", "Format", "Quantité", "Unité", "Fréquence", "Budget", "Notes", "Source",
+    "Statut", "Responsable", "Prochaine action", "Date de relance", "Visiteur", "Session"
+  ]);
+
+  const clean = value => String(value == null ? "" : value).slice(0, 1000);
+  sheet.appendRow([
+    new Date(),
+    clean(data.type || "demande"),
+    clean(data.name),
+    clean(data.phone),
+    clean(data.email),
+    clean(data.company),
+    clean(data.country),
+    clean(data.city),
+    clean(data.neighborhood),
+    clean(data.product),
+    clean(data.format),
+    clean(data.quantity),
+    clean(data.unit),
+    clean(data.frequency),
+    clean(data.budget),
+    clean(data.notes),
+    clean(data.source || "direct"),
+    "Nouveau",
+    "À désigner",
+    "Contacter le prospect",
+    "",
+    clean(data.visitor_id),
+    clean(data.session_id)
   ]);
 
   return {ok: true};

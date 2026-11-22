@@ -140,7 +140,7 @@ check("IntersectionObserver motion is replayable and not globally bypassed", () 
   assert.ok(!/setTimeout\([\s\S]*?querySelectorAll\("\.motion-ready \.reveal-item"\)/.test(js));
 });
 check("Both sales journeys validate fields and do not promise a sale", () => {
-  for(const field of ["company","product","quantity","unit","frequency","destination","notes"]) {
+  for(const field of ["name","phone","email","company","product","quantity","unit","frequency","country","city","neighborhood","notes"]) {
     assert.ok(pro.includes('name="'+field+'"'),"missing field "+field);
   }
   assert.ok(js.includes("form.reportValidity()"));
@@ -167,7 +167,7 @@ check("Only active page media are hydrated; lead visual is preloaded early", () 
   assert.ok(app.includes('link.rel = "preload"'));
   assert.ok(app.includes('link.as = "image"'));
   assert.ok(js.includes('root || active || document'),"media hydration should scope to active route");
-  assert.ok(js.includes('hydrateImages();\n    hydrateVideos();\n    window.scrollTo'),"media hydration must run after route activation");
+  assert.ok(/hydrateImages\(\);\s*hydrateVideos\(\);\s*window\.scrollTo/.test(js),"media hydration must run after route activation");
   assert.ok(!js.includes('siteInitialized = true;\n    hydrateImages();'),"inactive pages must not hydrate on boot");
   assert.ok(styles.includes('.home-cinematic-hero .hero-photo.reveal-item'));
 });
@@ -189,8 +189,8 @@ check("Savoir-faire is a complete, linked and responsive editorial experience", 
   for(const id of jumps) assert.ok(ids.has(id),"unknown scroll target "+id);
   assert.ok(js.includes('e.target.closest("[data-sf-scroll]")'),"scroll controls missing");
   assert.ok(js.includes('video.dataset.posterMedia'),"video poster support missing");
-  assert.equal((craft.match(/data-video-media="/g)||[]).length,2);
-  assert.equal((craft.match(/data-poster-media="/g)||[]).length,2);
+  assert.equal((craft.match(/data-video-media="/g)||[]).length,3);
+  assert.equal((craft.match(/data-poster-media="/g)||[]).length,3);
   assert.ok(craftStyle.includes(".sf-page .sf-step-layout"));
   assert.ok(craftStyle.includes(".sf-page .sf-process-index-wrap"));
   assert.ok(craftStyle.includes("@media(max-width:760px)"));

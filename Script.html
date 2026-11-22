@@ -4,7 +4,7 @@
 (function () {
   "use strict";
 
-  const WHATSAPP = "393899304336";
+  const WHATSAPP = "23778420995";
   const WHATSAPP_BASE = "https:" + String.fromCharCode(47, 47) + "wa.me/";
   let currentProduct = null;
   let selectedFormat = null;
@@ -832,6 +832,31 @@
     }
   }
 
+  function captureKemitLead(lead, onSuccess, onFailure) {
+    const payload = Object.assign({}, lead, {
+      visitor_id: getKemitVisitorId(),
+      session_id: getKemitSessionId(),
+      source: new URLSearchParams(window.location.search).get("utm_source") || document.referrer || "direct"
+    });
+    if (Array.isArray(window.dataLayer)) window.dataLayer.push({event: "kemit_lead_submitted", ...payload});
+    if (window.google && google.script && google.script.run) {
+      google.script.run
+        .withSuccessHandler(result => result && result.ok ? onSuccess?.() : onFailure?.())
+        .withFailureHandler(() => onFailure?.())
+        .logKemitLead(payload);
+      return;
+    }
+    onSuccess?.();
+  }
+
+  function setFormStatus(selector, message, isError=false) {
+    const el = document.querySelector(selector);
+    if (!el) return;
+    el.textContent = message || "";
+    el.classList.toggle("is-error", isError);
+    el.classList.toggle("is-success", !isError && !!message);
+  }
+
   function getKemitVisitorId() {
     const key = "kemit_visitor_id";
     let value = localStorage.getItem(key);
@@ -922,16 +947,22 @@
   window.kemitScrollToProfessionalForm = scrollToProfessionalForm;
 
   function submitProfessionalRequest(form) {
-    for (const name of ["company", "destination"]) form.elements.namedItem(name)?.setCustomValidity("");
+    for (const name of ["name", "phone", "company", "country", "city"]) form.elements.namedItem(name)?.setCustomValidity("");
     if (!form.reportValidity()) return;
     const value = name => String(form.elements.namedItem(name)?.value || "").trim();
     const product = window.KEMIT_PRODUCTS.find(p => p.id === value("product"));
     const quantity = Number(value("quantity"));
     if (!product || !Number.isFinite(quantity) || quantity <= 0 || quantity > 100000000) return;
+    const name = value("name");
+    const phone = value("phone");
+    const email = value("email");
     const company = value("company");
-    const destination = value("destination");
-    if (!company || !destination) {
-      const missing = !company ? form.elements.namedItem("company") : form.elements.namedItem("destination");
+    const country = value("country");
+    const city = value("city");
+    const neighborhood = value("neighborhood");
+    if (!name || !phone || !company || !country || !city) {
+      const missingName = !name ? "name" : !phone ? "phone" : !company ? "company" : !country ? "country" : "city";
+      const missing = form.elements.namedItem(missingName);
       if (missing) {
         missing.setCustomValidity("Ce champ doit contenir une information valide.");
         missing.reportValidity();
@@ -945,33 +976,51 @@
       "Bonjour KEMIT ECOLOGY,",
       "",
       "Je souhaite recevoir une proposition commerciale pour un approvisionnement professionnel.",
+      "Nom : " + name,
+      "Téléphone / WhatsApp : " + phone,
+      email ? "E-mail : " + email : "",
       "Entreprise : " + company,
       "Produit : " + product.name,
       "Volume estimé : " + quantity + " " + unit,
       "Fréquence : " + frequency,
-      "Destination : " + destination,
+      "Pays : " + country,
+      "Ville : " + city,
+      neighborhood ? "Quartier / zone : " + neighborhood : "",
       notes ? "Précisions : " + notes : "",
       "",
       "Merci de me confirmer la faisabilité, la disponibilité, le tarif et les modalités de livraison."
     ].filter((line, index) => line || index < 2).join(String.fromCharCode(10));
-    trackKemitIntent("kemit_b2b_quote_click", product.id);
-    window.open(WHATSAPP_BASE + WHATSAPP + "?text=" + encodeURIComponent(message), "_blank", "noopener");
+    const submit = form.querySelector('[type="submit"]');
+    if (submit) { submit.disabled = true; submit.dataset.originalText = submit.textContent; submit.textContent = "Enregistrement..."; }
+    setFormStatus("[data-b2b-status]", "Votre demande est en cours d’enregistrement...");
+    captureKemitLead({
+      type: "devis professionnel", name, phone, email, company, country, city, neighborhood,
+      product: product.name, quantity, unit, frequency, notes, page: "professionnels"
+    }, () => {
+      trackKemitIntent("kemit_b2b_quote_click", product.id);
+      setFormStatus("[data-b2b-status]", "Demande enregistrée. WhatsApp va s’ouvrir pour envoyer votre brief à Kemit.");
+      window.open(WHATSAPP_BASE + WHATSAPP + "?text=" + encodeURIComponent(message), "_blank", "noopener");
+      if (submit) { submit.disabled = false; submit.textContent = submit.dataset.originalText || "Envoyer mon brief sur WhatsApp"; }
+    }, () => {
+      setFormStatus("[data-b2b-status]", "La demande n’a pas pu être enregistrée. Réessayez dans quelques instants.", true);
+      if (submit) { submit.disabled = false; submit.textContent = submit.dataset.originalText || "Envoyer mon brief sur WhatsApp"; }
+    });
   }
   function whatsappOrder() {
     if (!currentProduct) return;
     const qtyField = document.querySelector("[data-order-qty]");
-    const destField = document.querySelector("[data-order-destination]");
-    destField?.setCustomValidity("");
-    if (!qtyField?.reportValidity() || !destField?.reportValidity()) return;
+    const fields = ["[data-order-name]", "[data-order-phone]", "[data-order-qty]", "[data-order-country]", "[data-order-city]"]
+      .map(selector => document.querySelector(selector)).filter(Boolean);
+    fields.forEach(field => field.setCustomValidity(""));
+    if (!fields.every(field => field.reportValidity())) return;
+    const name = document.querySelector("[data-order-name]").value.trim();
+    const phone = document.querySelector("[data-order-phone]").value.trim();
+    const email = document.querySelector("[data-order-email]")?.value.trim() || "";
+    const country = document.querySelector("[data-order-country]").value.trim();
+    const city = document.querySelector("[data-order-city]").value.trim();
+    const neighborhood = document.querySelector("[data-order-neighborhood]")?.value.trim() || "";
     const qty = Number(qtyField.value);
     if (!Number.isSafeInteger(qty) || qty < 1) return;
-    const dest = destField.value.trim();
-    if (!dest) {
-      destField.setCustomValidity("Précisez votre ville et votre pays.");
-      destField.reportValidity();
-      return;
-    }
-    destField.setCustomValidity("");
     const format = selectedFormat
       ? `${selectedFormat.label} — ${selectedFormat.price}`
       : "À confirmer";
@@ -980,15 +1029,32 @@
 `Bonjour KEMIT ECOLOGY,
 
 Je souhaite commander :
-Produit : ${currentProduct.name}
+Nom : ${name}
+Téléphone / WhatsApp : ${phone}
+${email ? `E-mail : ${email}\n` : ""}Produit : ${currentProduct.name}
 Format : ${format}
 Quantité : ${qty}
-Destination : ${dest}
+Pays : ${country}
+Ville : ${city}
+${neighborhood ? `Quartier / zone : ${neighborhood}\n` : ""}
 
 Merci de me confirmer la disponibilité, le total, le paiement et la livraison.`;
 
-    trackKemitIntent("kemit_retail_order_click", currentProduct.id);
-    window.open(WHATSAPP_BASE + WHATSAPP + "?text=" + encodeURIComponent(message), "_blank", "noopener");
+    const button = document.querySelector("[data-whatsapp-order]");
+    if (button) { button.disabled = true; button.dataset.originalText = button.textContent; button.textContent = "Enregistrement..."; }
+    setFormStatus("[data-order-status]", "Votre demande est en cours d’enregistrement...");
+    captureKemitLead({
+      type: "commande produit", name, phone, email, country, city, neighborhood,
+      product: currentProduct.name, format, quantity: qty, page: "produit"
+    }, () => {
+      trackKemitIntent("kemit_retail_order_click", currentProduct.id);
+      setFormStatus("[data-order-status]", "Demande enregistrée. WhatsApp va s’ouvrir pour finaliser votre commande.");
+      window.open(WHATSAPP_BASE + WHATSAPP + "?text=" + encodeURIComponent(message), "_blank", "noopener");
+      if (button) { button.disabled = false; button.textContent = button.dataset.originalText || "Commander ce produit sur WhatsApp"; }
+    }, () => {
+      setFormStatus("[data-order-status]", "La demande n’a pas pu être enregistrée. Réessayez dans quelques instants.", true);
+      if (button) { button.disabled = false; button.textContent = button.dataset.originalText || "Commander ce produit sur WhatsApp"; }
+    });
   }
 
   window.kemitWhatsappOrder = whatsappOrder;

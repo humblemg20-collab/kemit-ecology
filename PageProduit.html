@@ -17,12 +17,27 @@
           <div class="format-options" data-product-formats></div>
         </div>
 
-        <div class="order-inline">
+        <div class="order-inline order-contact-grid">
+          <label>Nom
+            <input type="text" maxlength="120" autocomplete="name" placeholder="Votre nom" data-order-name required>
+          </label>
+          <label>WhatsApp / téléphone
+            <input type="tel" maxlength="40" autocomplete="tel" placeholder="Ex. +237 ..." data-order-phone required>
+          </label>
+          <label>E-mail <span>(facultatif)</span>
+            <input type="email" maxlength="160" autocomplete="email" placeholder="vous@exemple.com" data-order-email>
+          </label>
           <label>Quantité
             <input type="number" min="1" step="1" value="1" data-order-qty required>
           </label>
-          <label>Destination
-            <input type="text" maxlength="150" placeholder="Ville / pays" data-order-destination required>
+          <label>Pays
+            <input type="text" maxlength="80" autocomplete="country-name" placeholder="Ex. Cameroun" data-order-country required>
+          </label>
+          <label>Ville
+            <input type="text" maxlength="100" autocomplete="address-level2" placeholder="Ex. Douala" data-order-city required>
+          </label>
+          <label>Quartier / zone <span>(facultatif)</span>
+            <input type="text" maxlength="120" autocomplete="address-line2" placeholder="Ex. Bonabéri" data-order-neighborhood>
           </label>
         </div>
 
@@ -31,6 +46,7 @@
         </div>
 
         <button class="btn btn-primary btn-full" type="button" data-whatsapp-order data-inline-action onclick="window.kemitWhatsappOrder()">Commander ce produit sur WhatsApp</button>
+        <p class="form-status" data-order-status role="status" aria-live="polite"></p>
         <p class="order-note">KEMIT ECOLOGY confirme la disponibilité, le total et la solution de livraison avant tout règlement.</p>
       </div>
     </div>
