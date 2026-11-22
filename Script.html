@@ -1021,6 +1021,44 @@
       if (submit) { submit.disabled = false; submit.textContent = submit.dataset.originalText || "Envoyer mon brief sur WhatsApp"; }
     });
   }
+
+  function submitContactRequest(form) {
+    if (!form.reportValidity()) return;
+    const value = name => String(form.elements.namedItem(name)?.value || "").trim();
+    const name = value("name");
+    const phone = value("phone");
+    const topic = value("topic");
+    const country = value("country");
+    const city = value("city");
+    const messageDetails = value("message");
+    const message = [
+      "Bonjour KEMIT ECOLOGY,",
+      "",
+      "Je souhaite vous contacter.",
+      "Nom : " + name,
+      "Téléphone / WhatsApp : " + phone,
+      "Besoin : " + topic,
+      "Pays : " + country,
+      "Ville : " + city,
+      messageDetails ? "Message : " + messageDetails : "",
+      "",
+      "Merci de revenir vers moi pour la suite."
+    ].filter((line, index) => line || index < 2).join(String.fromCharCode(10));
+    const submit = form.querySelector('[type="submit"]');
+    if (submit) { submit.disabled = true; submit.dataset.originalText = submit.textContent; submit.textContent = "Enregistrement..."; }
+    setFormStatus("[data-contact-status]", "Votre demande est en cours d’enregistrement...");
+    captureKemitLead({
+      type: "demande contact", name, phone, country, city, topic, notes: messageDetails, page: "contact"
+    }, () => {
+      trackKemitIntent("kemit_contact_submit", "", topic);
+      setFormStatus("[data-contact-status]", "Demande enregistrée. WhatsApp va s’ouvrir pour poursuivre l’échange.");
+      window.open(WHATSAPP_BASE + WHATSAPP + "?text=" + encodeURIComponent(message), "_blank", "noopener");
+      if (submit) { submit.disabled = false; submit.textContent = submit.dataset.originalText || "Envoyer ma demande"; }
+    }, () => {
+      setFormStatus("[data-contact-status]", "La demande n’a pas pu être enregistrée. Réessayez dans quelques instants.", true);
+      if (submit) { submit.disabled = false; submit.textContent = submit.dataset.originalText || "Envoyer ma demande"; }
+    });
+  }
   function whatsappOrder() {
     if (!currentProduct) return;
     const qtyField = document.querySelector("[data-order-qty]");
@@ -1079,6 +1117,13 @@ Merci de me confirmer la disponibilité, le total, le paiement et la livraison.`
     if (!form) return;
     e.preventDefault();
     submitProfessionalRequest(form);
+  });
+
+  document.addEventListener("submit", e => {
+    const form = e.target.closest("[data-contact-form]");
+    if (!form) return;
+    e.preventDefault();
+    submitContactRequest(form);
   });
 
   document.addEventListener("click", e => {

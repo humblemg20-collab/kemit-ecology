@@ -3,7 +3,7 @@
     <div class="shell">
       <p class="eyebrow">Contact</p>
       <h1>Votre prochain pas dépend de votre besoin.</h1>
-      <p>Choisissez le chemin le plus direct : acheter une référence, préparer un approvisionnement, former une équipe ou cadrer un projet.</p>
+      <p>Choisissez le chemin le plus direct : acheter une référence, préparer un approvisionnement, former une équipe ou cadrer un projet. Votre demande est enregistrée avant l’ouverture de WhatsApp.</p>
     </div>
   </section>
 
@@ -25,6 +25,32 @@
         <span>Accompagnement</span><h2>Donner une direction à votre projet</h2><p>Décrivez la matière, le contexte, le besoin et le niveau d’avancement.</p>
         <a class="btn btn-primary" data-whatsapp-generic href="https://wa.me/23778420995?text=Bonjour%20KEMIT%20ECOLOGY%2C%20je%20souhaite%20%C3%A9changer%20sur%20un%20projet%20de%20valorisation.">Décrire mon projet</a>
       </article>
+    </div>
+  </section>
+
+  <section class="section section-light" id="contact-form">
+    <div class="shell contact-request-layout">
+      <div class="contact-request-copy">
+        <p class="eyebrow">Une demande, une réponse claire</p>
+        <h2>Dites-nous ce que vous cherchez.</h2>
+        <p>Quelques informations suffisent pour orienter votre demande vers le bon interlocuteur. KEMIT enregistre votre demande, puis vous pouvez poursuivre l’échange directement sur WhatsApp.</p>
+        <div class="contact-quick-points"><p><strong>01</strong> Votre besoin est identifié.</p><p><strong>02</strong> Votre demande est enregistrée.</p><p><strong>03</strong> L’échange continue sur WhatsApp.</p></div>
+      </div>
+      <form class="contact-request-form" data-contact-form novalidate>
+        <div class="professional-field-grid">
+          <div class="professional-field"><label for="kemit-contact-name">Votre nom</label><input id="kemit-contact-name" name="name" maxlength="120" autocomplete="name" placeholder="Nom et prénom" required></div>
+          <div class="professional-field"><label for="kemit-contact-phone">WhatsApp / téléphone</label><input id="kemit-contact-phone" name="phone" type="tel" maxlength="40" autocomplete="tel" placeholder="Ex. +237 ..." required></div>
+        </div>
+        <div class="professional-field"><label for="kemit-contact-topic">Votre besoin</label><select id="kemit-contact-topic" name="topic" required><option value="">Choisissez un sujet</option><option>Commander un produit</option><option>Approvisionnement professionnel</option><option>Formation</option><option>Projet ou accompagnement</option></select></div>
+        <div class="professional-field-grid">
+          <div class="professional-field"><label for="kemit-contact-country">Pays</label><input id="kemit-contact-country" name="country" maxlength="80" autocomplete="country-name" placeholder="Ex. Cameroun" required></div>
+          <div class="professional-field"><label for="kemit-contact-city">Ville</label><input id="kemit-contact-city" name="city" maxlength="100" autocomplete="address-level2" placeholder="Ex. Douala" required></div>
+        </div>
+        <div class="professional-field"><label for="kemit-contact-message">Votre message <span>(facultatif)</span></label><textarea id="kemit-contact-message" name="message" maxlength="900" rows="4" placeholder="Produit, quantité, projet ou question..."></textarea></div>
+        <button type="submit" class="btn btn-primary btn-full">Envoyer ma demande</button>
+        <p class="form-status" data-contact-status role="status" aria-live="polite"></p>
+        <p class="professional-form-note">Aucun paiement n’est effectué sur ce formulaire. KEMIT vous répond après examen de votre demande.</p>
+      </form>
     </div>
   </section>
 
