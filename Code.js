@@ -1,13 +1,29 @@
 const SITE_NAME = "KEMIT ECOLOGY";
+const ACTIVE_KEMIT_CAMPAIGN_SHEET_ID = "1kkixhEPmiMjm-FQ4fslneqwrMaUtKmyEY_h9IWx4ELQ";
 
 function getKemitActivitySpreadsheet_() {
   const props = PropertiesService.getScriptProperties();
-  let spreadsheetId = props.getProperty("KEMIT_ACTIVITY_SHEET_ID");
+  let spreadsheetId = ACTIVE_KEMIT_CAMPAIGN_SHEET_ID || props.getProperty("KEMIT_ACTIVE_SHEET_ID");
   if (spreadsheetId) return SpreadsheetApp.openById(spreadsheetId);
 
   const spreadsheet = SpreadsheetApp.create("KEMIT ECOLOGY — Activités visiteurs");
-  props.setProperty("KEMIT_ACTIVITY_SHEET_ID", spreadsheet.getId());
+  props.setProperty("KEMIT_ACTIVE_SHEET_ID", spreadsheet.getId());
   return spreadsheet;
+}
+
+function startNewKemitCampaign() {
+  const props = PropertiesService.getScriptProperties();
+  const oldId = props.getProperty("KEMIT_ACTIVE_SHEET_ID") || props.getProperty("KEMIT_ACTIVITY_SHEET_ID") || "";
+  const stamp = Utilities.formatDate(new Date(), Session.getScriptTimeZone() || "Africa/Douala", "yyyy-MM-dd");
+  const spreadsheet = SpreadsheetApp.create("KEMIT ECOLOGY — Campagne à partir du " + stamp);
+  props.setProperty("KEMIT_ACTIVE_SHEET_ID", spreadsheet.getId());
+  getKemitSheet_(spreadsheet, "Activités", ["Date", "Événement", "Visiteur", "Session", "Page", "Produit", "Bouton", "Source"]);
+  getKemitSheet_(spreadsheet, "Prospects", [
+    "Date", "Type", "Nom", "Téléphone", "E-mail", "Entreprise", "Pays", "Ville", "Quartier",
+    "Produit / service", "Format", "Quantité", "Unité", "Fréquence", "Budget", "Notes", "Source",
+    "Statut", "Responsable", "Prochaine action", "Date de relance", "Visiteur", "Session"
+  ]);
+  return {ok: true, spreadsheetId: spreadsheet.getId(), url: spreadsheet.getUrl(), oldId};
 }
 
 function getKemitSheet_(spreadsheet, name, headers) {
